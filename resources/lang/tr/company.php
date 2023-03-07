@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'company' => 'Tedarikçi',
+    'allcompany' => 'tüm şirketler',
+    'newcompany' => 'yeni şirket',
+    'editcompany' => 'şirket düzenle',
+    'name' => 'isim',
+    'email' => 'e-posta',
+    'phone' => 'telefon',
+    'phone1' => 'telefon1',
+    'phone2' => 'telefon2',
+    'phone3' => 'telefon3',
+    'desc' => 'açıklama',
+    'images' => 'resimler',
+    'created_at' => 'oluşturma yeri',
+    'transactions' => 'işlemler',
+    'addtranslations' => 'çeviri ekle',
+    'country' => 'ülke',
+    'selectrole' => 'Biz',
+    'sms' => 'Bu numara yayınlanmayacaktır ancak hesabın firmaya ait olduğunu kanıtlamak için kullanılmaktadır, lütfen gerektiğinde cep telefonu şifresi gönderilmelidi',
+    'show_company' => 'Şirket Detaylarını Göster',
+    'show_buyer' => 'müşteri ayrıntılarını göster',
+    'products' => 'şirket ürünleri',
+    'choose_plane' => 'uçak seç',
+    'seller' => 'tedarikçiler',
+    'buyer' => 'müşteri',
+    'allbuyer' => 'tüm müşteriler',
+    'buyerman' => 'alıcı',
+    'visitor' => 'ziyaretçi',
+    'newbuyer' => 'yeni müşteri',
+
+];

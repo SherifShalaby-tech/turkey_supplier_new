@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'show_contactSupplier' => 'عرض رساله المورد',
+    'contactsuppliers' => 'رسائل الموردين',
+    'datatable' => 'العمليات',
+    'contactSupplierName' => 'اسم المستخدم',
+    'supplierName' => 'اسم الشركه',
+    'userName' => 'اسم العميل',
+    'allcontactSupplier' => 'جميع رسائل الموردين',
+
+    'message' => 'المحتوى',
+    'subject' => 'عنوان الرساله',
+    'success' => 'عمليه ناجحه',
+    'smsendseller' => 'تم ارسال الرساله بنجاح الى المورد',
+    'smsendbuyer' => 'تم ارسال الرساله بنجاح الى المشترى',
+    'fail' => 'اختر من الرسائل',
+    'failsms' => 'لم يتم تحديد اى عنصر',
+    'deleteall' => 'تم الحذف بنجاح',
+    'bulkdelete' => 'حذف الكل',
+    'warning' => 'هل تريد حذف الكل ؟',
+    'close' => 'اغلاق',
+    'save' => 'مسح',
+    'messages' => 'الرسائل',
+    'messagefrom' => 'المرسل',
+    'to' => 'الى',
+    'productname' => 'اسم المنتج المرسل منه الرساله',
+    'greeting' => 'التحيات',
+    'sincerely' => 'مع تحيات الراسل',
+    'company' => 'شركه',
+    'attachment' => 'الملف المرفق',
+    'replay' => 'الرد على الراسل',
+    'attachtype' => 'صيغه المرفق',
+
+];

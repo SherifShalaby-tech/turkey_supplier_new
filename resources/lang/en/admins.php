@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'admins' => 'admins',
+    'admin' => 'admin',
+    'name' => 'name',
+    'email' => 'email',
+    'phone' => 'phone',
+    'status' => 'status',
+    'created_at' => 'created_at',
+    'transactions' => 'transactions',
+    'permissions' => 'permissions',
+    'alladmin' => 'All admins',
+    'newadmin' => 'Add New User',
+    'editadmin' => 'Edit admin',
+    'password' => 'password',
+    'password_confirmation' => 'password confirmation',
+    'selectall' => 'select all',
+    'all' => 'all',
+
+    'add-succes' => 'Added successfully',
+    'update-succes' => 'Modified successfully',
+    'delete-succes' => 'successfully deleted',
+    'change-succes' => 'successfully changed',
+    'success' => 'successful operation',
+    'save' => 'Save',
+    'copyright' => 'Copyright',
+    'footer' => 'Proudly Developed by Mahmoud, Ahmad, and Mahmoud (sherifshalaby.tech) ',
+    'adminsms' => 'Your request has been added, please wait for admin review',
+];

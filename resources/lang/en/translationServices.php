@@ -1,0 +1,38 @@
+<?php
+
+return [
+
+    'translationServices' => 'Translation Requests',
+    'translationService' => 'Translation Request',
+
+    'name' => 'name',
+    'companyname' => 'company name',
+    'email' => 'email',
+    'phone' => 'phone',
+    'country' => 'country',
+    'language' => 'language',
+    'tocompanyname' => 'contact company',
+    'tocompanyphone' => 'contact company phone',
+    'tocompanyemail' => 'contact company email',
+    'notes' => 'Notes',
+    'created_at' => 'created at',
+    'transactions' => 'transaction',
+    'alltranslationServices' => 'All Translation Services',
+    'newtranslationServices' => 'New Translation Services',
+    'edittranslationServices' => 'Edit Translation Services ',
+    'companyname' => 'company name',
+    'country' => 'country',
+    'language' => 'language',
+    'arabic' => 'Arabic',
+    'english' => 'English',
+    'french' => 'French',
+    'turkey' => 'Turkey',
+    'chooselang' => 'choose language',
+    'choose' => 'choose from list',
+    'tocompanyname'  => 'name of contact company',
+    'tocompanyphone' => 'phone of contact company',
+    'tocompanyemail' => 'email of contact company',
+    'tocompanytopic' => 'topic of contact company',
+    'addtranslations' => 'Add translations',
+    'image' => 'image',
+];

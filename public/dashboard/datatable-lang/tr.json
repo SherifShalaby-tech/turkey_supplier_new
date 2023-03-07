@@ -1,0 +1,47 @@
+{
+  "sEmptyTable": "Tabloda kullanılabilir veri yok",
+  "sLoadingRecords": "Yükleniyor...",
+  "sProcessing": "Yükleniyor...",
+  "sLengthMenu": "_MENU_ girişlerini göster",
+  "sZeroRecords": "Kayıt bulunamadı",
+  "sInfo": "_TOTAL_ girişin _START_ ila _END_'ını göster",
+  "sInfoEmpty": "0 kayıttan 0 ile 0 arasındakileri görüntüler",
+  "sInfoFiltered": "(_MAX_ giriş arasından seçildi)",
+  "sSearch": "Arama :",
+  "oPaginate": {
+    "sFirst": "ilk",
+    "sPrevious": "Öncesi",
+    "sNext": "sıradaki",
+    "sLast": "sonuncu"
+
+
+
+  },
+  "oAria": {
+    "sSortAscending": ": Sütunu artan şekilde sıralamak için etkinleştirin",
+    "sSortDescending": ": Sütunu azalan düzende sıralamak için etkinleştirin"
+
+  },
+  "select": {
+    "rows": {
+      "_": "%d belirtilen değer",
+      "0": "",
+      "1": "1 belirtilen değer"
+    }
+  },
+  "buttons": {
+    "print": "yazdır",
+    "colvis": "Gösterilen Sütunlar",
+    "copy": "Panoya kopyala",
+    "copyTitle": "Kopyala",
+    "copyKeys": "<i>ctrl</i> veya <i>\u2318</i> + <i>C</i> düğmesi tablodan<br>panoya kopyalamak için<br><br>iptal etmek için mesaja basın veya çıkış düğmesine basın.",
+    "copySuccess": {
+      "_": "%d değer kopyalandı",
+      "1": "1 değer kopyalandı"
+    },
+    "pageLength": {
+      "-1": "Tümünü göster",
+      "_": "%d Satırı Göster"
+    }
+  }
+}

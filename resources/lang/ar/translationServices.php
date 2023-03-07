@@ -1,0 +1,38 @@
+<?php
+
+return [
+
+    'translationServices' => 'طلبات الترجمه',
+    'translationService' => 'خدمه الترجمه',
+    'name' => 'الاسم',
+    'companyname' => 'اسم الشركه',
+    'email' => 'البريد الالكترونى',
+    'phone' => 'الجوال',
+    'country' => 'الدوله',
+    'language' => 'اللغه',
+    'tocompanyname' => 'شركه التواصل',
+    'tocompanyphone' => 'جوال شركه التواصل',
+    'tocompanyemail' => 'بريد شركه التواصل',
+    'notes' => 'الملاحظات',
+    'created_at' => 'تاريخ الاضافه',
+    'transactions' => 'العمليات',
+    'alltranslationServices' => 'جميع خدمات الترجمه',
+    'newtranslationServices' => 'خدمه ترجمه جديده',
+    'edittranslationServices' => 'تعديل خدمه ترجمه  ',
+    'companyname' => 'اسم الشركه',
+    'country' => 'الدوله',
+    'language' => 'اللغه',
+    'arabic' => 'العربيه',
+    'english' => 'الانجليزيه',
+    'french' => 'الفرنسيه',
+    'turkey' => 'التركيه',
+    'chooselang' => 'اختر لغه',
+    'choose' => 'اختر من القائمه',
+    'tocompanyname'  => 'اسم الشركة المراد التواصل معها',
+    'tocompanyphone' => 'جوال الشركة المراد التواصل معها',
+    'tocompanyemail' => 'بريد الشركة المراد التواصل معها',
+    'tocompanytopic' => 'موضوع الشركة المراد التواصل معها',
+    'addtranslations' => 'اضافة ترجمة',
+    'image' => 'صوره',
+
+];

@@ -1,0 +1,151 @@
+/* varibles */
+:root{
+    --basic-color: #121A27;
+    --secondry-color:#FFC000;
+}
+/* end of varibles */
+/* global rules */
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+}
+/* end of global rules */
+/* navbar */
+@media(max-width: 767px){
+  .navbar-light .img-soc{
+    width: 25px !important;
+  }
+}
+/* end of navbar */
+/* login style */
+.login,.register{
+    padding: 150px 0;
+}
+
+.login .login-img{
+
+}
+.login .login-img img{
+    max-width: 50%;
+}
+.login .img9{
+
+}
+.login .img9 img{
+    max-width: 100%;
+}
+.login .form-login label{
+    font-weight: bold;
+}
+.login .form-login button{
+    width: 100%;
+    background-color: var(--basic-color);
+    border: 2px solid var(--secondry-color);
+}
+
+.login .mobile-num{
+
+}
+.login .mobile-num i{
+    font-size: 40px;
+}
+
+.login .mobile-num span{
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    bottom: 7px;
+    font-weight: bold;
+}
+
+.login .login-social p{
+    font-weight: bold;
+}
+.login .login-social i{
+    margin-left: 10px;
+    font-size: 20px;
+}
+.login .login-social i:nth-child(1){
+    color: blue !important;
+}
+.login .login-social a{
+    display: inline-block;
+    margin-left: 10px;
+}
+/* end of login */
+/* register style */
+.register{
+
+}
+.register .register-img{
+    position: relative;
+    left: 85px;
+}
+.register .register-img img{
+    max-width: 25%;
+}
+.register .imgGroup{
+    margin-top: 50px;
+}
+.register .imgGroup img{
+    max-width: 100%;
+}
+
+.register label{font-weight: bold;}
+
+.register button{
+    background-color: var(--secondry-color);
+    color: var(--basic-color);
+    font-weight: bold;
+}
+.register input{
+    border: 2px solid var(--secondry-color);
+}
+
+
+/* end of register */
+/* footer */
+footer{
+    background-color: var(--basic-color);
+    color: #FFF;
+}
+footer .subscripe input{
+    background-color: var(--secondry-color);
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+footer .subscripe button{
+    background-color: var(--secondry-color);
+    color: var(--basic-color);
+    padding: 8px 5px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+footer .row-list p{
+    margin-left: 37px;
+    font-size: 13px;
+}
+footer ul{
+    list-style: none;
+}
+footer .footer-social{
+    margin-top: 20px;
+}
+footer .footer-social a{
+    margin-left: 10px;
+}
+hr{
+    border-color: #FFF;
+}
+/* end of footer */
+/* product details */
+.details p {
+  font-weight: normal !important;
+  margin-bottom: 0 !important;
+}
+/* end of product details */
