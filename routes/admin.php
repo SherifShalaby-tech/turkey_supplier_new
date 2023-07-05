@@ -34,6 +34,7 @@ use App\Http\Controllers\AdsController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PlancheckoutController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\Company\CompanyProfileController;
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -92,7 +93,7 @@ Route::group(
                 Route::get('subcategories/data', [SubCategoryController::class,'data'])->name('subcategories.data');
                 Route::get('/company-users/{id}', [companyUserController::class,'index'])->name('users.index');
                 // products
-                Route::resource('products',\App\Http\Controllers\Admin\ProductController::class)->except('show');
+                Route::resource('products',\App\Http\Controllers\Admin\ProductController::class)->except(['show']);
                 Route::get('products/data', [\App\Http\Controllers\Admin\ProductController::class,'data'])->name('products.data');
                 Route::get('products/showdata/{id}', [\App\Http\Controllers\Admin\ProductController::class,'showdata'])->name('products.showdata');
                 Route::post('/products/remove_image', [\App\Http\Controllers\Admin\ProductController::class,'remove_image'])->name('products.remove_image');
@@ -109,6 +110,8 @@ Route::group(
                 Route::resource('mediations',MediationController::class)->except('show');
                 Route::resource('translations',TranslationController::class)->except('show');
                 Route::resource('contactSuppliers',ContactSupplierController::class)->except('show');
+                Route::get('contactSuppliers/sent',[ContactSupplierController::class ,'indexSend'])->name('contactSuppliers.indexSend');
+                
                 Route::get('contactSuppliers/showdata/{id}', [ContactSupplierController::class,'showdata'])->name('contactSuppliers.showdata');
                 Route::delete('/contactSuppliers/bulk_delete/{ids}', [ContactSupplierController::class,'bulkDelete'])->name('contactSuppliers.bulk_delete');
                   // translationServices
@@ -176,9 +179,12 @@ Route::group(
 
             Route::group(['as' => 'company.', 'prefix' => 'company'], function () {
                 Route::get('/company/profile', [CompanyProfileController::class,'profile'])->name('company.profile');
-                Route::put('/company/changePassword/{id}', [CompanyProfileController::class,'changePassword'])->name('company.changePassword');
+                Route::post('/company/changePassword/{id}', [CompanyProfileController::class,'changePassword'])->name('company.changePassword');
                 Route::put('/company/updatecompany', [CompanyProfileController::class,'updatecompany'])->name('company.updatecompany');
             });
+
+            Route::get('subscribe',[SubscribeController::class , 'getSubScribe'])->name('subscribe');
+           // Route::get('subscribe/data',[SubscribeController::class,'data'])->name('subscribe.data');
     });
 
 ?>

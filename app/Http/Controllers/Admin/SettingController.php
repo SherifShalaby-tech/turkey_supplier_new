@@ -68,9 +68,7 @@ class SettingController extends Controller
             }
             $file_name = Str::slug($request->company_name).".".$image->getClientOriginalExtension();
             $path = public_path('/images/logo/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['logo'] = $file_name;
         }
         $setting->update($input);
@@ -111,9 +109,7 @@ class SettingController extends Controller
                     $file_name = str_replace($ext, date('d-m-Y-H-i') . $ext, $image->getClientOriginalName());
                     $imageResize = Image::make($image->getRealPath());
                     $file_name = $image->getClientOriginalName();
-                    $imageResize->resize(200, 200, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save(public_path('images/about_us/' . $file_name));
+                    $imageResize->save(public_path('images/about_us/' . $file_name));
                     $about_us->images = [$file_name];
                 }
             }

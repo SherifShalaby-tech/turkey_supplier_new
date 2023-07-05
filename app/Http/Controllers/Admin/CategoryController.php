@@ -16,6 +16,7 @@ use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
+
     public function index(){
         return view('Admin.categories.index');
     }
@@ -50,14 +51,21 @@ class CategoryController extends Controller
     }
 
     public function store(Store $request){
+
         try{
             $request->validated();
             // toast('added success','success');
             $category = new Category();
-            if($request->image){
-                $filename = time().'.'.$request->image->extension();
-                $request->image->move(public_path('images/categories/'), $filename);
-                $category->image = $filename;
+            if ($request->cropImages && count($request->cropImages) > 0) {
+
+                foreach ($request->cropImages as $image) {
+                    $imageData = decodeBase64Image($image);
+                    $file_name =time()  . '.' . explode("/",$imageData["type"])[1];
+                    $path = public_path('images/categories/' . $file_name);
+                    $imagee = Image::make(base64_decode(explode(",",$image)[1]));
+                    $imagee->save($path);
+                    $category->image = $file_name;
+                }
             }
 
             if(!empty($request->translations))
@@ -87,6 +95,7 @@ class CategoryController extends Controller
         }
     }
 
+
     public function edit($id){
         try{
             $category = Category::where('id',$id)->first();
@@ -102,10 +111,21 @@ class CategoryController extends Controller
             $request->validated();
             // toast('updated success','success');
             $category = Category::where('id',$request->id)->first();
-            if($request->image){
-                $filename = time().'.'.$request->image->extension();
-                $request->image->move(public_path('images/categories/'), $filename);
-                $category->image = $filename;
+//            if($request->image){
+//                $filename = time().'.'.$request->image->extension();
+//                $request->image->move(public_path('images/categories/'), $filename);
+//                $category->image = $filename;
+//            }
+            if ($request->cropImages && count($request->cropImages) > 0) {
+                foreach (getCroppedImages($request->cropImages) as $image) {
+                    $imageData = decodeBase64Image($image);
+                    @unlink(public_path('images/categories/' .$category->image ));
+                    $file_name =time()  . '.' . explode("/",$imageData["type"])[1];
+                    $path = public_path('images/categories/' . $file_name);
+                    $imagee = Image::make(base64_decode(explode(",",$image)[1]));
+                    $imagee->save($path);
+                    $category->image = $file_name;
+                }
             }
             if(!empty($request->translations))
             {

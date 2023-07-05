@@ -6,14 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Auth;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
 
-
     // protected $dates = ['deleted_at'];
 
     protected $guarded = [];
+
+    protected $appends = ["is_like","isFavourite"];
+
     protected $casts = [
         // 'category_id' => 'integer',
         // 'company_id' => 'integer',
@@ -30,6 +34,23 @@ class Product extends Model
         // 'TaxNet' => 'double',
         'translation' => 'array',
     ];
+    public function getisFavouriteAttribute()
+    {
+        if(auth('company')->user()){
+            // $user=Company::find(auth('company')->user()->id);
+            // $data=$user->products()->get();
+            $data=Favorite::where('company_id',auth('company')->user()->id)
+            ->where('product_id',$this->id)
+            ->first();
+            if ($data!==null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
     public function firstMedia(): MorphOne
     {
         return $this->morphOne(Media::class, 'mediable')->orderBy('file_sort', 'asc');
@@ -172,5 +193,17 @@ class Product extends Model
            });
        }// end of scopeWhenComId
 
-
+       public function getIsLikeAttribute()
+       {
+          if(Auth::guard('company')->user()){
+            $fav = DB::table("favorites")->where('company_id',Auth::guard('company')->id())
+                                  ->where('product_id',$this->id)->first();
+            if($fav){
+                return true;
+            }
+          }
+          return false;
+       }
+   
+   
 }

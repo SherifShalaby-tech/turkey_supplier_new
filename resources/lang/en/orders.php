@@ -17,5 +17,9 @@ return [
     'product_code' => 'product code',
     'category_name' => 'category name',
     'product_image' => 'product image',
+    
+        'email' => 'Email',
+    'emails' => 'All emails',
+    'subscribes' => 'subscribes',
 
 ];

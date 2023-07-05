@@ -42,9 +42,7 @@ class PlanController extends Controller
         if ($image = $request->file('image')) {
             $file_name = Str::slug($request->title).".".$image->getClientOriginalExtension();
             $path = public_path('images/plans/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $input['title'] = $request->title;
@@ -72,9 +70,7 @@ class PlanController extends Controller
             }
             $file_name = Str::slug($request->title).".".$image->getClientOriginalExtension();
             $path = $path = public_path('images/plans/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $input['title'] = $request->title;
@@ -102,22 +98,22 @@ class PlanController extends Controller
     public function checkout(Plan $plan){
         // dd($plan->price);
     $planpriceusd = $plan->price; //  125$   250$  500$
-    $setting = Setting::first() ;
-    $rate    = $setting->profit_percent ;  //19
+    $setting = Setting::first();
+    $rate    = $setting->profit_percent;  //19
     $rateusd = $rate *  $planpriceusd;    // 19 * 125$ = 22361tl
 
     // $rate = $setting->rate;
     // Auth::user()->plan->id == 1 &&
     if ( Auth::user()->status == true){
         $planx = Plancheckout::where('company_id',Auth::user()->id)->latest()->first();
-        $oldprice = $planx->ltprice ;
+        $oldprice = $planx->ltprice;
         $newprice = $rateusd;
-        $total = $newprice - $oldprice ;
-    }elseif(Auth::user()->plan->id == 1 && Auth::user()->status == false){
-        $oldprice = Plancheckout::where('company_id',Auth::user()->id)->first();
+        $total = $newprice - $oldprice;
+    }else{//if(Auth::user()->plan->id == 1 && Auth::user()->status == false)
+        // $oldprice = Plancheckout::where('company_id',Auth::user()->id)->first();
         $oldprice =  $rateusd;
         $newprice = 0;
-        $total = $oldprice ;
+        $total = $oldprice;
     }
     $ipan = $setting->ipan;
     $company = Auth::user();

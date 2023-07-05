@@ -1,53 +1,62 @@
 @extends('layouts.website.master')
 @section('title',trans('custom.translation_services'))
 @section('content')
-    <div class="translation_services p-5">
-        <div class="container-fluid">
-            <div class=" mb-3 text-center">
-                <h2>{{trans('custom.translationServices')}}</h2>
-                <a href="{{route('translationServicesRequest')}}" class="btn  text-center "  
-                    style="background-color: #45aac4 !important; color:#fff; letter-spacing: 1px; font-size: 24px;
-                font-weight: 100;">{{trans('custom.translation_services_request')}}</a>
-            </div>
-            <div class="row">
-                {{-- @if($translationServices->count() > 0) --}}
-                    @forelse($translationServices as $translationService)
-                        <div class="col-lg-4 col-sm-12 col-md-6 mb-3  text-center ">
-                            <div class="card" style="width: 80%;">
+
+<div class="bg0 p-t-10 p-b-20">
+    <div class="container-fluid">
+        <p class="cl6">
+            <a  class="cl6" href="{{route('website.index')}}"> <i class="fas fa-home"></i> </a>
+            /
+            <a  class="cl6" href="#"> {{trans('custom.translationServices')}} </a>
+        </p>
+    </div>
+</div>
+
+<section class="bg0 p-t-75 p-b-120">
+    <div class="container-fluid">
+
+        @forelse($translationServices as $translationService)
+            <div class="row p-b-148">
+
+                <div class="col-12 col-md-12 col-lg-12 m-lr-auto">
+                    <div class="col-12 col-md-4 col-lg-4 m-lr-auto">
+                        <div class="  ">
+                            <div class="block2-pic hov-img0">
                                 @if($translationService->image)
-                                <img class="card-img-top" src="{{asset('images/translations/'.$translationService->image)}}" alt="Card image cap">
+                                    <img src="{{asset('images/translations/'.$translationService->image)}}"  alt="{{ $translationService->name }}"
+                                        style="
+                                        border-radius: 30px; right:0%;">
                                 @else
-                                <img src="{{ asset('images/Logo.jpg') }}" alt="{{ $translationService->name }}" class="img-thumbnail" width="100px">
+                                    <img src="{{ asset('images/Logo.jpg') }}" alt="Card image cap"
+                                        style="
+                                            border-radius: 30px; right:0%;">
                                 @endif
-
-                                <div class="card-body">
-                                    <h3 class="card-title">{{$translationService->title}}</h3>
-{{--                                    <p class="card-text">{!! $translationService->description !!}</p>--}}
-
-                                    {{--                                <a href="#" class="btn btn-primary">Go somewhere</a>--}}
-                                </div>
-                            </div>
-                        </div>
-                    <div class="col-lg-8 col-sm-12 col-md-6 mb-3 mt-2">
-                        <div class="card" >
-                            <div class="card-body">
-                                <pre>
-                                    <h3 class="card-title">{!! $translationService->description !!}</h3>
-
-                                </pre>
                             </div>
                         </div>
                     </div>
-                    @empty
-                        <div class="p-5 alert alert-danger">
-                            <p class="text-danger">Translation services not found</p>
-                        </div>
-                    @endforelse
-                {{-- @else --}}
-                {{-- @endif --}}
+                </div>
+
+                <div class="col-md-12 col-lg-12 txt-center m-t-40">
+                    <div class="p-tb-20 p-r-85 p-l-85 p-r-15-lg p-lr-10-md border-dot m-r-20 m-l-20">
+                        <p class="ltext-101 cl2 p-b-26">
+                            {!! $translationService->description !!}
+                        </p>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12 col-md-12 col-lg-12 m-lr-auto txt-center">
+                    <p class="mtext-101 text-danger">Translation not found</p>
+                </div>
             </div>
+        @endforelse
+
+        <div class="col-12 col-md-12 col-lg-12 m-lr-auto txt-center p-t-30 ">
+            <a href="{{route('translationServicesRequest')}}" class="btn bg1 cl0 mtext-108">{{trans('custom.translation_services_request')}}</a>
         </div>
+
     </div>
+</section>	
+
 
 
 @stop

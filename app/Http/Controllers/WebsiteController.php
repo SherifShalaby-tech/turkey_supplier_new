@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\TranslationServicesRequest;
 use App\Http\Requests\Website\addRating;
@@ -18,8 +19,10 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\ContactSupplier;
+use App\Models\Currency;
 use App\Models\Favorite;
 use App\Models\HelpCenter;
+use App\Models\Media;
 use App\Models\MediationOrder;
 use App\Models\Mediation;
 use App\Models\Message;
@@ -31,6 +34,7 @@ use App\Models\SaleDetail;
 use App\Models\SearchProduct;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\ShipmentOrderNew;
 use App\Models\ShipmentServices;
 use App\Models\SubCategories;
 use App\Models\SupportChat;
@@ -39,6 +43,8 @@ use App\Models\Translation;
 use App\Models\TranslationServices;
 use App\Models\User;
 use App\Models\Visitor;
+use App\utils\helpers;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -50,32 +56,44 @@ use Intervention\Image\Facades\Image;
 use Laravel\Socialite\Facades\Socialite;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Mail;
-
+use Svg\Tag\Rect;
+use Aws\Rekognition\RekognitionClient;
+use Carbon\Carbon;
 class WebsiteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if(app()->getLocale() == 'ar'){
-            $cats = Category::orderBy('namear')->get(['id', 'name', 'translation']);
-        }elseif(app()->getLocale() == 'en'){
-            $cats = Category::orderBy('nameen')->get(['id', 'name', 'translation']);
-        }elseif(app()->getLocale() == 'tr'){
-            $cats = Category::orderBy('nametr')->get(['id', 'name', 'translation']);
-        }else{
-            $cats = Category::orderBy('name')->get(['id', 'name', 'translation']);
-        }
-        $categories = Category::orderBy('translation->name')->get(['id', 'name', 'translation']);
+        // if(app()->getLocale() == 'ar'){
+        //     $cats = Category::orderBy('namear')->get(['id', 'name', 'translation']);
+        // }elseif(app()->getLocale() == 'en'){
+        //     $cats = Category::orderBy('nameen')->get(['id', 'name', 'translation']);
+        // }elseif(app()->getLocale() == 'tr'){
+        //     $cats = Category::orderBy('nametr')->get(['id', 'name', 'translation']);
+        // }else{
+            $cats = Category::orderBy('translation->name')->get(['id', 'name', 'translation']);
+        // }
+        $helpers = new helpers();
+        $code = $helpers->get_currency_co();
+        $categories = Category::orderBy('translation->name')->get(['id', 'name', 'translation','image']);
         $trending_product = Product::where('trending','!=',0)
-            ->take(20)
+            ->take(12)
             ->orderBy('trending','DESC')
             ->latest()
             ->get(['id', 'name', 'price', 'category_id', 'slug', 'translation','trending']);
+        foreach($trending_product as $trending_produc){
+                $new_price = $helpers->get_price($trending_produc->price);
+                $trending_produc->price = $new_price;
+        }
+
+
         if (auth('company')->user()){
             $products = SearchProduct::where('buyer_id',auth('company')->user()->id)
                 ->with(['product' => function($q){
                     $q->orderBy('views','DESC');
                 }])
-                ->take(20)
+
+                ->take(12)
+
                 ->get(['id','product_id','buyer_id']);
         }else{
             $products = $trending_product;
@@ -84,25 +102,50 @@ class WebsiteController extends Controller
             ->Join('ratings', 'products.id', 'ratings.product_id')
             ->orderBy('ratings.rating', 'DESC')
             ->distinct('products.id')
-            ->take(8)
+            ->take(12)
             ->get(['id', 'name', 'price', 'category_id', 'slug', 'translation']);
+        foreach($top_rated_products as $product){
+                $new_price = $helpers->get_price($product->price);
+                $product->price = $new_price;
+        }
         $best_sellers = Company::query()->where('trade_role', 'seller')
             ->select('id', 'name', 'phone', 'translation')
-            ->take(20)
+            ->take(6)
             ->get();
         $latest_trade = Mediation::select(['id', 'title', 'image'])->latest()->first();
-        $ads = Ad::get(['id', 'image', 'title']);
+        $ads = Ad::where('start_date', '<=', Carbon::now())
+        ->where('end_date', '>=', Carbon::now())->get(['id', 'image', 'title']);
         $services = Service::get(['id', 'name', 'description']);
         $mediation = Mediation::first();
         $translation = Translation::first();
-        return view('website.index', compact('cats','ads', 'products', 'trending_product','translation', 'top_rated_products', 'best_sellers', 'latest_trade', 'services', 'mediation'));
+
+        return view('website.index', compact('cats','ads', 'products', 'trending_product','translation', 'top_rated_products', 'best_sellers', 'latest_trade', 'services', 'mediation','code'));
+    }
+
+    public function currencySession(Request $request){
+        if($request->currency){
+            $currency = Currency::where('id',$request->currency)->first();
+            request()->session()->put('currency',$currency);
+            return back();
+        }
     }
 
     public function buyerProfile($id)
     {
         try {
             $buyer = Company::where('id', $id)->first();
-            return view('website.buyer.profile', compact('buyer'));
+            $products = Favorite::where('company_id',$id)
+                ->with(['product' => function($q){
+                    $q->select('id','name','company_id','price','slug','translation');
+                }])
+                ->get();
+                $helpers = new helpers();
+                $code = $helpers->get_currency_co();
+                foreach($products as $product){
+                        $new_price = $helpers->get_price($product->product->price);
+                        $product->product->price = $new_price;
+                }
+            return view('website.buyer.profile', compact('buyer','products','code'));
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
             return redirect()->back();
@@ -112,12 +155,38 @@ class WebsiteController extends Controller
     public function getProductsYouMayLike()
     {
         try {
-            $products = Product::where('views','!=',0)
+            if (auth('company')->user()){
+                $you_may_lilke_products = SearchProduct::where('buyer_id',auth('company')->user()->id)
+                    ->with(['product' => function($q){
+                        $q->orderBy('views','DESC')
+                        ->select(['id', 'name', 'price', 'category_id', 'slug', 'translation']);
+                    }])->latest()
+                    ->paginate(12);
+                $helpers = new helpers();
+                $code = $helpers->get_currency_co();
+                foreach($you_may_lilke_products as $product){
+                        $new_price = $helpers->get_price($product->product->price);
+                        $product->product->price = $new_price;
+                }
+                return view('website.products.you_may_like', compact('you_may_lilke_products','code'));
+            }else{
+                $products = Product::where('views','!=',0)
                 ->latest()
                 ->orderBy('views', 'DESC')
                 ->select(['id', 'name', 'price', 'category_id', 'slug', 'translation'])
                 ->paginate(12);
-            return view('website.products.you_may_like', compact('products'));
+                $helpers = new helpers();
+                $code = $helpers->get_currency_co();
+                foreach($products as $product){
+                        $new_price = $helpers->get_price($product->price);
+                        $product->price = $new_price;
+                }
+                return view('website.products.you_may_like', compact('products','code'));
+            }
+
+            
+                
+            
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
             return redirect()->back();
@@ -132,7 +201,14 @@ class WebsiteController extends Controller
                 ->latest()
                 ->select(['id', 'name', 'price', 'category_id', 'slug', 'translation'])
                 ->paginate(12);
-            return view('website.products.trending_products', compact('products'));
+            
+            $helpers = new helpers();
+            $code = $helpers->get_currency_co();
+            foreach($products as $product){
+                    $new_price = $helpers->get_price($product->price);
+                    $product->price = $new_price;
+            }
+            return view('website.products.trending_products', compact('products','code'));
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
             return redirect()->back();
@@ -142,11 +218,13 @@ class WebsiteController extends Controller
     public function getSellers(Request $request)
     {
         try {
-            $sellers = Company::with('products')
+            
+            $sellers = Company::where('trade_role','seller')
                 ->select('id', 'name', 'phone','namear','nameen','nametr')
-                ->with('products');
+                ->withcount('products');
+               
             $products = Product::select('id', 'name','company_id','namear','nameen','nametr','companyar','companyen','companytr')
-                ->with(['company']);
+                ->with(['company:id,name,phone']);
             $category = Category::select('id','name','image','translation','namear','nameen','nametr')
                 ->with(['products']);
             if($request->name){
@@ -167,23 +245,43 @@ class WebsiteController extends Controller
                 ->orWhere("nametr",'like','%' .$request->name. '%');
             }
             $category = $category->first();
-            $sellers = $sellers->get();
+            $sellers = $sellers->paginate(28);
             $products = $products->paginate(12);
+            $categoriesWithSellerCount = Category::leftJoin('products', 'categories.id', '=', 'products.category_id')
+                ->leftJoin('companies', 'products.company_id', '=', 'companies.id')
+                ->select('categories.id', 'categories.name','categories.translation','categories.nametr' ,DB::raw('COUNT(DISTINCT companies.id) as seller_count'))
+                ->groupBy('categories.id')
+                ->get();
+                
             if($category){
+                $company=null;
                 foreach ($category->products as $pro){
                     $company = Company::where('id',$pro->company_id)->distinct()->get(['id','name','translation','phone']);
                 }
                 $company_distinct = $company;
-                return view('website.supplier.index', compact('sellers', 'products', 'category','company_distinct'));
+                
+                return view('website.supplier.index', compact('sellers', 'products', 'category','company_distinct','categoriesWithSellerCount'));
+
             }elseif($sellers->count() > 0 || $products->count() > 0){
-                return view('website.supplier.index', compact('sellers', 'products', 'category'));
+                
+                return view('website.supplier.index', compact('sellers', 'products', 'category','categoriesWithSellerCount'));
             }else{
+                
                 Alert::error('error msg',trans('custom.categories_not_found'));
-                return redirect()->back();
+                return view('website.supplier.index', compact('sellers', 'products', 'category'));
             }
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
         }
+    }
+    public function getFilterSellers(Request $request){
+        $html = "";
+        if($request->category){
+            $ctegorySubliers = Product::select('company_id','category_id')->whereIn('category_id',$request->category)->groupBy('company_id')->with(['company'])->get();
+            $html=  view('website.supplier.filterSuppliers', compact('ctegorySubliers'))->render();
+
+        }
+        return $html;
     }
 
     public function getNewArrivals()
@@ -193,9 +291,10 @@ class WebsiteController extends Controller
         return view('website.new_arrivals', compact('categories', 'new_arrivals'));
     }
 
-    public function getProductDetails($details)
+    public function getProductDetails($id,$slug)
     {
-        $product = Product::where("slug", $details)->first();
+        $product = Product::where("id", $id)->where("slug", $slug)->with('leadtimes')->first();
+        // dd($product);
         $product->views = $product->views + 1;
         $product->save();
         if(auth('company')->user()){
@@ -208,11 +307,45 @@ class WebsiteController extends Controller
                 ]);
             }
         }
+        //add related products to you may like 
+        $related_products = Product::where('sub_category_id',$product->sub_category_id)
+        ->whereNotIn('id', [$product->id])
+        ->get();
+
+        foreach($related_products as $related_product){
+            if(auth('company')->user()){
+                if(!SearchProduct::where('buyer_id',auth('company')->user()->id)
+                    ->where('product_id',$related_product->id)
+                    ->exists()){
+                    $productSearch = SearchProduct::create([
+                        'product_id' => $related_product->id,
+                        'buyer_id' => auth('company')->user()->id,
+                    ]);
+                }
+            }
+        }
+        $helpers = new helpers();
+        $code = $helpers->get_currency_co();
+        $new_price = $helpers->get_price($product->price);
+        $product->price = $new_price;
+        foreach($product->leadtimes as $leadtime){
+            $new_lead_price = $helpers->get_price($leadtime->price);
+            $leadtime->price = $new_lead_price;
+        }
         $related_product = Product::where('sub_category_id',$product->sub_category_id)
             ->whereNotIn('id', [$product->id])
             ->paginate(8);
+        foreach($related_product as $re_product){
+                $new_price = $helpers->get_price($re_product->price);
+                $re_product->price = $new_price;
+        }
+        
         $Other_products = Product::where('company_id', $product->company_id)->whereNotIn('id', [$product->id])->get(['id', 'name', 'price', 'category_id', 'description', 'company_id', 'translation', 'slug']);
-        return view('website.products.details', compact('product', 'related_product', 'Other_products'));
+        foreach($Other_products as $Other_product){
+            $new_price = $helpers->get_price($Other_product->price);
+            $Other_product->price = $new_price;
+        }
+        return view('website.products.details', compact('product', 'related_product', 'Other_products','code'));
     }
 
 
@@ -220,7 +353,7 @@ class WebsiteController extends Controller
     {
         try {
             if ($request->ajax()) {
-                $data_categories = Category::orwhere('namear', 'like', '%' . $request->name . '%')
+                $data_categories = Category::orwhere( 'namear', 'like', '%' . $request->name . '%')
                     ->orwhere('namear',$request->name)
                     ->orwhere('nameen', 'like', '%' . $request->name . '%')
                     ->orwhere('nameen',$request->name)
@@ -330,7 +463,68 @@ class WebsiteController extends Controller
         $shipping = ShipmentServices::where('id', $id)->first();
         return view('website.shipping.details', compact('shipping'));
     }
+    public function shippingOrder(Request $request){
+        // return $request;
+        try{
+            $this->validate($request, [
+                'shipment_name' => 'nullable',
+                'shipment_type' => 'nullable',
+                'unit' => 'nullable',
+                'length' => 'nullable',
+                'width' => 'nullable',
+                'height' => 'nullable',
+                'dimensional_weight' => 'nullable',
+                'weightunit' => 'nullable',
+                'weight' => 'nullable',
+                'package_no' => 'nullable',
+                'destination' => 'nullable',
+                'details' => 'nullable',
+                'name' => 'required',
+                'companyname' => 'nullable',
+                'code' => 'nullable',
+                'phone' => 'required_without:email',
+                'email' => 'required_without:phone',
 
+                'country' => 'nullable',
+                'vendorname' => 'nullable',
+                // 'vendoraddress' => 'nullable',
+                'vendorphone' => 'nullable',
+                'vendoremail' => 'nullable',
+                'file' => 'nullable',
+            ]);
+            ShipmentOrderNew::create([
+                "company_id"         => Auth::guard('company')->user()->id ?? null,
+                "shipment_name"      => $request->shipment_name ?? '',
+                "shipment_type"      => $request->shipment_type ?? '',
+                "unit"               => $request->unit ?? '',
+                "length"             => $request->length,
+                "width"              => $request->width,
+                "height"             => $request->height,
+                "dimensional_weight" => $request->dimensional_weight,
+                "weightunit"         => $request->weightunit ?? '',
+                "weight"             => $request->weight,
+                "package_no"         => $request->package_no,
+                "destination"        => $request->destination,
+
+                "name"               => $request->name,
+                "companyname"        => $request->companyname,
+                "code"               => $request->code,
+                "phone"              => $_REQUEST['phone_number']['full'],
+                "email"              => $request->email,
+
+                'country'            => $request->country,
+                'vendorname'         => $request->vendorname,
+                'vendorphone'        => $request->vendorphone,
+                'vendoremail'        => $request->vendoremail,
+                'details'            => $request->details,
+            ]);
+
+            Alert::success(trans('admins.success'), trans('admins.add-succes'));
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return redirect()->back()->with(['error' => $exception->getMessage()]);
+        }
+    }
 //     public function shipment_order(add_order $request)
 //     {
 // //        dd('hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
@@ -365,9 +559,10 @@ class WebsiteController extends Controller
                 ->orWhere('namear','like','%' .$request->name. '%')
                 ->orWhere('nameen','like','%' .$request->name. '%')
                 ->orWhere('nametr','like','%' .$request->name. '%')
-//                ->orWhere('descen','like','%' .$request->name. '%')
-//                ->orWhere('descar','like','%' .$request->name. '%')
-//                ->orWhere('desctr','like','%' .$request->name. '%')
+                ->orWhere('description','like','%' .$request->name. '%')
+                ->orWhere('descen','like','%' .$request->name. '%')
+                ->orWhere('descar','like','%' .$request->name. '%')
+                ->orWhere('desctr','like','%' .$request->name. '%')
                 ->orWhere('companyar','like','%' .$request->name. '%')
                 ->orWhere('companyen','like','%' .$request->name. '%')
                 ->orWhere('companytr','like','%' .$request->name. '%')
@@ -377,12 +572,58 @@ class WebsiteController extends Controller
                 ->orWhere('subcatar','like','%' .$request->name. '%')
                 ->orWhere('subcaten','like','%' .$request->name. '%')
                 ->orWhere('subcattr','like','%' .$request->name. '%')
-//                ->orderBy('id','desc')
-                ->get();
+                ->orderByRaw("CASE 
+                        WHEN products.name LIKE '%{$request->name}%' THEN 1 
+                        WHEN products.nameen LIKE '%{$request->name}%' THEN 1 
+                        WHEN products.namear LIKE '%{$request->name}%' THEN 1 
+                        WHEN products.nametr LIKE '%{$request->name}%' THEN 1 
+                        WHEN products.description LIKE '%{$request->name}%' THEN 2
+                        WHEN products.descen LIKE '%{$request->name}%' THEN 2 
+                        WHEN products.descar LIKE '%{$request->name}%' THEN 2 
+                        WHEN products.desctr LIKE '%{$request->name}%' THEN 2 
+                        ELSE 3 
+                    END")
+                ->paginate(12);
+            $helpers = new helpers();
+            $code = $helpers->get_currency_co();
             foreach ($products as $product){
                 $pro = Product::where('id',$product->id)->first();
                 $pro->trending = $pro->trending +1;
                 $pro->save();
+                    $new_price = $helpers->get_price($product->price);
+                    $product->price = $new_price;
+
+                if(auth('company')->user()){
+                    if(!SearchProduct::where('buyer_id',auth('company')->user()->id)
+                        ->where('product_id',$product->id)
+                        ->exists()){
+                        $productSearch = SearchProduct::create([
+                            'product_id' => $product->id,
+                            'buyer_id' => auth('company')->user()->id,
+                        ]);
+                    }
+                }
+
+                //add related products to you may like 
+                $related_products = Product::where('sub_category_id',$product->sub_category_id)
+                ->whereNotIn('id', [$product->id])
+                ->get();
+
+                foreach($related_products as $related_product){
+                    if(auth('company')->user()){
+                        if(!SearchProduct::where('buyer_id',auth('company')->user()->id)
+                            ->where('product_id',$related_product->id)
+                            ->exists()){
+                            $productSearch = SearchProduct::create([
+                                'product_id' => $related_product->id,
+                                'buyer_id' => auth('company')->user()->id,
+                            ]);
+                        }
+                    }
+                }
+
+                
+
             }
             $categories = Category::where('name','like','%' .$request->name. '%')
                 ->orWhere('namear','like','%' .$request->name. '%')
@@ -392,18 +633,29 @@ class WebsiteController extends Controller
 //                ->orWhere('descar','like','%' .$request->name. '%')
 //                ->orWhere('desctr','like','%' .$request->name. '%')
 //                ->orderBy('id','desc')
-                ->get();
-            $companies = Company::where('name','like','%' .$request->name. '%')
+                ->paginate(12);
+            $companies = Company::where('trade_role','seller')->where('name','like','%' .$request->name. '%')
                 ->orWhere('namear','like','%' .$request->name. '%')
                 ->orWhere('nameen','like','%' .$request->name. '%')
                 ->orWhere('nametr','like','%' .$request->name. '%')
-//                ->orWhere('descen','like','%' .$request->name. '%')
-//                ->orWhere('descar','like','%' .$request->name. '%')
-//                ->orWhere('desctr','like','%' .$request->name. '%')
-//                ->orderBy("id",'desc')
-                ->get();
+                ->orWhere('description','like','%' .$request->name. '%')
+               ->orWhere('descen','like','%' .$request->name. '%')
+               ->orWhere('descar','like','%' .$request->name. '%')
+               ->orWhere('desctr','like','%' .$request->name. '%')
+               ->orderByRaw("CASE 
+                        WHEN companies.name LIKE '%{$request->name}%' THEN 1 
+                        WHEN companies.nameen LIKE '%{$request->name}%' THEN 1 
+                        WHEN companies.namear LIKE '%{$request->name}%' THEN 1 
+                        WHEN companies.nametr LIKE '%{$request->name}%' THEN 1 
+                        WHEN companies.description LIKE '%{$request->name}%' THEN 2
+                        WHEN companies.descen LIKE '%{$request->name}%' THEN 2 
+                        WHEN companies.descar LIKE '%{$request->name}%' THEN 2 
+                        WHEN companies.desctr LIKE '%{$request->name}%' THEN 2 
+                        ELSE 3 
+                    END")
+                ->paginate(12);
 
-            return view('website.products.result_search', compact('products', 'categories', 'companies'));
+            return view('website.products.result_search', compact('products', 'categories', 'companies','code'));
             //return response()->json($companies,$categories,$products);
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
@@ -491,7 +743,7 @@ class WebsiteController extends Controller
                 return redirect()->back();
             }
             $subscribe = DB::table('sub_scribes')->insert([
-                'email' => $request->email
+                'email' => $request->email 
             ]);
             return redirect()->back();
         } catch (\Exception $exception) {
@@ -532,9 +784,10 @@ class WebsiteController extends Controller
                 }
                 $categories_distinct = $cats;
                 return view('website.categories.index', compact('categories_data', 'products','company','categories_distinct'));
-            }elseif($categories_data->count() > 0 || $products->count() > 0){
+            }elseif($categories_data->count() > 0 || $products->count() > 0 ){
                 return view('website.categories.index', compact('categories_data', 'products','company'));
-            }else{
+            }
+            else{
                 Alert::error('error msg',trans('custom.categories_not_found'));
                 return redirect()->back();
             }
@@ -542,6 +795,15 @@ class WebsiteController extends Controller
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
         }
+    }
+    public function getFilterItems(Request $request){
+        $html = "";
+        if($request->category){
+            $subcategories = SubCategories::whereIn('category_id',$request->category)->get();
+            $html=  view('website.categories.filterItem', compact('subcategories'))->render();
+
+        }
+        return $html;
     }
 
     public function getProducts($id)
@@ -563,8 +825,14 @@ class WebsiteController extends Controller
             $subcategory = SubCategories::with(['products' => function ($q) {
                 $q->select("id", "name", "category_id", "price", 'slug', 'sub_category_id','translation');
             }])->where('id', $id)->first();
+            $helpers = new helpers();
+            $code = $helpers->get_currency_co();
+            foreach($subcategory->products as $product){
+                $new_price = $helpers->get_price($product->price);
+                $product->price = $new_price;
+            }
             // dd( $subcategory->products);
-            return view('website.subcategories.products', compact('subcategory'));
+            return view('website.subcategories.products', compact('subcategory','code'));
         } catch (\Exception $exception) {
             Alert::error("error msg", $exception->getMessage());
             return redirect()->back();
@@ -609,8 +877,8 @@ class WebsiteController extends Controller
     public function showMessagesWithSuppliers()
     {
         try {
-            $messages = ContactSupplier::where('user_id', auth('company')->user()->id)->get();
-            $sender_messags = ContactSupplier::where('supplier_id', auth('company')->user()->id)->get();
+            $sender_messags = ContactSupplier::where('user_id', auth('company')->user()->id)->get();
+            $messages = ContactSupplier::where('supplier_id', auth('company')->user()->id)->get();
             return view('website.user.suppliers_messages', compact('messages','sender_messags'));
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
@@ -664,7 +932,7 @@ class WebsiteController extends Controller
     public function tradeShow()
     {
         try {
-            $tradeShow = TradeShow::get(['id', 'title', 'translation', 'details', 'image']);
+            $tradeShow = TradeShow::get(['id', 'title', 'translation', 'details', 'image','linkurl']);
             return view('website.tradeShow.index', compact('tradeShow'));
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
@@ -707,7 +975,13 @@ class WebsiteController extends Controller
                 ->first();
             $supplier->views = $supplier->views + 1;
             $supplier->save();
-            return view('website.supplier.profile', compact('supplier'));
+            $helpers = new helpers();
+            $code = $helpers->get_currency_co();
+            foreach($supplier->products as $product){
+                $new_price = $helpers->get_price($product->price);
+                $product->price = $new_price;
+            }
+            return view('website.supplier.profile', compact('supplier','code'));
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
             return redirect()->back();
@@ -728,15 +1002,42 @@ class WebsiteController extends Controller
 
     public function postMediationRequest(Store $request)
     {
+
+        if($request->company_id == "other"){
+            $company = Company::firstOrCreate([
+                "name"=>$request->company_id
+            ],[
+                "password" =>Hash::make("123456"),
+                "type" => 'company',
+                "trade_role" => 'buyer',
+                "plan_id" => 1,
+                "status" => 0,
+            ]);
+            if($request->product_id == "other"){
+                $product = Product::firstOrCreate([
+                    "name"=>$request->product_id,
+                    "company_id" => $company->id,
+
+                ],[
+                    "trending" => 0,
+                ]);
+            }
+
+            $company_id =$company->id;
+            $product_id = $product->id;
+        }else{
+            $company_id =$request->company_id;
+            $product_id = $request->product_id;
+        }
         //        try{
         toast('send success', 'success');
         $request->validated();
         $mediation_requests = new MediationOrder();
         $mediation_requests->name = $request->name;
-        $mediation_requests->company_id = $request->company_id;
-        $mediation_requests->product_id = $request->product_id;
+        $mediation_requests->company_id = $company_id;
+        $mediation_requests->product_id = $product_id;
         $mediation_requests->company_name = $request->company_name;
-        $mediation_requests->phone = $request->phone . $request->phone2;
+        $mediation_requests->phone = $_REQUEST['phone_number']['full'];
         $mediation_requests->country_address = $request->country_address;
         $mediation_requests->qty = $request->qty;
         $mediation_requests->supply_period = $request->supply_period;
@@ -764,16 +1065,42 @@ class WebsiteController extends Controller
     public function postTranslationServicesRequest(TranslationServicesRequest $request)
     {
         try {
+            if($request->company_id == "other"){
+                $company = Company::firstOrCreate([
+                    "name"=>$request->company_id
+                ],[
+                    "password" =>Hash::make("123456"),
+                    "type" => 'company',
+                    "trade_role" => 'buyer',
+                    "plan_id" => 1,
+                    "status" => 0,
+                ]);
+                if($request->product_id == "other"){
+                    $product = Product::firstOrCreate([
+                        "name"=>$request->product_id,
+                        "company_id" => $company->id,
+    
+                    ],[
+                        "trending" => 0,
+                    ]);
+                }
+    
+                $company_id =$company->id;
+                $product_id = $product->id;
+            }else{
+                $company_id =$request->company_id;
+                $product_id = $request->product_id;
+            }
             $request->validated();
             toast('The request has been sent successfully', 'success');
             $input['name'] = $request->name;
 //            $input['companyname'] = $request->companyname;
-            $input['country_code'] = $request->country_code;
-            $input['phone'] = $request->phone;
+            // $input['country_code'] = $request->country_code;
+            $input['phone'] = $_REQUEST['phone_number']['full'];
             $input['email'] = $request->email;
             $input['language'] = $request->language;
-            $input['company_id'] = $request->company_id;
-            $input['product_id'] = $request->product_id;
+            $input['company_id'] = $company_id;
+            $input['product_id'] = $product_id;
             $input['qty'] = $request->qty;
             $input['supply_period'] = $request->supply_period;
             $input['notes'] = $request->notes;
@@ -800,7 +1127,8 @@ class WebsiteController extends Controller
     {
         try {
             $help_center = HelpCenter::get(['id', 'title', 'description','image','translation']);
-            return view('website.helpCenter.index', compact('help_center'));
+            $setting = Setting::first();
+            return view('website.helpCenter.index', compact('help_center','setting'));
         } catch (\Exception $exception) {
             Alert::error('error msg', $exception->getMessage());
             return redirect()->back();
@@ -876,10 +1204,14 @@ class WebsiteController extends Controller
         DB::beginTransaction();
         try {
             $request->validated();
-            $visitor_create = Visitor::create([
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
+             $visitor_create = Visitor::where('email',$request->email)->first();
+            if(!$visitor_create){
+                 $visitor_create = Visitor::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
+            }
+           
             $visitor = Visitor::where('id',$visitor_create['id'])->first();
             $contact_supplier = new ContactSupplier();
             if ($request->file('file')) {
@@ -909,14 +1241,20 @@ class WebsiteController extends Controller
     }
 
     // get fav page
-    public function getFavPage($id){
+    public function getFavPage(){
         try{
-            $products = Favorite::where('company_id',$id)
+            $products = Favorite::where('company_id',auth('company')->user()->id)
                 ->with(['product' => function($q){
                     $q->select('id','name','company_id','price','slug','translation');
                 }])
                 ->get();
-            return view('website.buyer.fav',compact('products'));
+            $helpers = new helpers();
+            $code = $helpers->get_currency_co();
+            foreach($products as $product){
+                    $new_price = $helpers->get_price($product->product->price);
+                    $product->product->price = $new_price;
+            }
+            return view('website.buyer.fav',compact('products','code'));
         }catch (\Exception $exception){
             Alert::error('error msg',$exception->getMessage());
             return redirect()->back();
@@ -944,16 +1282,9 @@ class WebsiteController extends Controller
             $buyer->phone = $request->phone;
             $buyer->description = $request->description;
             $buyer->save();
-            if($request->old_password){
-                if(Hash::check($request->old_password,$buyer->password)){
-                    $buyer->password = bcrypt($request->new_password);
-                    $buyer->save();
-                    Alert::success('success','تم تحديث كلمة المروور');
-                    return redirect()->back();
-                }else{
-                    Alert::error('error msg','هناك خطأ فى كلمة المرور');
-                    return redirect()->back();
-                }
+            if($request->new_password){
+                $buyer->password = bcrypt($request->new_password);
+                $buyer->save();
             }
             return redirect()->back();
         }catch (\Exception $exception){
@@ -971,7 +1302,7 @@ class WebsiteController extends Controller
         return redirect()->to('/');
     }
     function createUser($getInfo,$provider){
-        $user = Company::where('provider_id',$getInfo->provider_id)
+        $user = Company::where('provider_id',$getInfo->id)
             ->where('trade_role','buyer')
             ->first();
         if (!$user) {
@@ -984,6 +1315,144 @@ class WebsiteController extends Controller
             ]);
         }
         return $user;
+    }
+
+    public function changeCurrency(Request $request){
+        $products = Product::select('id','price')->get();
+        foreach ($products as $product){
+            $product = Product::where('id',$product->id)->first();
+            $product->price =  $product->price;
+        }
+    }
+
+    public function buyerResetPassword(Request $request){
+        // return $request->_token;
+        try{
+            $buyer = Company::where('email',$request->email)
+                ->orWhere('phone',$request->phone)
+                ->exists();
+            if ($buyer){
+                $buyer = Company::where('trade_role','buyer')->where('email',$request->email)
+                    ->orWhere('phone',$request->phone)
+                    ->first();
+                
+                Mail::send('website.buyer.new_password', ['token' => $request->_token], function($message) use($request){
+                    $message->to($request->email);
+                    $message->from(env('MAIL_FROM_ADDRESS'));
+                    $message->subject('Reset Password');
+                });
+                Alert::success('success','We have e-mailed your password reset link!');
+                return back();
+                // return view('website.buyer.new_password',compact('buyer'));
+            }else{
+                dd('no');
+            }
+        }catch (\Exception $exception){
+            Alert::error('error msg',$exception->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function ResetPasswordView($token) {
+        return view('auth.passwords.web_reset', ['token' => $token]);
+    }
+    public function ResetPassword(Request $request) {
+        $update = Company::where(['email' => $request->email])->first();
+        if(!$update){
+            Alert::error('error msg','Invalid token!');
+            return back();
+        }
+
+        $user = Company::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+        Alert::success('success','password changed successfully');
+        return redirect()->route('webLogin');
+    }
+
+    public function searchWithImage(Request $request){
+        try{
+            $file_name = time() . '_' . $request->image->getClientOriginalExtension();
+            $path = public_path('images/products/' . $file_name);
+            Image::make($request->image->getRealPath())->save($path);
+    
+            $client = new RekognitionClient([
+                'version' => 'latest',
+                'region' => 'us-east-1',
+                'credentials' => [
+                    'key' => env('AWS_ACCESS_KEY_ID'),
+                    'secret' => env('AWS_SECRET_ACCESS_KEY'),
+                ],
+            ]);
+            $imageData = file_get_contents($path);
+    
+            $result = $client->detectLabels([
+                'Image' => [
+                    'Bytes' => $imageData,
+                ],
+                'MaxLabels' => 10,
+            ]);
+            $labels = array_column($result['Labels'], 'Name');
+            
+            session()->put('labels', $labels);
+            return redirect()->route('product.public.imagesearch.get');
+        }catch (\Exception $exception){
+            Alert::error('error msg',__('home.error_imagesearch'));
+            return redirect()->back();
+        }
+        
+        // return view('website.products.img_search_result',compact('media','code'));
+    }
+    
+    
+    public function getsearchWithImage(Request $request){
+        
+        $labels=session()->get('labels');
+        if(!$labels){
+            return redirect()->route('website.index');
+        }
+        $media = Media::where(function($query) use ($labels) {
+            foreach ($labels as $label) {
+                $query->orWhere('extracted_features', 'like', '%'.$label.'%');
+            }
+        })->whereHas('mediable')->with('mediable')->get()->unique('mediable_id')->map(function ($item) use ($labels) {
+                    $matchingCount = 0;
+                    foreach ($labels as $label) {
+                        if (strpos($item->extracted_features, $label) !== false) {
+                            $matchingCount++;
+                        }
+                    }
+                    $item->matching_count = $matchingCount;
+                    return $item;
+                })->filter(function ($item) {
+                    return $item->matching_count >= 5;
+                })->sortByDesc('matching_count');
+        // ->filter(function ($item) use ($labels) {
+        //     $matchingCount = 0;
+        //     foreach ($labels as $label) {
+        //         if (strpos($item->extracted_features, $label) !== false) {
+        //             $matchingCount++;
+        //         }
+        //     }
+        //     return $matchingCount >= 5; // يتم تغيير القيمة هنا إلى 5 أو أكثر
+        // })->sortByDESC(function ($item) use ($labels) {
+        //     $matchingCount = 0;
+        //     foreach ($labels as $label) {
+        //         if (strpos($item->extracted_features, $label) !== false) {
+        //             $matchingCount++;
+        //         }
+        //     }
+        //     return $matchingCount;
+        // });
+        // ->sortByDESC(function ($item) use ($labels) {
+        //         return array_search($item->extracted_features, $labels);
+        //     });
+        $helpers = new helpers();
+        $code = $helpers->get_currency_co();
+        // foreach($media as $key => $val){
+        //     $new_price = $helpers->get_price($val->mediable->price);
+        //     $val->mediable->price = $new_price;
+        // }
+        
+        return view('website.products.img_search_result',compact('media','code'));
     }
 }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HelpcentreRequest;
 use App\Models\HelpCenter;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,6 +22,7 @@ class HelpcenterController extends Controller
     }// end of __construct
     public function index()
     {
+
         $helpcenters = HelpCenter::latest()->paginate(10);
         return view('Admin.helpcentres.index',compact('helpcenters'));
     }
@@ -35,9 +37,7 @@ class HelpcenterController extends Controller
         if ($image = $request->file('image')) {
             $file_name = time() . "." . $image->getClientOriginalExtension();
             $path = public_path('/images/helpcenter/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $input['title'] = $request->title;
@@ -63,9 +63,7 @@ class HelpcenterController extends Controller
             }
             $file_name = time().".".$image->getClientOriginalExtension();
             $path = public_path('/images/helpcenter/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $input['title'] = $request->title;

@@ -6,13 +6,26 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/28c7efa7df.js" crossorigin="anonymous"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="google-site-verification" content="p5YH7tVqJ22_JM3Dg4FVrJy6sdWh95jEZ5SHlXTh1KI" />
     <title>@yield('title')</title>
     <!-- SEO -->
-    <meta name="description" content="turkey suppliers for trading">
+    <meta name="description" content="İhracatınızı artırın,
+                                    Ürünleriniz daha fazla müşteriye ulaşsın
+                                    Gönderi hizmetleri sunuyoruz
+                                    Aracılık hizmetleri
+                                    Ve çeviri hizmetleri de sağlıyoruz">
+
+    <meta property="og:image" content="{{asset('website/imgs/Group.png')}}"/>
+    <meta property="og:title" content="TURKEYSUPPLIERS.ONLINE">
+    <meta property="og:description" content="İhracatınızı artırın,
+    Ürünleriniz daha fazla müşteriye ulaşsın
+    Gönderi hizmetleri sunuyoruz
+    Aracılık hizmetleri
+    Ve çeviri hizmetleri de sağlıyoruz">
+    <meta property="fb:app_id" content="100089106841143" />
+
     <meta name=”robots” content="index, follow">
     <meta name="googlebot" content="translate">
     <link rel="alternate" hreflang="en" href="https://turkeysuppliers.online/en" />
@@ -21,130 +34,10 @@
     <link rel="alternate" hreflang="fr-fr" href="https://turkeysuppliers.online/fr" />
     <link rel="alternate" hreflang="x-default" href="https://turkeysuppliers.online/" />
 
-
-    <title>@yield('title')</title>
-
+    <script src="https://kit.fontawesome.com/28c7efa7df.js" crossorigin="anonymous"></script>
 
     @include('layouts.website.head')
     @yield('css')
-    <style>
-        a {
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .open-button {
-            background-color: var(--secondry-color);
-            color: white;
-            padding: 18px;
-            border: none;
-            cursor: pointer;
-            opacity: 0.8;
-            position: fixed;
-            bottom: 10%;
-            right: 28px;
-            font-size: 25px;
-            border-radius: 50%;
-        }
-
-        .chat-popup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 15px;
-            border: 3px solid #f1f1f1;
-            z-index: 9;
-        }
-
-        .form-container {
-            max-width: 300px;
-            padding: 10px;
-            background-color: white;
-        }
-
-        .form-container textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            border: none;
-            background: #f1f1f1;
-            resize: none;
-            min-height: 200px;
-        }
-
-        .form-container textarea:focus {
-            background-color: #ddd;
-            outline: none;
-        }
-
-        /* Set a style for the submit/send button */
-        .form-container .btn {
-            background-color: #04AA6D;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        /* Add a red background color to the cancel button */
-        .form-container .cancel {
-            background-color: red;
-        }
-
-        /* Add some hover effects to buttons */
-        .form-container .btn:hover,
-        .open-button:hover {
-            opacity: 1;
-        }
-
-        .swiper {
-            width: 100%;
-            height: 100%;
-        }
-
-        .swiper-slide {
-            text-align: center;
-            font-size: 18px;
-
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-
-        }
-
-        .swiper-slide img {
-            display: block;
-            width: 90%;
-            object-fit: cover;
-        }
-
-        @font-face {
-            font-family: "CustomFont";
-
-            src: url({{ asset('website/fonts/BebasNeue-Regular.ttf') }});
-        }
-
-
-
-        form input {
-            font-family: 'arial' !important;
-            font-weight: 600 !important;
-            font-size: 14px !important;
-        }
-    </style>
 
     <!-- SEO -->
     <!-- Google Tag Manager -->
@@ -169,16 +62,23 @@
     @livewireStyles
 </head>
 
-<body class="{{ app()->getLocale() == 'ar' ? 'rtl' : '' }}"
-    style="font-family: CustomFont  !important;    font-weight: 100 !important;">
+<body class="{{ app()->getLocale() == 'ar' ? 'rtl' : '' }}">
+    <h1 style="display: none">turkeysuppliers</h1>
+    <h1 style="display: none">turkey suppliers</h1>
     @include('layouts.website.header')
-    @include('layouts.website.navbar')
     @yield('content')
+
     @include('layouts.website.support_chat')
     <div id="chat-overlay" class="row"></div>
     <audio id="chat-alert-sound" style="display: none">
         <source src="{{ asset('sound/noti.mp3') }}" />
     </audio>
+    <div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
     @include('layouts.website.footer')
     @include('layouts.website.scripts')
     @livewireScripts

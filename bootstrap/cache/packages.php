@@ -178,6 +178,13 @@
       'Laratrust' => 'Laratrust\\LaratrustFacade',
     ),
   ),
+  'socialiteproviders/manager' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'SocialiteProviders\\Manager\\ServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-buttons' => 
   array (
     'providers' => 

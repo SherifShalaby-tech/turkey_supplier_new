@@ -1,9 +1,9 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo/'.App\Models\Setting::first()->logo)}}">
 <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-<link rel="stylesheet" href="{{ asset('website/css/owl.carousel.min.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<link rel="stylesheet" href="{{ asset('website/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('website/css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{asset('website/css/font-awesome.min.css')}}">
 <link rel="stylesheet" href="{{asset('website/css/bootstrap.min.css')}}">
@@ -11,8 +11,45 @@
 <link rel="stylesheet" href="{{asset('website/css/style.css')}}">
 <link rel="stylesheet" href="{{asset('website/css/hover.css')}}">
 
+
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{{asset('website/vendor/bootstrap/css/bootstrap.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/fonts/iconic/css/material-design-iconic-font.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/fonts/linearicons-v1.0.0/icon-font.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/vendor/animate/animate.css')}}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{asset('website/vendor/css-hamburgers/hamburgers.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/vendor/animsition/css/animsition.min.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/vendor/select2/select2.min.css')}}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href=" {{asset('website/vendor/daterangepicker/daterangepicker.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href=" {{asset('website/vendor/slick/slick.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href=" {{asset('website/vendor/MagnificPopup/magnific-popup.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{asset('website/vendor/perfect-scrollbar/perfect-scrollbar.css ')}}">
+<!--===============================================================================================-->
 <link rel="stylesheet" href="{{asset('website/css/util.css')}}">
 <link rel="stylesheet" href="{{asset('website/css/main.css')}}">
+<link rel="stylesheet" href="{{asset('website/css/custom.css')}}">
+<!--===============================================================================================-->
+
+<link rel="stylesheet" href="{{asset('website/assets/css/jquery.mCustomScrollbar.min.css')}}">
+<link rel="stylesheet" href="{{asset('website/assets/css/animate.css')}}">
+<link rel="stylesheet" href="{{asset('website/assets/css/style.css')}}">
+<link rel="stylesheet" href="{{asset('website/assets/css/media-queries.css')}}">
+
+
+
+
 <link rel="icon" href="{{asset('website/imgs/Group.png')}}" type="image/gif" sizes="16x16">
 
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard/app-assets/vendors/css/forms/selects/select2.min.css') }}">

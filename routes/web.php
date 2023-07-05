@@ -32,10 +32,7 @@ Route::post('/admin/login', [
     'uses' => 'Auth\LoginController@login',
    'middleware' => 'Is_Active',
 ]);
-//
-//
-//
-//
+
 //Route::get('password/find/{token}', 'PasswordResetController@find');
 // chat
 Route::get('/chat/{user_id}', [HomeController::class,'index'])->name('chat');

@@ -1,683 +1,588 @@
-<style>
-
-    a{
-        text-decoration: none !important;
+@php
+    $setting = \App\Models\Setting::first();
+    $currencies = \App\Models\Currency::get();
+    if(app()->getLocale() == 'ar'){
+    $cats = App\Models\Category::orderBy('namear')->get(['id', 'name', 'translation']);
+    }elseif(app()->getLocale() == 'en'){
+        $cats = App\Models\Category::orderBy('nameen')->get(['id', 'name', 'translation']);
+    }elseif(app()->getLocale() == 'tr'){
+        $cats = App\Models\Category::orderBy('nametr')->get(['id', 'name', 'translation']);
+    }else{
+        $cats = App\Models\Category::orderBy('name')->get(['id', 'name', 'translation']);
     }
-
-   /* .social_c{
-
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-end;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        background-color: #fff;
-        padding: 4px 27px;
-        margin-right: -15px;
-        position: relative;
-        left: 520px;
-    }
-    .social_c-ar{
-        padding: 4px 16px;
-        right: 603px;
-    }*/
-    .social-container {
-      text-align: center;
-      padding-top: 5px;
-    }
-
-    .social-icons {
-      padding: 0;
-      list-style: none;
-      margin: .5em .5em;
-      margin-bottom: 0px;
-      margin-top: 0px;
-    }
-    .social-icons li {
-      display: inline-block;
-      margin: 0 0.15em;
-      position: relative;
-      font-size: 1.2em;
-    }
-    .social-icons i {
-      color: #fff;
-      position: absolute;
-      top: 11px;
-    left: 11px;
-      transition: all 265ms ease-out;
-    }
-    .social-icons a {
-      display: inline-block;
-    }
-    .social-icons a:before {
-      transform: scale(1);
-      -ms-transform: scale(1);
-      -webkit-transform: scale(1);
-      content: " ";
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      display: block;
-      background: rgb(56 149 172);
-      background: linear-gradient(0deg, rgb(65 164 190) 0%, rgb(44 136 161) 100%);
-      transition: all 265ms ease-out;
-      /*   background: linear-gradient(45deg, #00B5F5, #002A8F); */
-    }
-    .social-icons a:hover:before {
-      transform: scale(0);
-      transition: all 265ms ease-in;
-    }
-    .social-icons a:hover i {
-      transform: scale(2);
-      -ms-transform: scale(2);
-      -webkit-transform: scale(2);
-      background: rgb(56 149 172);
-      background: linear-gradient(0deg, rgb(65 164 190) 0%, rgb(44 136 161) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      transition: all 265ms ease-in;
-    }
-
-
-    /* */    /* */
-    .navbar-nav .nav-item .custom-b{
-        padding: 5px 0px 5px 12px;
-    background: rgb(56 149 172);
-    background: linear-gradient(0deg, rgb(65 164 190) 0%, rgb(44 136 161) 100%);
-    border-radius: 10%;
-    color: #fff !important;
-    width: 60px !important;
-    font-size: 22px !important;
-    }
-    .navbar-nav .nav-item .custom-a{
-        padding: 5px 18px 5px 0px;
-    background: rgb(56 149 172);
-    background: linear-gradient(0deg, rgb(65 164 190) 0%, rgb(44 136 161) 100%);
-    border-radius: 10%;
-    color: #fff !important;
-    width: 70px !important;
-    }
-
-    .service-p{
-        font-size: 24px;
-    }
-/* */
-.search-input{
-    border-radius:50px;
-    color: #44a8c2 !important;
-}
-.search-input::placeholder{
-
-    color: #44a8c2 !important;
-}
-.search-btn{
-    width: 18%;
-    padding: 4px;
-    border-radius:50px;
-    background-color: #44a8c2 !important;
-    border: none;
-    display: inline-block;
-    position: relative;
-    right: 133px;
-    top: 0;
-}
-.search-btn-ar{
-    right: -133px;
-}
-.list-group li a {
-    color: #44a8c2;
-}
-
-    #form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
-}
-
-#form button {
-  font-size: 20px;
-  border-radius: 50px;
-  position: absolute;
-  padding: 4px 10px 0 18px;
-  right: 0;
-  height: 100%;
-  background-color: #44a8c2 !important;
-  border: none;
-}
-#form .btn-se-ar{
-    left: 0;
-    right: auto;
-    padding: 4px 20px 0 14px;
-}
-#form img {
-  position: absolute;
-  right: 110px;
-  height: 80%;
-}
-
-#form .img-se-ar{
-    right: auto;
-    left: 100px;
-}
-
-#form input {
-  width: 100%;
-  border-radius: 50px;
-  font-size:18px !important;
-}
-
-#forminput:focus {
-  outline: none;
-  box-shadow: none;
-  border: 0;
-}
- /* */
-
-    @media (min-width: 1200px){
-        .style-container .container {
-            max-width: 1700px !important;
-        }
-    }
-
-    @media (min-width: 1440px) {
-        .style-container .row{
-            margin: 0px 10px !important
-        }
-        .navbar-light .nav-link{
-        font-size: 25px !important;
-        padding: 0 4px !important;
-        }
-
-    }
-
-
-    @media (max-width: 1400px) {
-        .style-container .row{
-            margin: 0px 40px !important;
-        }
-        .navbar-light .nav-link {
-        color: #FFF !important;
-        font-weight: 100 !important;
-        font-size: 20px !important;
-    }
-
-    }
-
-
-    @media (max-width: 1200px) {
-
-     .style-container .container {
-            width: 100%;
-            max-width: 1100px !important;
-            margin: 0px 0 0 10px
-            padding: 0;
-        }
-         .style-container .row {
-            margin: 0px !important;
-        }
-    }
-
-    @media  (max-width : 1024px) {
-        .style-container .container{
-            width: 100%;
-            max-width: 998px  !important;
-            margin: 0 0 0 12px;
-            padding: 0;
-        }
-        .search-btn-ar {
-            right: 270px !important;
-        }
-
-        .navbar-nav .nav-item .custom-b {
-            font-size: 17px !important;
-        }
-
-        .navbar-light .nav-link {
-        color: #FFF !important;
-        font-weight: 100 !important;
-        padding-right: 4px !important;
-            padding-left: 0 !important;
-            font-size: 14px !important;
-        }
-        .logo{
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .navbar-nav .nav-item .custom-a{
-                width: 50px !important;
-          }
-          .card-title-name {
-            width: 190px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .card-title{
-            font-size: 24px !important;
-        }
-
-    }
-
-@media (max-width: 992px) {
-    .header  .row{
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: nowrap;
-        margin-right: -15px;
-        margin-left: -15px;
-        justify-content: space-around;
-        margin: 0 50px !important;
-        letter-spacing: .5px !important;
-    }
-    .style-container .container {
-        width: 100%;
-        max-width: 900px !important;
-        margin: 0px 0 0 45px;
-        padding: 0;
-    }
-         .style-container .row {
-            margin: 0px !important;
-        }
-    .search-input{
-      width: 100% !important;
-    }
-
-    .navbar-nav {
-        padding-left: 10px;
-    }
-
-    }
-
-    @media (max-width: 980px){
-        .card-title-name {
-            width: 170px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
-@media (max-width: 768px) {
-    .header  .row{
-      margin: 20px !important;
-    }
-    .header .row .logo-flex{
-        display: flex;
-       justify-content: center;
-    }
-    .style-container .container {
-           max-width: 700px !important;
-           margin: 0px 0 0 33px;
-             padding: 0;
-         }
-    .style-container .container-ar {
-            max-width: 700px !important;
-            margin: 0 33px 0 0 !important;
-            padding: 0;
-        }
-
-    .search-input {
-            width: 90% !important;
-        }
-
-    .style-container .container {
-        max-width: 700px !important;
-        margin: 0px 0 0 33px;
-        padding: 0;
-    }
-    .price_text{
-        font-size: 16px !important;
-    }
-    .navbar-light .nav-link{
-
-        font-size: 22px !important;
-        }
-        .card-title {
-    font-size: 22px !important;
-}
-}
-
-@media (max-width: 767px) {
-    .header  .row{
-     display: contents;
-    }
-    .header .row .logo-flex{
-        display: flex;
-       justify-content: center;
-    }
-    .price_text{
-        font-size: 16px !important;
-    }
-
-}
-
-
-@media (max-width: 576px) {
-    .header .row{
-        display: contents;
-    }
-
-    .style-container .container {
-            width: 100%;
-            max-width: 540px !important;
-            margin: 0 0 0 18px;
-            padding: 0;
-         }
-         .style-container .row {
-            margin: 0px !important;
-        }
-        .price_text{
-        font-size: 16px !important;
-    }
-}
-
-@media (max-width: 575px) {
-    .header   .row{
-    margin: 0 !important;
-    display: contents;
-  }
-
-  .search-input{
-    width: 90% !important;
-  }
-  .header .row{
-        margin: 0 !important;
-    }
-    .price_text{
-        font-size: 16px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .header  .row{
-        margin: 0 !important;
-        display: flex !important;
-        -ms-flex-wrap: wrap !important;
-        flex-wrap: wrap !important;
-        margin-right: -15px ;
-        margin-left: -15px;
-        justify-content: space-around !important;
-    }
-
-    .search-input{
-        width: 90% !important;
-    }container-ar
-
-    .navbar-nav {
-        padding-left: 10px;
-    }
-    .header .row{
-        margin: 0 !important;
-    }
-    .price_text{
-        font-size: 16px !important;
-    }
-}
-
-@media (max-width: 425px){
-    .style-container .container {
-        width: 100%;
-        max-width: 400px !important;
-        margin: 0px 0 0 12px;
-        padding: 0;
-    }
-    .style-container .container-ar {
-        max-width: 390px !important;
-        margin: 0 15px 0 0 !important;
-    }
-    .test-lang{
-        padding: 0 !important;
-    }
-    .test-lang-ar{
-        margin-right: 25px;
-    }
-    .navbar-light .nav-link {
-        color: #FFF !important;
-        font-weight: 100 !important;
-        padding-right: 5px !important;
-        padding-left: 0 !important;
-        font-size: 20px !important;
-    }
-    .navbar-nav .nav-item .custom-b {
-
-    padding-left: 14px !important;
-    }
-    .navbar-nav .nav-item .custom-a {
-
-    padding-right: 8px !important;
-    }
-
-    .price_text{
-        font-size: 16px !important;
-    }
-    .card-title {
-        font-size: 17px !important;
-    }
-    .style-container .best-seller-img p {
-        font-size: 22px;
-    }
-    #form input {
-         font-size:14px !important;
-    }
-}
-
-@media (max-width: 390px) {
-        .style-container .container {
-            width: 100%;
-            max-width: 345px !important;
-            margin: 0px 0 0 14px !important;
-            padding: 0;
-         }
-         .style-container .container-ar {
-            width: 100%;
-            max-width: 335px !important;
-            margin: 0px 16px 0 0 !important;
-            padding: 0;
-         }
-         .style-container .row {
-            margin: 0px !important;
-        }
-        .test-lang{
-            padding: 0 !important;
-
-        }
-        .test-lang-ar{
-        margin-right: 25px;
-    }
-    .card-title {
-    font-size: 20px !important;
-}
-        .navbar-light .nav-link {
-            color: #FFF !important;
-            font-weight: 100 !important;
-            padding-right: 5px !important;
-            padding-left: 0 !important;
-            font-size: 20px !important;
-        }
-        .navbar-nav .nav-item .custom-b {
-
-            padding-left: 14px !important;
-        }
-
-        .navbar-nav .nav-item .custom-b {
-
-            padding-right: 10px !important;
-        }
-        .price_text{
-            font-size: 14px !important;
-        }
-        .card-title-name {
-            width: 60px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .style-container .swiper .swiper-slide img {
-            height: 60px !important;
-        }
-        .style-container .swiper .swiper-slide{
-             height: 150px !important
-         }
-    }
-
-@media (max-width: 320px) {
-        .style-container .container {
-            width: 100%;
-            max-width: 290px !important;
-            margin: 0 0 0 15px;
-            padding: 0;
-         }
-         .style-container .row {
-            margin: 0px !important;
-        }
-        .price_text{
-            font-size: 14px !important;
-        }
-        .style-container .swiper .swiper-slide img {
-            height: 60px !important;
-        }
-        .style-container .swiper .swiper-slide{
-             height: 150px !important
-         }
-         .card-title {
-    font-size: 20px !important;
-}
-    }
-
-
-
-
-</style>
-
-
-
-<!-- header -->
-<div class="header mt-3 mb-3  ">
-    <!-- container -->
-    <div class="container-fluid container-ar">
-        <!-- row -->
-        <div class="row" style="margin: 0 20px; font-family:CustomFont; letter-spacing: 1px; align-items: center;">
-
-            <div class="col-lg-4 col-md-4 col-12">
-                <div class="logo">
-                    <a class="logo-flex" href="{{route('website.index')}}">
-                        <img src="{{asset('website/imgs/Group.png')}}" width="150">
+@endphp
+<script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+<header>
+    <!-- Header desktop -->
+    <div class="container-menu-desktop">
+        <!-- Topbar -->
+        <div class="top-bar">
+            <div class="content-topbar flex-sb-m h-full container-fluid">
+                <div class="left-top-bar">
+                    <a href="{{$setting->facebook}}" class="fs-18 cl10 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-facebook"></i>
                     </a>
-                    <a href="{{route('website.index')}}" style="font-size: 28px; font-weight: bold; color:#44a8c2;">
-                        TURKEYSUPPLIERS.ONLINE
+
+                    <a href="{{$setting->linkedin}}" class="fs-18 cl10 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+
+                    <a href="{{$setting->instagram}}" class="fs-18 cl10 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+
+                    <a href="{{$setting->youtube}}" class="fs-18 cl10 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-youtube"></i>
                     </a>
                 </div>
-            </div>
 
-            <div class="col-lg-6 col-md-6 col-12" style="@if(app()->getLocale() == 'ar') margin-left: 0px; @endif" >
-                <div class="form  ">
-                    <form  id="form" action="{{route('product.public.search')}}" method="GET">
-                        <input required="required" autocomplete="off" name="name" type="search" class="form-control search-input" id="search"
-                         placeholder="{{trans('custom.What are you searching for')}} ?..."  >
-                         <img class="@if(app()->getLocale() == 'ar') img-se-ar @endif" width="25" src="{{asset('website/imgs/cam.png')}}">
-                        <button class=" @if (app()->getLocale() == 'ar') btn-se-ar @endif"
-                            type="submit">{{trans('custom.search')}} <i class="fa fa-search"></i>
-                        </button>
-                    </form>
-                    <div id="product-result"></div>
-                </div>
-            </div>
+                <div class="left-top-bar flex-w h-full">
+                      <ul class="main-menu ">
+                        <li class="dropdown-toggle">
+                            <a href="#">  {{app()->getLocale()}}</a>
+                            <ul class="sub-menu" style="@if (app()->getLocale() == 'ar') right: -65px; @endif">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li><a  href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                      </ul>
 
-
-
-
-            <div class="col-lg-2 col-md-2 col-12">
-                <div class="options " style="display: flex;
-                flex-wrap: nowrap;
-                justify-content: center;
-                align-items: center;">
-                    @if(Auth::guard('company')->user())
-                        <img class="img-user pulse-grow" src="{{asset('website/imgs/user.png')}}" width="50">
-                        <div class="user_hover_div hide">
-                            <p>Welcome  {{Auth::guard('company')->user()->name  ?? null}} </p>
-                            {{-- @if(!auth('company')->user())
-                                <div class="mb-2">
-                                    <button type="button" class="btn btn-primary"><a style="color: #FFF;text-decoration: none" href="{{route('webLogin')}}">Sigin In</a></button>
-                                </div>
-                                <div class="mb-2">
-                                    <button type="button" class="btn btn-primary"><a style="color: #FFF;text-decoration: none" href="{{route('webRegister')}}">Join Us Now</a></button>
-                                </div>
-                                <div class="login-social text-center">
-                                    <hr style="border-color: #333">
-                                    <a href="{{route('social.redirectToProvider','facebook')}}">
-                                        <img src="{{asset('imgs/Facebook.svg')}}">
-                                    </a>
-                                    <a href="{{route('social.redirectToProvider','google')}}">
-                                        <img src="{{asset('imgs/Google.svg')}}">
-                                    </a>
-                                    <a href="#">
-                                        <img src="{{asset('imgs/Linkedin.svg')}}">
-                                    </a>
-                                </div>
-                            @endif --}}
-                            <hr style="border-color: #333">
-                            <div class="user_hover_links">
-                                @if(Auth::guard('company')->user()->trade_role == 'seller')
-                                <div>
-                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
-                                    <a href="{{route('admin.home')}}">{{trans('custom.mydash')}}</a>
-                                </div>
+                      <ul class="main-menu">
+                        <li class="dropdown-toggle">
+                            @if (session()->get('currency'))
+                                @if (session()->get('currency')->code == "TRY")
+                                <a href="#"> TRY</a>
+                                @else
+                                <a href="#"> USD</a>
                                 @endif
-                                <div>
-                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
-                                    <a href="{{route('user.orders')}}">{{trans('custom.orders')}}</a>
-                                </div>
-                                <div>
-                                    <span><img src="{{asset('website/imgs/Vector.png')}}"></span>
-                                    <a href="{{route('user.fav',auth('company')->user()->id)}}">{{trans('custom.fav')}}</a>
-                                </div>
-                                <div>
-                                    <span><img src="{{asset('website/imgs/Group 30.png')}}"></span>
-                                    <a href="{{route('buyer.profile',auth('company')->user()->id)}}">{{trans('custom.account')}}</a>
-                                </div>
-                                <div class="ml-1">
-                                    <span><i class="fa fa-lock"></i></span>
-                                    <a href="{{route('web.logout')}}">{{trans('custom.logout')}}</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    @if(Auth::guard('admin')->user())
-                        <img class="img-user pulse-grow" src="{{asset('website/imgs/user.png')}}" width="50">
-                        <div class="user_hover_div hide">
-                            <p>Welcome  {{Auth::guard('admin')->user()->name  ?? null}} </p>
-                            <hr style="border-color: #333">
-                            <div class="user_hover_links">
-                                <div>
-                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
-                                    <a href="{{route('admin.home')}}">{{trans('custom.mydash')}}</a>
-                                </div>
-                                <div class="ml-1">
-                                    <span><i class="fa fa-lock"></i></span>
-                                    <a  href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
-                                        {{ __('custom.logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    <a href="{{route('messages.suppliers.show')}}"> <img src="{{asset('website/imgs/chat.png')}}" width="50" class="pulse-grow"> </a>
-                    <a href="{{route('cart.get.products')}}"><img src="{{asset('website/imgs/cart.png')}}" width="50" class="pulse-grow"></a>
-                    <a href="{{route('user.orders')}}"><img src="{{asset('website/imgs/orders.png')}}" width="50" class="pulse-grow"></a>
+                            @else
+                                <a href="#"> USD</a>
+                            @endif
+                            <ul class="sub-menu">
+                            <form action="{{route('change.currency')}}" method="GET" >
+                                @foreach ($currencies as $currency)
+                                    <li><button  href="#" name="currency" value ="{{$currency->id}}"style="padding: 8px 20px" type="submit">{{$currency->code}}</button></li>
+                                @endforeach
+                            </form>
+
+                            </ul>
+                        </li>
+                      </ul>
                 </div>
+            </div>
+        </div>
+
+
+        <div class="header">
+            <div class="content-topbar  h-full container-fluid ">
+                <div class="row" style=" display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
+                             wrap; margin-right: -15px; margin-left: -15px; align-items: center;justify-content: center;align-content: center; ">
+
+                    <div class="col-lg-4 col-md-4 col-12 wobble-horizontal">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="flex-c-m ">
+                                <div class="col-lg-3 col-md-3 ">
+                                <a class="logo-flex " href="{{route('website.index')}}">
+                                    <img src="{{asset('website/imgs/Group.png')}}" style="width:100%">
+                                </a>
+                                </div>
+                                <div class="col-lg-9 col-md-9 ">
+                                <a href="{{route('website.index')}}" style="font-size: 22px;" class="cl1 ltext-108 hov1a">
+                                    TURKEYSUPPLIERS.ONLINE
+                                </a>
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12" style="@if(app()->getLocale() == 'ar') margin-left: 0px; @endif" >
+                        <div class="form  ">
+                            <form  id="form" action="{{route('product.public.search')}}" method="GET">
+                                <input required="required" autocomplete="off" name="name" type="search" class="form-control search-input" id="search"
+                                 placeholder="{{trans('custom.What are you searching for')}} ?..."  >
+                                 <a class="cl4" href="#" id="camBtn">  <img class="@if(app()->getLocale() == 'ar') img-se-ar @endif" width="25" src="{{asset('website/imgs/cam.png')}}"></a>
+                                
+                                <button class=" @if (app()->getLocale() == 'ar') btn-se-ar @endif" style="padding: 4px 4px 0 10px"
+                                    type="submit">{{trans('custom.search')}} <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                            <div id="product-result"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <div class="options " style="display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: center;
+                        align-items: center;">
+                            @if(Auth::guard('company')->user())
+                                <ul class="main-menu">
+                                    <li class="">
+                                        <a href="#" class="social-icons icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  js-show-cart">
+                                            <img class="pulse-grow" src="{{asset('website/imgs/user.png')}}" >
+                                        </a>
+                                        <ul class="sub-menu" style="width: 200px">
+                                            <li class="flex-link-header">
+                                                <a href="#"> Welcome  {{Auth::guard('company')->user()->name  ?? null}} </a>
+                                            </li>
+                                            @if(Auth::guard('company')->user()->trade_role == 'seller')
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
+                                                    <a href="{{route('admin.home')}}">{{trans('custom.mydash')}}</a>
+                                                </li>
+                                            @endif
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
+                                                    <a href="{{route('user.orders')}}">{{trans('custom.orders')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Vector.png')}}"></span>
+                                                    <a href="{{route('user.fav',auth('company')->user()->id)}}">{{trans('custom.fav')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 30.png')}}"></span>
+                                                    <a href="{{route('buyer.profile',auth('company')->user()->id)}}">{{trans('custom.account')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><i class="fa fa-lock"></i></span>
+                                                    <a href="{{route('web.logout')}}">{{trans('custom.logout')}}</a>
+                                                </li>
+
+                                        </ul>
+                                    </li>
+                                  </ul>
+                            @endif
+
+                            @if(Auth::guard('admin')->user())
+
+                                <ul class="main-menu">
+                                    <li class="dropdown-toggle">
+                                        <a href="#" class="social-icons icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  js-show-cart">
+                                            <img class="pulse-grow" src="{{asset('website/imgs/user.png')}}" >
+                                        </a>
+                                        {{-- <a href="#">Welcome  {{Auth::guard('admin')->user()->name  ?? null}}  </a> --}}
+                                        <ul class="sub-menu">
+                                                <li class="flex-link-header">
+                                                    <a href="#"> Welcome {{Auth::guard('admin')->user()->name  ?? null}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
+                                                    <a href="{{route('admin.home')}}">{{trans('custom.mydash')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><i class="fa fa-lock"></i></span>
+                                                    <a  href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+                                                        {{ __('custom.logout') }}
+                                                    </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                        </ul>
+                                    </li>
+                                  </ul>
+                            @endif
+                            <a href="{{route('messages.suppliers.show')}}"
+                                class="social-icons icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  js-show-cart  @if(Auth::guard('company')->user()) icon-header-noti @endif" 
+                                data-notify=" @php 
+                                use App\Models\ContactSupplier;
+                            if(Auth::guard('company')->user()){
+                                $messages = ContactSupplier::where('user_id', auth('company')->user()->id)->get();
+                                if( $messages->count() == 0){ echo "0"; }
+                                else{ echo  $messages->count(); }
+                            }
+                                @endphp"> <!--  icon-header-noti data-notify="2"-->
+                                <img src="{{asset('website/imgs/chat-i.png')}}"  class="pulse-grow">
+                            </a>
+
+                            <a href="{{route('cart.get.products')}}" 
+                                class="social-icons icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11   js-show-cart @if(Auth::guard('company')->user()) icon-header-noti @endif"
+                                 data-notify="@php 
+                                    use App\Models\Cart;
+                                    use App\Models\CartDetails;
+                                    if(Auth::guard('company')->user()){
+                                    $cart = Cart::where('company_id',auth('company')->user()->id)
+                                        ->where('status',0)
+                                        ->first();
+                                    if($cart){
+                                          $details = CartDetails::where('cart_id',$cart->id)->where('status',0)->with('product.leadtimes')->get();
+                                          if( $details->count() == 0 ){ echo "0"; }
+                                          else{ echo  $details->count(); }
+                                    }}
+                                 @endphp" >
+                                <img src="{{asset('website/imgs/cart3.png')}}"   class="pulse-grow" >
+                                
+                           
+                            </a>
+                 
+                         
+                            <a href="{{route('user.fav')}}" class=" social-icons dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 
+                            @if(Auth::guard('company')->user()) icon-header-noti @endif" 
+                                data-notify=" @php 
+                                use App\Models\Favorite;
+                                if(Auth::guard('company')->user()){
+                                    $products = Favorite::where('company_id',auth('company')->user()->id);
+                                    if( $products->count() == 0){ echo "0"; }
+                                    else{ echo  $products->count(); }
+                                }
+                                @endphp">
+                                <img src="{{asset('website/imgs/favorite.png')}}"   class="pulse-grow">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wrap-menu-desktop">
+            @include('layouts.website.navbar')
+        </div>
+    </div>
+
+
+
+    <!-- Header Mobile -->
+    <div class="wrap-header-mobile">
+        <!-- Logo moblie -->
+{{--        <div class="logo-mobile">--}}
+{{--            <a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>--}}
+{{--=======--}}
+        <!-- Logo moblie -->
+        <div class="logo-mobile flex-w">
+            <a class="logo-flex " href="{{route('website.index')}}">
+                <img class="pulse-grow " src="{{asset('website/imgs/Group.png')}}" style="width: 70px;
+                height: 70px !important;
+                max-height: 70px !important;">
+                <p class="cl1 mtext-112 hov1a m-l-70"> TURKEYSUPPLIERS.ONLINE</p>
+            </a>
+        </div>
+
+        <!-- Icon header -->
+
+
+        <!-- Button show menu -->
+        <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </div>
+    </div>
+    <!-- Menu Mobile -->
+    <div class="menu-mobile">
+        <ul class="topbar-mobile">
+            <li>
+                <div class="left-top-bar ">
+
+                    <div class="flex-link-header">
+                        <a href="{{$setting->facebook}}" class="fs-18 cl0 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="{{$setting->linkedin}}" class="fs-18 cl0 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+
+                        <a href="{{$setting->instagram}}" class="fs-18 cl0 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <a href="{{$setting->youtube}}" class="fs-18 cl0 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+
+
+                        <div class="options " style="display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: center;
+                        align-items: center;">
+                            @if(Auth::guard('company')->user())
+
+
+                                <ul class="main-menu">
+                                    <li class="">
+                                        <a href="#" class="social-icons icon-header-item cl2 hov-cl1 trans-04  js-show-cart bg1 bor2">
+                                            <img class="pulse-grow p-tb-7 p-lr-7 " src="{{asset('website/imgs/user.png')}}" >
+                                        </a>
+
+                                        <ul class="sub-menu" style="width: 200px">
+                                            <li class="flex-link-header">
+                                                <a href="#"> Welcome  {{Auth::guard('company')->user()->name  ?? null}} </a>
+                                            </li>
+                                            @if(Auth::guard('company')->user()->trade_role == 'seller')
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
+                                                    <a href="{{route('admin.home')}}">{{trans('custom.mydash')}}</a>
+                                                </li>
+                                            @endif
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
+                                                    <a href="{{route('user.orders')}}">{{trans('custom.orders')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Vector.png')}}"></span>
+                                                    <a href="{{route('user.fav',auth('company')->user()->id)}}">{{trans('custom.fav')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 30.png')}}"></span>
+                                                    <a href="{{route('buyer.profile',auth('company')->user()->id)}}">{{trans('custom.account')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><i class="fa fa-lock"></i></span>
+                                                    <a href="{{route('web.logout')}}">{{trans('custom.logout')}}</a>
+                                                </li>
+
+                                        </ul>
+                                    </li>
+                                  </ul>
+                            @endif
+
+                            @if(Auth::guard('admin')->user())
+
+                                <ul class="main-menu">
+                                    <li class="">
+                                        <a href="#" class="social-icons icon-header-item cl2 hov-cl1 trans-04  js-show-cart bg1 bor2">
+                                            <img class="pulse-grow p-tb-7 p-lr-7 " src="{{asset('website/imgs/user.png')}}" >
+                                        </a>
+
+                                        {{-- <a href="#">Welcome  {{Auth::guard('admin')->user()->name  ?? null}}  </a> --}}
+                                        <ul class="sub-menu">
+                                                <li class="flex-link-header">
+                                                    <a href="#"> Welcome   {{Auth::guard('admin')->user()->name  ?? null}}  </a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><img src="{{asset('website/imgs/Group 32.png')}}"></span>
+                                                    <a href="{{route('admin.home')}}">{{trans('custom.mydash')}}</a>
+                                                </li>
+                                                <li class="flex-link-header">
+                                                    <span><i class="fa fa-lock"></i></span>
+                                                    <a  href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+                                                        {{ __('custom.logout') }}
+                                                    </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                        </ul>
+                                    </li>
+                                  </ul>
+                            @endif
+
+                            <a href="{{route('messages.suppliers.show')}}"
+                                class="social-icons icon-header-item cl2 hov-cl1 trans-04 bg1 bor2  js-show-cart" > <!--  icon-header-noti data-notify="2"-->
+                                <img src="{{asset('website/imgs/chat-i.png')}}"  class="pulse-grow p-tb-7 p-lr-7">
+                            </a>
+
+                            <a href="{{route('cart.get.products')}}"
+                                class="social-icons icon-header-item cl2 hov-cl1 trans-04 bg1 bor2  js-show-cart" >
+                                <img src="{{asset('website/imgs/cart3.png')}}"   class="pulse-grow p-tb-7 p-lr-7">
+                            </a>
+
+                            <a href="#"
+                                class=" social-icons dis-block icon-header-item cl2 hov-cl1 trans-04 bg1 bor2  js-show-cart">
+                                <img src="{{asset('website/imgs/favorite.png')}}"   class="pulse-grow p-tb-7 p-lr-7">
+                            </a>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="flex-w">
+                        <ul class="main-menu ">
+                            <li class="dropdown-toggle">
+                                <a href="#">  {{app()->getLocale()}}</a>
+                                <ul class="sub-menu">
+                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <li><a  href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                          </ul>
+
+
+                         {{--  <ul class="main-menu">
+                            <li class="dropdown-toggle">
+                                <a href="#"> USD</a>
+                                <ul class="sub-menu">
+                                    <li><a  href="#">#</a></li>
+                                </ul>
+                            </li>
+                          </ul>--}}
+                    </div>
+
+                </div>
+            </li>
+
+            <li>
+                <div class="right-top-bar">
+
+
+                      <div class="wrap-icon-header ">
+                        <div class="form  ">
+                            <form  id="form" action="{{route('product.public.search')}}" method="GET">
+                                <input required="required" autocomplete="off" name="name" type="search" class="form-control search-input" id="search"
+                                 placeholder="{{trans('custom.What are you searching for')}} ?..."  style="font-size: 15px !important;">
+                                 <img class="@if(app()->getLocale() == 'ar') img-se-ar @endif" width="25" src="{{asset('website/imgs/cam.png')}}">
+                                <button class=" @if (app()->getLocale() == 'ar') btn-se-ar @endif"
+                                    type="submit">{{trans('custom.search')}} <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                            <div id="product-result"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="main-menu-m">
+            <ul class="main-menu">
+
+                <li class="dropdown-toggle">
+                    <a href="#">{{trans('custom.categories')}}</a>
+                    <ul class="sub-menu scroll-sub-menu">
+                        @if($cats->count() > 0)
+                            @foreach($cats as $category)
+                                <li>
+                                    <a href="{{route('category.products',$category->id)}}"> {{$category->name}}</a>
+                                    <ul class="sub-menu">
+                                        @if($category->subCategories->count() > 0)
+                                            @foreach($category->subCategories as $sub)
+                                                <li><a href="{{route('subcategory.products',$sub->id)}}">{{$sub->name}}</a></li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </li>
+            </ul>
+            <li>
+                <a href="{{route('website.index')}}">{{trans('custom.home')}}</a>
+            </li>
+
+            <li>
+                <a href="{{route('mediation')}}">{{trans('custom.mediation')}}</a>
+            </li>
+
+            <li>
+                <a href="{{route('translationServices')}}">{{trans('custom.translation_services')}}</a>
+            </li>
+
+            <li>
+                <a href="{{route('tradeShow')}}">{{trans('tradeshows.tradeshows')}}</a>
+            </li>
+
+            <li>
+                <a href="{{route('shipping')}}">{{trans('custom.shipping')}}</a>
+            </li>
+
+            <li>
+                <a href="{{route('membership')}}">{{trans('site.sub')}}</a>
+            </li>
+            @check_guard
+            <li>
+                <a href="{{route('webLogin')}}">{{trans('custom.login')}}</a>
+            </li>
+
+            <li>
+                <a href="{{route('webRegister')}}">{{trans('custom.register')}}</a>
+            </li>
+            @endcheck_guard
+            <li>
+                <a href="{{route('about_us')}}">{{trans('custom.about_us')}}</a>
+            </li>
+        </ul>
+    </div>
+
+<!-- The Modal -->
+<div id="imageModal" style="display: none" class="modal flex-c-m">
+
+    <!-- Modal content -->
+    <div class=" img9 flex-c-m" style=" position: relative; top: 20%;">
+        <div class="modal-content flex-c-m" style="    background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;">
+
+            <span class="close-img" style="color: #aaaaaa;
+            font-size: 33px;
+            font-weight: bold;
+            position: relative;
+            left: 47%;">&times;</span>
+            <div class="p-b-10 p-t-30">
+                <form class="form aForm" id="a-form" action="{{ route('product.public.imagesearch') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12 p-lr-100 ">
+                            <h3>Upload Image</h3>
+                            <canvas id= "canv1" style="height: 175px;
+                            border-style: solid;
+                            border-width: 1px;
+                            border-color: black;"></canvas>
+
+                            <p>
+                            Filename:
+                            <input type="file" name="image" multiple="false" accept="image/*" id=finput onchange="upload()">
+                            </p>
+                        </div>
+
+
+                    </div>
+                    <div class="row mt-2 p-t-30">
+                        <div class="col-md-12 txt-center">
+                            <div class="form-group mtext-1075">
+                                <button type="submit" class="btn bg1 cl0 p-tb-18 p-lr-100 bor2color" >{{trans('custom.search')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>
-        <!-- end of row -->
     </div>
-    <!-- end of container -->
 </div>
+
+<script>
+
+    // Get the modal
+    var imgmodal = document.getElementById("imageModal");
+
+    // Get the button that opens the modal
+    var cambtn = document.getElementById("camBtn");
+
+    // Get the <span> element that closes the modal
+    var span2 = document.getElementsByClassName("close-img")[0];
+
+    // When the user clicks the button, open the modal
+    cambtn.onclick = function() {
+        imgmodal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span2.onclick = function() {
+        imgmodal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == imgmodal) {
+        imgmodal.style.display = "none"; 
+    }
+    }
+    function upload(){
+  var imgcanvas = document.getElementById("canv1");
+  var fileinput = document.getElementById("finput");
+  var image = new SimpleImage(fileinput);
+  image.drawTo(imgcanvas);
+}
+</script>
+</header>

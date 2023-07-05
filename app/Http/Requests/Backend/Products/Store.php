@@ -41,7 +41,7 @@ class Store extends FormRequest
             'class_list.*.leadtime_qty'=>'nullable',
             'class_list.*.leadtime_price'=>'nullable',
             'class_list.*.days'=>'nullable|numeric',
-            'images' => 'required|array|min:1',
+
 //            'images.*' => 'mimes:jpg,jpeg,png,gif','svg|',
         ];
     }

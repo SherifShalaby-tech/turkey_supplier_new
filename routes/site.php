@@ -1,10 +1,12 @@
 <?php
 // website route
+
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\WebLoginController;
 use \App\Http\Controllers\WebsiteController;
 use \App\Http\Controllers\SocialMediaController;
-
+use App\Http\Controllers\SitemapController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
@@ -19,29 +21,42 @@ Route::group(
         Route::get('/webRegister', [WebLoginController::class, 'register'])->name('webRegister');
         Route::post('register',[WebLoginController::class,'postRegister'])->name('post.register');
         Route::get('logoutclerk',[WebLoginController::class,'logoutclerk'])->name('web.clerklogout');
+
+        Route::get('/resetPassword/{token}', [WebsiteController::class, 'ResetPasswordView'])->name('resetPass');
+        Route::post('/post/password',[WebsiteController::class,'ResetPassword'])->name('post.password');
         // Route::group(['middleware' =>'auth:admin'], function() {
+
+
+ 
+Route::get('sitemap.xml', [SitemapController::class, 'index' ])->name('website.sitemap');
 
         // });
             Route::get('/site',[WebsiteController::class,'index'])->name('website.index');
+            Route::get('currency',[WebsiteController::class,'currencySession'])->name('change.currency');
             Route::get('newArrivals',[WebsiteController::class,'getNewArrivals'])->name('website.new_arrivals');
-            Route::get('product/{slug}',[WebsiteController::class,'getProductDetails'])->name('product.details');
+            Route::get('product/{id}/{slug}',[WebsiteController::class,'getProductDetails'])->name('product.details');
             Route::get('search/product',[WebsiteController::class,'searchProduct'])->name('product.search');
             Route::get('public/search/product',[WebsiteController::class,'publicSearch'])->name('product.public.search');
             Route::get('shipping/air_freight',[WebsiteController::class,'air_freight'])->name('shipping.air_freight');
             Route::get('shipping/sea_freight',[WebsiteController::class,'sea_freight'])->name('sea_freight');
+
+            Route::post('public/imagesearch/product',[WebsiteController::class,'searchWithImage'])->name('product.public.imagesearch');
+            Route::get('public/imagesearch/product',[WebsiteController::class,'getsearchWithImage'])->name('product.public.imagesearch.get');
+
             // social media auth [login and register]
             // redirect function
-            Route::get('social-media/login/{provider}',[WebsiteController::class,'redirectToProvider'])->name('social.redirectToProvider');
+            Route::get('auth/login/{provider}',[WebsiteController::class,'redirectToProvider'])->name('social.redirectToProvider');
             // callback function
-            Route::get('social-media/login/{provider}/callback',[WebsiteController::class,'callbackToProvider'])->name('social.callbackToProvider');
+            Route::get('auth/{provider}/callback',[WebsiteController::class,'callbackToProvider'])->name('social.callbackToProvider');
             Route::get('about-us',[WebsiteController::class,'about_us'])->name('about_us');
 
             Route::get('shipping',[WebsiteController::class,'shipping'])->name('shipping');//ddddddddddddddddddddddddddddddddddddddddddddddd
             Route::get('shipping/{id}',[WebsiteController::class,'shippingDetails'])->name('shipping.details'); //ddddddddddddddddddddddd
-
+            Route::post('shipping_new_order',[WebsiteController::class,'shippingOrder'])->name('shipping.new_order');
             Route::post('subscribe',[WebsiteController::class,'subscribe'])->name('subscribe');
             //get all categories
             Route::get('categories',[WebsiteController::class,'getAllCategories'])->name('categories.index');
+            Route::get('filterSubCategories',[WebsiteController::class,'getFilterItems'])->name('categories.filterSubCategory');
             // get subcategories by category id
             Route::get('category/{name}/subcategories',[WebsiteController::class,'getProducts'])->name('category.products');
             Route::get('subcategory/{id}/products',[WebsiteController::class,'getAllProducts'])->name('subcategory.products');
@@ -73,6 +88,7 @@ Route::group(
             Route::get('you_may_like/products',[WebsiteController::class,'getProductsYouMayLike'])->name('getProductsYouMayLike');
             Route::get('trending/products',[WebsiteController::class,'getTrendingProducts'])->name('getTrendingProducts');
             Route::get('sellers',[WebsiteController::class,'getSellers'])->name('getSellers');
+            Route::get('filterSellers',[WebsiteController::class,'getFilterSellers'])->name('filterSellers');
             // plan payment
             Route::get('plan/payment',[WebsiteController::class,'planPayment'])->name('planPayment');
             // get supplier by subcategories
@@ -84,6 +100,8 @@ Route::group(
             // support chat
             Route::get('chat/support/message',[WebsiteController::class,'getMessagesSupport'])->name('chat.support.get.message');
             Route::post('chat/support',[WebsiteController::class,'sendMessageSupport'])->name('chat.support.send.message');
+            // reset password
+            Route::get('buyer/reset/password',[WebsiteController::class,'buyerResetPassword'])->name('buyer.reset.password');
             Route::group(['middleware' => 'auth:company'],function(){
                 // auth routes
                 Route::get('logout',[WebLoginController::class,'logout'])->name('web.logout');
@@ -94,7 +112,7 @@ Route::group(
                 // update profile
                 Route::put('buyer/update/profile',[WebsiteController::class,'buyerUpdateProfile'])->name('buyer.update.profile');
                 // fav page
-                Route::get('user/{id}/favorite',[WebsiteController::class,'getFavPage'])->name('user.fav');
+                Route::get('user/favorite',[WebsiteController::class,'getFavPage'])->name('user.fav');
                 // product add to cart
                 Route::post('add/product/carts',[\App\Http\Controllers\CartController::class,'addProduct'])->name('carts.add.product');
                 // get carts page
@@ -125,6 +143,11 @@ Route::group(
                 Route::get('order/{order_number}/timeline',[WebsiteController::class,'getTimelineOrders'])->name('getTimelineOrders');
                 // add fav
                 Route::post('add/product/fav',[\App\Http\Controllers\Favcontroller::class,'addFav'])->name('fav.add');
+                // delete fav
+                Route::delete('remove/product/fav',[\App\Http\Controllers\Favcontroller::class,'removeFav'])->name('fav.remove');
+                //reset password
+                //change currency
+                Route::post('product/change/currency',[WebsiteController::class,'changeCurrency'])->name('productChangeCurrency');
             });
     // });
 });

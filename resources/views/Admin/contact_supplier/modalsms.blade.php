@@ -100,16 +100,16 @@
                                         </div>
                                     </div> --}}
                                     <div class="media-body mt-25">
-                                        <span class="text-primary">{{ $contactSupplier->user?->name ?? $contactSupplier->visitor?->name }}</span>
-                                        <span class="d-sm-inline d-none"> &lt;{{ $contactSupplier->user?->email ?? $contactSupplier->visitor?->email }}&gt;</span>
-                                        <strong class="text-muted d-block">{{ __('contactSuppliers.to') }} {{ $contactSupplier->supplier?->name ?? $contactSupplier->visitor?->name}}</strong>
+                                        <span class="text-primary">{{ $contactSupplier->supplier?->name ?? $contactSupplier->visitor?->name }}</span>
+                                        <span class="d-sm-inline d-none"> &lt;{{ $contactSupplier->supplier?->email ?? $contactSupplier->visitor?->email }}&gt;</span>
+                                        <strong class="text-muted d-block">{{ __('contactSuppliers.to') }} {{ $contactSupplier->user?->name ?? $contactSupplier->visitor?->name}}</strong>
                                         <span>
                                            <strong class="text-muted d-block">  {{ __('contactSuppliers.productname') }} : {{ $contactSupplier->product?->name }}</strong>
                                            <p class="text-bold-500">{{ __('contactSuppliers.greeting') }}!</p>
                                            <p class="text-bold-500">{!! $contactSupplier->subject !!}</p>
                                            <p>{!! $contactSupplier->message !!}</p>
                                            <p class="mb-0">{{ __('contactSuppliers.sincerely') }},</p>
-                                           <p class="text-bold-500">{{ $contactSupplier->supplier?->name ?? $contactSupplier->visitor?->name}} {{ __('contactSuppliers.company') }}</p>
+                                           <p class="text-bold-500">{{ $contactSupplier->user?->name ?? $contactSupplier->visitor?->name}} {{ __('contactSuppliers.company') }}</p>
                                            <div class="btn btn-primary">click to Attachment </div>
                                            {{-- @if ($contactSupplier->file )
                                            <embed src="{{url('/Attachments/'.$contactSupplier->file)}}" style="width:900px; height:800px;" frameborder="0">
@@ -222,7 +222,7 @@
                                         @endif
                                         {{-- <input type="hidden" name="user_id" value="{{$contactSupplier->user?->id ?? $contactSupplier->visitor?->id}}"> --}}
                                         @if($contactSupplier->user_id <> null)
-                                        <input type="hidden" name="user_id" value="{{$contactSupplier->user?->id }}">
+                                        <input type="hidden" name="user_id" value="{{$contactSupplier->supplier?->id }}">
                                         @elseif($contactSupplier->visitor_id <> null)
                                         <input type="hidden" name="visitor_id" value="{{$contactSupplier->visitor?->id}}">
                                         @endif

@@ -28,6 +28,7 @@ return [
     'image' => 'A copy of the bank transfer receipt',
     'ipan' => 'Number for bank transfer',
     'ipansms' => 'Please attach a copy of the bank transfer attachment',
+    'unlimited' => 'unlimited',
 
 
 ];

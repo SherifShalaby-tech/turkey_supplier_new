@@ -37,9 +37,7 @@ class MediationController extends Controller
         if ($image = $request->file('image')) {
             $file_name = Str::slug($request->title).".".$image->getClientOriginalExtension();
             $path = public_path('images/mediations/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $input['admin_add'] = Auth::user()->name;
@@ -73,9 +71,7 @@ class MediationController extends Controller
             }
             $file_name = Str::slug($request->title).".".$image->getClientOriginalExtension();
             $path = $path = public_path('images/mediations/' . $file_name);;
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $mediation->update($input);

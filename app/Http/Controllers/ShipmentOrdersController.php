@@ -82,7 +82,7 @@ class ShipmentOrdersController extends Controller
                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(200, 200);
+                // $image_resize->resize(200, 200);
                 $image_resize->save(public_path('/images/brands/' . $filename));
 
             } else {
@@ -129,7 +129,7 @@ class ShipmentOrdersController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+                //  $image_resize->resize(200, 200);
                  $image_resize->save(public_path('/images/brands/' . $filename));
 
                  $BrandImage = $path . '/' . $currentImage;
@@ -144,7 +144,7 @@ class ShipmentOrdersController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+                //  $image_resize->resize(200, 200);
                  $image_resize->save(public_path('/images/brands/' . $filename));
              }
 

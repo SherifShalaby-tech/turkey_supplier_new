@@ -7,6 +7,15 @@ return [
     'cancel' => 'إلغاء الأمر',
     'actions' => 'العمليات',
 
+
+    "Sorry , You Should Upload Valid Image" =>"JPG,JPEG,PNG,BMP نأسف تاكد من نوع الصورة من نوع",
+    "You won't be able to delete!" =>"هل تريد فعلا حذف الصورة ؟",
+    "Are you sure?" =>"تاكيد",
+    "Oops..." =>"نأسف...",
+    "Your Image has been deleted." =>"تم حذف الصورة بنجاح",
+
+
+
     'excel' => 'تصدير إكسل',
     'print' => 'طباعة',
     'administrative_part' => 'ADMINISTRATIVE PARTS',

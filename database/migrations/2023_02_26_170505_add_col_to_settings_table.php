@@ -14,7 +14,7 @@ class AddColToSettingsTable extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->bigInteger('rate')->nullable();
+            $table->float('rate')->nullable();
             $table->string('ipan')->nullable();
         });
     }

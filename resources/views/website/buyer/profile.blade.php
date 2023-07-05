@@ -1,322 +1,167 @@
 @extends('layouts.website.master')
 @section('title',auth('company')->user()->name)
 @section('content')
-
-<style>
-
-
-    .btn {
-        display: inline-block;
-        font: inherit;
-        background: none;
-        border: none;
-        color: inherit;
-        padding: 0;
-        cursor: pointer;
-    }
-
-    .btn:focus {
-        outline: 0.5rem auto #4d90fe;
-    }
-
-    .visually-hidden {
-        position: absolute !important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px);
-    }
-
-    /* Profile Section */
-
-    .profile {
-        padding: 5rem 0;
-    }
-
-    .profile::after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-
-    .profile-image {
-        float: left;
-        width: calc(33.333% - 1rem);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 3rem;
-    }
-
-    .profile-image img {
-        border-radius: 50%;
-        height: 140px;
-        width: 140px !important;
-        border: #184ea7 1px solid;
-    }
-
-    .profile-user-settings,
-    .profile-stats,
-    .profile-bio {
-        float: left;
-        width: calc(66.666% - 2rem);
-    }
-
-    .profile-user-settings {
-        margin-top: 1.1rem;
-    }
-
-    .profile-user-name {
-        display: inline-block;
-        /*font-size: 3.2rem;*/
-        font-weight: 300;
-    }
-
-    .profile-edit-btn {
-        /*font-size: 1.4rem;*/
-        line-height: 1.8;
-        border: 0.1rem solid #dbdbdb;
-        border-radius: 0.3rem;
-        padding: 0 2.4rem;
-        margin-left: 2rem;
-    }
-
-    .profile-settings-btn {
-        /*font-size: 2rem;*/
-        margin-left: 1rem;
-    }
-
-    .profile-stats {
-        margin-top: 2.3rem;
-    }
-
-    .profile-stats li {
-        display: inline-block;
-        /*font-size: 1.6rem;*/
-        line-height: 1.5;
-        margin-right: 4rem;
-        cursor: pointer;
-    }
-
-    .profile-stats li:last-of-type {
-        margin-right: 0;
-    }
-
-    .profile-bio {
-        /*font-size: 1.6rem;*/
-        font-weight: 400;
-        line-height: 1.5;
-        margin-top: 2.3rem;
-    }
-
-    .profile-real-name,
-    .profile-stat-count,
-    .profile-edit-btn {
-        font-weight: 600;
-    }
-
-    /* Gallery Section */
-    h2 {
-        display: block;
-        /*font-size: 3em;*/
-        margin-block-start: 0.83em;
-        margin-block-end: 0.83em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        font-weight: bold;
-    }
-
-     .fa-clone,
-    .fa-comment {
-        transform: rotateY(180deg);
-    }
-
-
-    /* Media Query */
-
-    @media screen and (max-width: 40rem) {
-        .profile {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 4rem 0;
-        }
-
-        .profile::after {
-            display: none;
-        }
-
-        .profile-image,
-        .profile-user-settings,
-        .profile-bio,
-        .profile-stats {
-            float: none;
-            width: auto;
-        }
-
-        .profile-image img {
-            width: 7.7rem;
-        }
-
-        .profile-user-settings {
-            flex-basis: calc(100% - 10.7rem);
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .profile-user-name {
-            /*font-size: 2.2rem;*/
-        }
-
-        .profile-edit-btn {
-            order: 1;
-            padding: 0;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .profile-edit-btn {
-            margin-left: 0;
-        }
-
-        .profile-bio {
-            /*font-size: 1.4rem;*/
-            margin-top: 1.5rem;
-        }
-
-        .profile-edit-btn,
-        .profile-bio,
-        .profile-stats {
-            flex-basis: 100%;
-        }
-
-        .profile-stats {
-            order: 1;
-            margin-top: 1.5rem;
-        }
-
-        .profile-stats ul {
-            display: flex;
-            text-align: center;
-            padding: 1.2rem 0;
-            border-top: 0.1rem solid #dadada;
-            border-bottom: 0.1rem solid #dadada;
-        }
-
-        .profile-stats li {
-            /*font-size: 1.4rem;*/
-            flex: 1;
-            margin: 0;
-        }
-
-        .profile-stat-count {
-            display: block;
-        }
-    }
-
-    @supports (display: grid) {
-        .profile {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            grid-template-rows: repeat(3, auto);
-            grid-column-gap: 3rem;
-            align-items: center;
-        }
-
-        .profile-image {
-            grid-row: 1 / -1;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-            grid-gap: 2rem;
-        }
-
-        .profile-image,
-        .profile-user-settings,
-        .profile-stats,
-        .profile-bio,
-        .gallery-item,
-        .gallery {
-            width: auto;
-            margin: 0;
-        }
-
-        @media (max-width: 40rem) {
-            .profile {
-                grid-template-columns: auto 1fr;
-                grid-row-gap: 1.5rem;
-            }
-
-            .profile-image {
-                grid-row: 1 / 2;
-            }
-
-            .profile-user-settings {
-                display: grid;
-                grid-template-columns: auto 1fr;
-                grid-gap: 1rem;
-            }
-
-            .profile-edit-btn,
-            .profile-stats,
-            .profile-bio {
-                grid-column: 1 / -1;
-            }
-
-            .profile-user-settings,
-            .profile-edit-btn,
-            .profile-settings-btn,
-            .profile-bio,
-            .profile-stats {
-                margin: 0;
-            }
-        }
-    }
-</style>
-
-<div class="container">
-
-    <div class="profile">
-
-        <div class="profile-image">
-            @if($buyer->firstMedia)
-                <img src="{{ asset('images/companies/'.$buyer->firstMedia->file_name) }}" alt="{{ $buyer->name }}" class="img-fluid w-100" >
-            @else
-                <img src="{{ asset('images/no-image.png') }}" alt="{{ $buyer->name }}" class="img-fluid w-100" >
-            @endif
-        </div>
-
-        <div class="profile-user-settings">
-
-            <h3 class="profile-user-name"> {{trans('custom.name')}} : {{$buyer->name}}</h3>
-
-              <a href="{{route('buyer.edit.profile',$buyer->id)}}" class="btn profile-edit-btn">{{trans('custom.edit_profile')}}</a>
-{{--             <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>--}}
-
-        </div>
-
-        <div class="profile-stats">
-
-            <ul>
-                <li><i class="fas fa-phone"></i> {{trans('custom.phone')}} : {{$buyer->phone}}</li>
-                <li><i class="fas fa-envelope"></i> {{trans('custom.email')}} : {{$buyer->email}}</li>
-
-            </ul>
-
-        </div>
-
-        <div class="profile-bio">
-            <p><span class="profile-real-name">{{trans('custom.bio')}} :  {{$buyer->description}} </span> </p>
-        </div>
-
+<div class="bg0 p-t-10 p-b-20">
+    <div class="container-fluid">
+        <p class="cl6">
+            <a  class="cl6" href="{{route('website.index')}}"> <i class="fas fa-home"></i> </a>
+            /
+            <a  class="cl6" href="#"> {{trans('custom.profile')}} </a>
+        </p>
     </div>
-
-
 </div>
 
+<section class="bg0 p-t-5 p-b-120">
+    <div class="container-fluid">
 
+       
+            <div class="row p-b-10 p-t-0">
+                <div class="col-12 col-md-12 col-lg-12 m-lr-auto">
+                    <div class="col-12 col-md-4 col-lg-4 m-lr-auto">
+                        <div class="hov-img0 txt-center">
+
+                            <a class="position-btn-edit btn bg-btn1-zi" href="{{route('buyer.edit.profile',$buyer->id)}}" > 
+                                <i class="fas fa-pencil-alt"></i>
+                             </a>
+                            @if($buyer->firstMedia)
+                                <img class="circle-img txt-center"  src="{{ asset('images/companies/'.$buyer->firstMedia->file_name) }}" alt="{{ $buyer->name }}"
+                                style="max-width: 100%;  height: auto; width: 50% !important;
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                background-position: 50% 50%;
+                                padding: 20px;">
+
+                                <p class="cl2 mtext-114 p-b-20">{{$buyer->name}}</p>
+                            @else
+                                <img class="circle-img txt-center"  src="{{ asset('images/no-image.png') }}" alt="{{ $buyer->name }}" 
+                                style="max-width: 100%;  height: auto; width: 50% !important;
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                background-position: 50% 50%;
+                                padding: 20px;">
+
+                                <p class="cl11 mtext-114 p-b-20">TURKEYSUPPLIERS.ONLINE</p>
+                            @endif
+
+                        </div>                
+                    </div>
+                </div>
+            </div>  
+
+            <div class="p-b-10 separator">
+                <div class="flex-center bg1 p-0  b-rt-lb-20">
+                    <h3 class="latotext-108 cl0 p-r-l-10 p-10-40">
+                        {{trans('custom.bio')}}
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row p-b-70 flex-c-m ">
+                <div class="col-md-6 col-lg-6 col-12 txt-start m-t-40 bg0 p-all-20">
+                    <div class="col-12 bg0 cl2 mtext-108">       
+                        <p>    {{$buyer->description}} </p>
+                    </div>
+                </div>
+            </div>  
+
+            <div class="p-b-10 separator">
+                <div class="flex-center bg1 p-0  b-rt-lb-20">
+                    <h3 class="latotext-108 cl0 p-r-l-10 p-10-40">
+                        {{trans('custom.my_contact')}}
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row p-b-0 flex-c-m ">
+                <div class="col-md-4 col-lg-4 txt-start m-t-40 bg0   bor2 p-all-20">
+
+                    <div class="col-12 bg-input1 cl2 m-t-20 m-b-20 mtext-108">  
+                        <p> <i class="fa-solid fa-phone"></i> {{$buyer->phone}}</p>
+                    </div>
+                    <div class="col-12 bg-input1 cl2 mtext-108">  
+                        <p> <i class="fa-solid fa-envelope"></i>  {{$buyer->email}} </p>
+                    </div>
+                    
+                </div>
+            </div>  
+
+            <div class="p-b-10 separator">
+                <div class="flex-center bg1 p-0  b-rt-lb-20">
+                    <h3 class="latotext-108 cl0 p-r-l-10 p-10-40">
+                        {{trans('custom.my_Fav_Products')}}
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row p-b-0 flex-c-m ">
+
+                @if($products->count() > 0)
+                @foreach($products as $product)
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-6 p-b-35 isotope-item ">
+                        <!-- Block2 -->
+                        <div class="col-12 bg-s2">
+                            <div class="block2">
+                                {{-- <form action="{{route('fav.add')}}" method="POST">
+                                    @csrf
+                                    @if(auth('company')->user())
+                                        <input type="hidden" name="company_id" value="{{auth('company')->user()->id}}">
+                                    @else
+                                        <input type="hidden" name="company_id" value="{{$product->company_id}}">
+                                    @endif
+                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                    <button  href="#" class="btn btn-red cl0  position-btn-c">
+                                        X
+                                    </button>
+                                </form> --}}
+                                <div class="block2-pic hov-img0">
+                                    @if($product->product->firstMedia)
+                                         <img  src="{{ asset('images/products/' . $product->product->firstMedia->file_name) }}" alt="{{$product->product->name}}"
+                                            style="  border-radius: 30px; padding: 5px 5px; right:0;">
+                                    @else
+                                        <img  src="{{ asset('images/no-image.png') }}" alt="" class="img-fluid w-100"
+                                             style=" border-radius: 30px;padding: 5px 5px;right:0; ">
+                                    @endif
+                                </div>
+    
+                                <div class="block2-txt flex-w flex-t p-t-5">
+                                    <div class="block2-txt-child1 flex-col-l ">
+                                        <a href="#" class="mtext-102 cl2 hov-cl1 trans-04 js-name-b2 p-b-5">
+                                            {{$product->product->name}}
+                                        </a>
+    
+                                        <span class="mtext-102 cl1 ">
+                                            {{$code}} {{$product->product->price}}
+                                        </span>
+                                    </div>
+
+                                </div>
+    
+                                    <a  href="{{route('product.details', ['id' => $product->product->id, 'slug' => $product->product->slug])}}"  class="btn bg1 cl0  position-btn">
+                                        {{trans('custom.product_details')}}
+                                    </a>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                @endforeach
+                @else
+                    <div class="error-not-found">
+                        <div class="not-found-msg">
+                            <p class="alert alert-danger">{{trans('custom.products_not_found')}}</p>
+                        </div>
+                    </div>
+                @endif
+
+
+            </div>
+
+            </div>  
+
+
+
+    </div>
+</section>	
 
 
 @stop

@@ -15,11 +15,13 @@ class ContactSupplier extends Model
     }
 
     public function supplier(){
-        return $this->belongsTo('App\Models\Company','supplier_id');
+                return $this->belongsTo('App\Models\Company','user_id');
+
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\Company','user_id');
+                return $this->belongsTo('App\Models\Company','supplier_id');
+
     }
     public function visitor(){
         return $this->belongsTo(Visitor::class,'visitor_id');

@@ -131,7 +131,7 @@ return [
     'categories' => 'الاقسام',
     'products' => 'المنتجات',
     'categories_not_found' => 'لا توجد اقسام',
-    'products_not_found' => 'لا توجد منتجات داخل القسم',
+    'products_not_found' => 'تابعاً باستمرار، إن شاء الله الكثير من المنتجات ستكون موجودة قريبا',
     'mediation' => 'الوساطة',
     'translation_services' => 'خدمات الترجمة',
     'trade_show' => 'المعارض',
@@ -264,7 +264,33 @@ return [
     'plan_validation_1' => 'عدد المنتجات لا يتوافق مع الباقة',
      'plan_validation_2' => 'عدد حروف الوصف تفوق عدد الحروف المتاحة لديكم',
     'plan_validation_3' => 'عدد الصور كبير جدا عن المتاح فى الباقة',
-    'all_products' => 'جميع المنتجات'
+    'all_products' => 'جميع المنتجات',
+
+    'home' => 'الرئيسية',
+    'supplier_details' => 'تفاصيل المورد',
+    'Forgot_your_password?' => 'هل نسيت الرقم السري ؟',
+    'phone_number' => 'الهاتف',
+    'Reset_password' => 'إعادة ضبط الرقم السري',
+    'get_started' => 'البدء',
+    'Read More' => 'اقرأ أكثر',
+
+    'ALL_CATEGORY' => 'كل الفئات',
+    'ALL_SUPPLIERS' => 'كل الموردين',
+    'my_contact' => 'معلومات الإتصال بى',
+    'my_Fav_Products' => 'منتجاتي المفضلة',
+    'supplier_product' => 'منتجات المورد',
+    'see_all' => 'اظهار الكل',
+ 
+    'search_result' => 'نتائج البحث',
+     
+    'login' => 'تسجيل الدخول',
+    'user' => 'مستخدم',
+    'company' => 'شركة',
+    'forgot_password' => 'نسيت كلمة السر؟',
+    'not_member' => 'لست عضوا بعد؟  سجل ',
+    'Register' => 'تسجيل حساب جديد',
+    
+        'email_subscribtion' => 'اشتراكات البريد الألكتروني',
 
 ];
 

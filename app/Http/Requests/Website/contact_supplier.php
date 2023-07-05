@@ -24,9 +24,9 @@ class contact_supplier extends FormRequest
     public function rules()
     {
         return [
-            'supplier_id' => 'required|exists:companies,id',
+            // 'supplier_id' => 'required|exists:companies,id',
             // 'user_id'     => 'required|exists:companies,id',
-            'product_id'  => 'required|exists:products,id',
+            // 'product_id'  => 'required|exists:products,id',
             'message'     => 'required',
             'address'     => 'nullable',
             'subject'     => 'required',

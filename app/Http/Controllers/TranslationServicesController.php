@@ -67,7 +67,7 @@ class TranslationServicesController extends Controller
                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(200, 200);
+                // $image_resize->resize(200, 200);
                 $image_resize->save(public_path('/images/translation_services/' . $filename));
 
             } else {
@@ -113,7 +113,7 @@ class TranslationServicesController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+                //  $image_resize->resize(200, 200);
                  $image_resize->save(public_path('/images/translation_services/' . $filename));
 
                  $TranslationServicesImage = $path . '/' . $currentImage;
@@ -128,7 +128,7 @@ class TranslationServicesController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+                //  $image_resize->resize(200, 200);
                  $image_resize->save(public_path('/images/translation_services/' . $filename));
              }
 

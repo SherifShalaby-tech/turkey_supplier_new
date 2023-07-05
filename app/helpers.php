@@ -1,7 +1,60 @@
 <?php
 
 use App\Models\Notification;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Session\Session;
+
+// decode base 64 images
+function decodeBase64Image($base64Image) {
+
+    // Decode the base64-encoded image
+    $imageData = base64_decode(explode(",",$base64Image)[1]);
+
+    // Get the image size and type
+    list($width, $height, $type) = getimagesizefromstring($imageData);
+
+    // Get the file type
+    $fileType = image_type_to_mime_type($type);
+
+    // Get the file size in bytes
+    $fileSize = strlen($imageData);
+
+    // Generate a unique file name
+    $fileName = "_".uniqid() . '.' . explode("/",$fileType)[1];
+
+    // Return an associative array containing the file name, file size, and file type
+    return array(
+        'name' => $fileName,
+        'size' => $fileSize,
+        'type' => $fileType
+    );
+}
+function getBase64Image($Image)
+{
+
+    $image_path = str_replace(env("APP_URL") . "/", "", $Image);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $image_path);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $image_content = curl_exec($ch);
+    curl_close($ch);
+//    $image_content = file_get_contents($image_path);
+    $base64_image = base64_encode($image_content);
+    $b64image = "data:image/jpeg;base64," . $base64_image;
+    return  $b64image;
+}
+function getCroppedImages($cropImages){
+    $dataNewImages = [];
+    foreach ($cropImages as $img) {
+        if (strlen($img) < 200){
+            $dataNewImages[] = getBase64Image($img);
+        }else{
+            $dataNewImages[] = $img;
+        }
+    }
+    return $dataNewImages;
+}
 
 
 function sendNotification($message_ar ,$message_en,$receivers,$url=null)
@@ -73,5 +126,30 @@ function sendNotification($message_ar ,$message_en,$receivers,$url=null)
     {
         return asset('uploads').'/'.$name;
     }
+
+
+    function get_price($price){
+        $currency=request()->session()->get('currency');
+        $setting = Setting::where('currency_id',$currency->id)->first();
+        $new_price= $price;
+        // $code = ' $';
+        if( $currency->code == "TRY"){
+            $new_price = $price * $setting->rate;
+            // $code = ' ₺';
+        }
+        return $new_price;
+
+    }
+
+    function get_currency_co(){
+        $currency_session =request()->session()->get('currency');
+        $currency =  Currency::where('id',$currency_session->id)->first();
+        // currency
+        return $currency->symbol;
+
+    }
+
+
+
 
 }

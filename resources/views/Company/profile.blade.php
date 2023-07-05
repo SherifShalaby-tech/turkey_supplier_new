@@ -279,21 +279,9 @@
                                         <div class="tab-pane fade " id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
                                             <form novalidate method="post" action="{{ route('company.company.changePassword', $company->id) }}" >
                                                 @csrf
-                                                @method('PUT')
+                                                {{-- @method('PUT') --}}
                                                 <input type="hidden" value="{{ $company->id }}">
                                                 <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <div class="controls">
-                                                                <label for="account-old-password">{{ __('profile.oldpassword') }}</label>
-                                                                <input type="password" class="form-control" id="account-old-password" required placeholder="{{ __('profile.oldpassword') }}" data-validation-required-message="{{ __('profile.This_old_password_field_is_required') }}"
-                                                                name="current_password" value="{{ old('current_password') }}">
-                                                                @error('current_password')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <div class="controls">

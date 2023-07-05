@@ -32,7 +32,7 @@ class SettingsController extends Controller
             $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(80, 80);
+            // $image_resize->resize(80, 80);
             $image_resize->save(public_path('/images/' . $filename));
 
             $userPhoto = $path . '/' . $currentAvatar;

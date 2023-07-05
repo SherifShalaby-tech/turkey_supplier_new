@@ -62,9 +62,9 @@
                     </a>
                 </li>
             @endif
-           @if (auth()->user()->hasPermission('read_clerks') && Auth::user()->status == true)
+           @if (auth()->user()->hasPermission('read_clerks'))
                <li>
-                   <a class="menu-item" href="{{ route('admin.clerks.index') }}">
+                   <a class="menu-item" href=" @if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)) # @else {{ route('admin.clerks.index') }} @endif">
                        <i class="icon-badge"></i>
                        <span data-i18n="Classic Menu">{{ __('clerks.clerks') }}</span>
                        @if(Auth::guard('admin')->user())
@@ -77,9 +77,9 @@
                    </a>
                </li>
            @endif
-            @if (auth()->user()->hasPermission('read_product') && Auth::user()->status == true)
+            @if (auth()->user()->hasPermission('read_product'))
                 <li>
-                    <a class="menu-item" href="{{ route('admin.products.index') }}">
+                    <a class="menu-item" href=" @if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)) # @else {{ route('admin.products.index') }} @endif">
                         <i class="icon-basket-loaded"></i>
                         <span data-i18n="Classic Menu"> {{ __('product.products') }}</span>
                         <span class="badge badge badge-info badge-pill float-right mr-2">
@@ -258,9 +258,9 @@
                     </a>
                 </li>
             @endif
-            @if(auth()->user()->hasPermission('read_contactsuppliers') && Auth::user()->status == true)
-                <li>
-                    <a class="menu-item" href="{{ route('admin.contactSuppliers.index') }}">
+            @if(auth()->user()->hasPermission('read_contactsuppliers'))
+                <li> 
+                    <a class="menu-item" href=" @if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)) # @else {{ route('admin.contactSuppliers.index') }} @endif">
                         <i class="la la-envelope"></i>
                         <span data-i18n="Classic Menu" > {{trans('contactsuppliers.contactsuppliers')}}</span>
                         <span class="badge badge badge-info badge-pill float-right mr-2">
@@ -308,6 +308,18 @@
                     </a>
                 </li>
             @endif
+
+            @if(Auth::guard('admin')->user())
+                <li>
+                    <a class="menu-item" href="{{ route('subscribe') }}">
+                        <i class="la ft-message-circle"></i>
+                        <span data-i18n="Classic Menu">{{ __('custom.email_subscribtion') }}</span>
+                        <span class="badge badge badge-info badge-pill float-right mr-2">
+                            {{ App\Models\SubScribe::count() }}
+                        </span>
+                    </a>
+                </li>
+             @endif
             {{-- @if (auth()->user()->hasPermission('read_shipment_order_news')) --}}
             @if(Auth::guard('admin')->user())
                 <li>

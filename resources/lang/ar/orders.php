@@ -17,5 +17,11 @@ return [
     'product_code' => 'كود المنتج',
     'category_name' => 'القسم',
     'product_image' => 'صوره المنتج',
+    
+    
+    'email' => 'الإيميل',
+    'emails' => 'كل الإيميلات',
+
+    'subscribes'=>'اشتراكات الإيميل',
 
 ];

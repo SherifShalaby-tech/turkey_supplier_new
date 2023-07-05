@@ -29,7 +29,7 @@ class TradeShowRequest extends FormRequest
             // 'video' => ['nullable','mimes:mp4,mov,ogg,qt', 'max:20000'],
             'description' => ['required','max:2500'],
             'images' => 'nullable',
-            'images.*' => 'mimes:jpg,jpeg,png,gif|max:3000',
+//            'images.*' => 'mimes:jpg,jpeg,png,gif|max:3000',
             'linkurl' => 'nullable|url',
             'videourl' => 'nullable',
         ];

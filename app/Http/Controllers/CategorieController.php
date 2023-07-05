@@ -49,6 +49,7 @@ class CategorieController extends BaseController
 
     public function store(Request $request)
     {
+
         $this->authorizeForUser($request->user('api'), 'create', Category::class);
 
         request()->validate([
@@ -67,7 +68,7 @@ class CategorieController extends BaseController
 
     public function show($id){
         //
-    
+
     }
 
     //-------------- Update Category ---------------\\

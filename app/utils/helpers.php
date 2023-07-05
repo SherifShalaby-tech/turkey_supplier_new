@@ -85,4 +85,37 @@ class helpers
         return $code;
     }
 
+    function get_price($price){
+        $currency=request()->session()->get('currency');
+        if($currency){
+            $setting = Setting::where('currency_id',$currency->id)->first();
+            $new_price= $price;
+            // $code = ' $';
+            if( $currency->code == "TRY"){
+                $new_price = $price * $setting->rate;
+                // $code = ' ₺';
+            }
+            return round($new_price, 2);;
+        }else{
+            return $price;
+        }
+       
+
+    }
+
+    function get_currency_co(){
+        $currency_session =request()->session()->get('currency');
+        $code = ' $';
+        if($currency_session){
+            $currency =  Currency::where('id',$currency_session->id)->first();
+             // currency
+            return $currency->symbol;
+        }else{
+            return $code;
+        }
+        
+       
+
+    }
+
 }

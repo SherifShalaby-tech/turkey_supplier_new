@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
+    Route::post('/products/upload_image', [\App\Http\Controllers\Admin\ProductController::class,'upload_image']);
 
 /*auth middleware api passport token*/
 

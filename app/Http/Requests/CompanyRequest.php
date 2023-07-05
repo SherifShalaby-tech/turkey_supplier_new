@@ -34,7 +34,7 @@ class CompanyRequest extends FormRequest
                     'phone3'   => 'nullable',
                     'country' => 'required|string',
                     'password' => 'required|confirmed|min:6|max:10',
-                    'images' => 'required|array|min:1',
+//                    'images' => 'required|array|min:1',
 //                    'images.*' => 'mimes:jpg,jpeg,png,gif|',
                 ];
             }
@@ -54,7 +54,7 @@ class CompanyRequest extends FormRequest
                     'phone3'   => 'nullable',
                     'country' => 'required|string',
                     'password' => 'nullable|confirmed|min:6|max:10',
-                    'images' => 'nullable|array|min:1',
+//                    'images' => 'nullable|array|min:1',
 //                    'images.*' => 'mimes:jpg,jpeg,png,gif|max:20000',
                 ];
             }

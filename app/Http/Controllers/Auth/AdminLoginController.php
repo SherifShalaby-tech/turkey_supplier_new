@@ -26,7 +26,7 @@ class AdminLoginController extends Controller
         // }else{
         //     return 'hello';
         // }
-
+        //   return  bcrypt('123456');
         if(Auth::guard('admin')->check()){
             // return false;
             return redirect(RouteServiceProvider::ADMIN);

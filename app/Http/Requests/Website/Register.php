@@ -30,8 +30,7 @@ class Register extends FormRequest
             'confirm_password' => 'min:6',
             'trade_role' => 'required',
             'full_name' => 'required',
-            'phone' => 'nullable',
-            'phone2' => 'required',
+            'phone_number' => 'required',
             'agree' => 'required',
         ];
     }

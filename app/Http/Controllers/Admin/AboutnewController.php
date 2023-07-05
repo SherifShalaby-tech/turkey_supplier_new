@@ -46,9 +46,7 @@ class AboutnewController extends Controller
             if ($image = $request->file('image')) {
                 $file_name = time() . "." . $image->getClientOriginalExtension();
                 $path = public_path('/images/about_us/' . $file_name);
-                Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($path, 100);
+                Image::make($image->getRealPath())->save($path);
                 $aboutnew->image = $file_name;
             }
             $aboutnew->subject = $request->subject;
@@ -88,9 +86,7 @@ class AboutnewController extends Controller
                 }
                 $file_name = time().".".$image->getClientOriginalExtension();
                 $path = public_path('/images/about_us/' . $file_name);
-                Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($path, 100);
+                Image::make($image->getRealPath())->save($path);
                 $aboutnew->image = $file_name;
             }
             $aboutnew->subject = $request->subject;

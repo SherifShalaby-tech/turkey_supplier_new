@@ -30,6 +30,7 @@ return [
     'company' => 'company',
     'attachment' => 'attached file',
     'replay' => 'reply to sender',
+    'Sent' => 'Sent',
     'attachtype' => 'attachment format'
 
 ];
