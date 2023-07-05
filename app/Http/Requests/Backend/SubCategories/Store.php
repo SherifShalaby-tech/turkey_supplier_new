@@ -26,7 +26,7 @@ class Store extends FormRequest
         return [
             'name' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'required|image',
+            'image' => 'nullable|image',
         ];
     }
 }

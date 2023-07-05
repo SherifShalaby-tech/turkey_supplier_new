@@ -23,9 +23,7 @@ class AdController extends Controller
     }// end of __construct
     public function index()
     {
-        $ads = Ad::where('start_date', '<=', Carbon::now())
-        ->where('end_date', '>=', Carbon::now())
-        ->latest()->paginate(10);
+        $ads = Ad::latest()->paginate(10);
         return view('Admin.ads.index',compact('ads'));
     }
     public function store(AdRequest $request)
@@ -37,9 +35,7 @@ class AdController extends Controller
         if ($image = $request->file('image')) {
             $file_name = Str::slug($request->title).".".$image->getClientOriginalExtension();
             $path = public_path('images/ads/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         Ad::create($input);
@@ -60,9 +56,7 @@ class AdController extends Controller
             }
             $file_name = Str::slug($request->title).".".$image->getClientOriginalExtension();
             $path = $path = public_path('images/ads/' . $file_name);;
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::make($image->getRealPath())->save($path);
             $input['image'] = $file_name;
         }
         $ad->update($input);

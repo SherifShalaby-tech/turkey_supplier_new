@@ -28,6 +28,10 @@ class ClerkController extends Controller
 
     }// end of __construct
     public function index(){
+         if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)){
+                Alert::error('error message', trans('custom.Please activate your account or subscribe to a plan first'));
+                    return redirect()->route('admin.home');
+         } 
         return view('Admin.clerks.index');
     }
     public function data() {
@@ -63,6 +67,10 @@ class ClerkController extends Controller
 
     public function create()
     {
+         if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)){
+                Alert::error('error message', trans('custom.Please activate your account or subscribe to a plan first'));
+                    return redirect()->route('admin.home');
+         } 
         $models=$this->models;
         $permissionMaps=$this->permissionMaps;
         $companies = Company::where('trade_role','seller')->get();
@@ -85,6 +93,10 @@ class ClerkController extends Controller
     }
     public function edit(Clerk $clerk)
     {
+         if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)){
+                Alert::error('error message', trans('custom.Please activate your account or subscribe to a plan first'));
+                    return redirect()->route('admin.home');
+         } 
         $models=$this->models;
         $permissionMaps=$this->permissionMaps;
         $companies = Company::where('trade_role','seller')->get();

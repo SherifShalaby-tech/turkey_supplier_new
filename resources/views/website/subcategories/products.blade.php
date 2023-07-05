@@ -1,193 +1,116 @@
 @extends('layouts.website.master')
 @section('title','products')
 @section('content')
-<style>
-        .card-title-name{
-        width: 313px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: start;
-    }
-
-    @media (max-width:1440px) {
-        .shipping .block2-pic img{
-            height: 270px !important;
-        }
-        .card-title-name{
-            width: 260px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: start;
-        }
-        .card-title {
-            margin: 0;
-        }
-    }
-
-    @media (max-width:1400px) {
-        .shipping .block2-pic img{
-            height: 260px !important;
-        }
-        .card-title-name{
-            width: 250px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: start;
-        }
-        .card-title {
-            margin: 0;
-        }
-    }
-    @media (max-width:1024px) {
-        .shipping .block2-pic img{
-            height: 206px !important;
-        }
-        .card-title-name{
-            width: 200px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: start;
-        }
-        .card-title {
-            margin: 0;
-        }
-    }
 
 
-    @media (max-width: 768px){
-        .card-title-name {
-            width: 140px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .shipping .block2-pic img{
-            height: 142px !important;
-        }
-        .stext-105{
-            font-size: 19px;
-        }
-        .card-title {
-            margin: 0;
-        }
-    }
+<div class="bg0 p-t-10 p-b-20">
+    <div class="container-fluid">
+        <p class="cl6">
+            <a  class="cl6" href="{{route('website.index')}}"> <i class="fas fa-home"></i> </a>
+            /
+            <a  class="cl6" href="#"> {{trans('custom.sub_categories')}} </a>
+            /
+            <a  class="cl6" href="#"> {{trans('custom.products')}} </a>
+        </p>
+    </div>
+</div>
 
-    @media (max-width: 425px){
-        .card-title-name {
-            width: 160px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+<section class="bg0 p-t-23 p-b-140">
+        <div class="p-b-10 separator m-b-20">
+            <div class="flex-center bg1 p-0  b-rt-lb-20">
+                <h3 class="latotext-108 cl0 p-r-l-10 p-10-40">
+                    {{trans('custom.products')}}
+                </h3>
+            </div>
+        </div>
+    <div class="container-fluid">
+        <div class="row isotope-grid">
 
-        .shipping .block2-pic img{
-            height: 162px !important;
-        }
-        .stext-105{
-            font-size: 21px !important;
-        }
-        .card-title {
-            font-size: 21px !important;
-        }
-    }
-    @media (max-width: 390px){
-        .card-title-name {
-            width: 140px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .shipping .block2-pic img{
-            height: 145px !important;
-        }
-        .stext-105{
-            font-size: 17px !important;
-        }
-    }
-
-    @media (max-width: 375px){
-        .card-title-name {
-            width: 130px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .shipping .block2-pic img{
-            height: 137px !important;
-        }
-        .stext-105{
-            font-size: 17px !important;
-        }
-    }
-    @media (max-width: 320px){
-        .card-title-name {
-            width: 100px !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .shipping .block2-pic img{
-            height: 110px !important;
-        }
-        .stext-105{
-            font-size: 13px !important;
-        }
-    }
-
-</style>
-    <div class="shipping text-center mt-3 p-5">
-        <div class="container-fluid">
-            <h2 class="mb-4">{{trans('custom.products')}}</h2>
-            <div class="row">
-                {{-- @if($category->products->count() > 0) --}}
-                @if($subcategory->products->count() > 0)
-                    @foreach($subcategory->products as $product)
-
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-6 p-b-35 isotope-item women">
-                            <div class="block2 effect8" style=" width: 100%;  height: auto; padding:10px;
-                            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));">
-                                <div class="block2-pic hov-img0">
-                                       @if($product->firstMedia)
-                                        <img src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" alt="{{ $product->name }}" class="img-fluid w-100"
-                                                    style="max-width: 100%;  height: 370px;width: 100% !important;
-                                                            background-size: cover;
-                                                            background-repeat: no-repeat;
-                                                            background-position: 50% 50%;
-                                                            border-radius: 10px;" >
-                                        @else
-                                             <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}" class="img-fluid w-100" >
-                                        @endif
-
-                                </div>
-
-                                <div class="block2-txt flex-w flex-t p-t-14">
-                                    <div class="block2-txt-child1 flex-col-l ">
-                                        <h3 class="card-title card-title-name">{{$product->name}}</h3>
-                                        <h3 class="flex-t card-title trans-04 js-name-b2 p-b-6"> price : ${{$product->price}}</h3>
-                                        <a  href="{{route('product.details',$product->slug)}}"  class="btn bg9 cl0 hov-cl0 stext-105">
-                                            {{trans('custom.product_details')}}
+            <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">        
+                <div class="row">
+                    @if($subcategory->products->count() > 0)
+                        @foreach($subcategory->products as $product)
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-6 p-lr-20 m-b-20">  
+                                <div class="block2  bg-s2">
+                                    <div class="block2-pic hov-img0">
+                                        <a href="{{route('product.details',['id' => $product->id, 'slug' => $product->slug])}}">
+                                            @if($product->firstMedia)
+                                                <img class="h-img-r-subCat h-r-1024-155 height-r-h-155" src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" alt="{{ $product->name }}"
+                                                    style=" border-radius: 30px; padding: 7px 10px;right:0;">
+                                            @else
+                                                <img class="h-img-r-subCat h-r-1024-155 height-r-h-1550" src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}"
+                                                style=" border-radius: 30px; padding: 7px 10px; right:0;">
+                                            @endif
                                         </a>
+                                
+                                    </div>
+        
+                                    <div class="block2-txt ">
+                                        <div class=" flex-col-l p-r-l-5">
+                                            <a href="{{route('product.details',['id' => $product->id, 'slug' => $product->slug])}}" 
+                                                class=" card-title-name-home-cat p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full  f-s-s">
+                                                {{$product->name}}
+                                            </a>
+        
+                                            <span class="cl1 w-full p-r-l-10 p-tb-2 mtext-1075 f-s-s">
+                                                {{$code}} {{$product->price}}
+                                            </span>
+                                        </div>
+        
+                                        <div class=" p-lr-0-md ">
+                                            <div class="flex-product">
+                                                <form  action="{{route('carts.add.product')}}" method="POST">
+                                                    @csrf
+                                                    @if(auth('company')->user())
+                                                        <input type="hidden" name="user_id" value="{{auth('company')->user()->id}}">
+                                                    @endif
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <button class="btn btn-cart hover-shadow cl0 bg1 f-s-s" type="submit">
+                                                        {{trans('custom.add_to_cart')}} <i class="fas fa-shopping-cart"></i></button>
+                                                </form>
+        
+                                                <form action="{{route('fav.add')}}" method="POST">
+                                                    @csrf
+                                                    @if(auth('company')->user())
+                                                        <input type="hidden" name="company_id" value="{{auth('company')->user()->id}}">
+                                                    @endif
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <button  class="three btn btn-contact btn-chat hover-shadow  bg2 f-s-s  {{$product->is_like ? 'cl1':'cl0'}}">
+                                                    <i   class="fa-solid fa-heart "></i></button>
+                                                </form>
+        
+                                            </div>
+
+
+                                          {{--<div class="flex-product">
+                                                <a class="cont-sup " href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug.'#get_form']) }}">
+                                                    <button class=" cl0 bg1 p-tb-5   m-t-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s">
+
+                                                        {{trans('custom.contact_supplier' )}}
+                                                        <i class="fa-solid fa-envelope"></i>
+                                                    </button>
+                                                </a>
+                                            </div> --}}
+                                        </div>
+        
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="add-address m-b-50" >
+                            <p class="text-danger alert alert-danger">{{trans('custom.products_not_found')}}</p>
                         </div>
+                    @endif
 
-
-                    @endforeach
-                @else
-                    <div class="error-not-found">
-                        <div class="not-found-msg">
-                            <p class="alert alert-danger">{{trans('custom.products_not_found')}}</p>
-                        </div>
-                    </div>
-                @endif
+                </div>
             </div>
+
         </div>
-    </div>
+ 
+    </div>   
+</section>
+
 
 
 @stop

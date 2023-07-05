@@ -8,6 +8,7 @@ use App\Models\CartDetails;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use App\utils\helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -53,8 +54,18 @@ class CartController extends Controller
             ->where('status',0)
             ->first();
         if($cart){
-            $details = CartDetails::where('cart_id',$cart->id)->where('status',0)->get();
-            return view('website.cart.index',compact('cart','details'));
+            $details = CartDetails::where('cart_id',$cart->id)->where('status',0)->with('product.leadtimes')->get();
+            $helpers = new helpers();
+            $code = $helpers->get_currency_co();
+            foreach($details as $detail){
+                $new_price = $helpers->get_price($detail->product->price);
+                $detail->product->price = $new_price;
+                foreach($detail->product->leadtimes as $leadtime){
+                    $new_lead_price = $helpers->get_price($leadtime->price);
+                    $leadtime->price = $new_lead_price;
+                }
+            }
+            return view('website.cart.index',compact('cart','details','code'));
         }
         return view('website.cart.index',compact('cart'));
     }

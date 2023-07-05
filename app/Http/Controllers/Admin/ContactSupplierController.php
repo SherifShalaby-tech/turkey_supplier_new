@@ -27,6 +27,10 @@ class ContactSupplierController extends Controller
     }// end of __construct
     public function index()
     {
+         if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)){
+                Alert::error('error message', trans('custom.Please activate your account or subscribe to a plan first'));
+                    return redirect()->route('admin.home');
+         } 
         if (auth('company')->user()) {
             $contactSuppliers = ContactSupplier::where('supplier_id', Auth::guard('company')->user()->id)->latest()->paginate(10);
         }
@@ -36,6 +40,22 @@ class ContactSupplierController extends Controller
         // $contactSuppliers = ContactSupplier::latest()->paginate(10);
         return view('Admin.contact_supplier.index',compact('contactSuppliers'));
     }
+    
+     public function indexSend()
+    {
+         if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)){
+                Alert::error('error message', trans('custom.Please activate your account or subscribe to a plan first'));
+                    return redirect()->route('admin.home');
+         } 
+        if (auth('company')->user()) {
+            $contactSuppliers = ContactSupplier::where('user_id', Auth::guard('company')->user()->id)->latest()->paginate(10);
+        }
+        if (auth('clerk')->user()) {
+            $contactSuppliers = ContactSupplier::where('user_id', Auth::guard('clerk')->user()->company_id)->latest()->paginate(10);
+        }
+        // $contactSuppliers = ContactSupplier::latest()->paginate(10);
+        return view('Admin.contact_supplier.index-send',compact('contactSuppliers'));
+    }
     public function store(contact_supplier $request){
         //  dd($request->all());
         //  Alert::success(trans('admins.success'), trans('admins.add-succes'));
@@ -44,7 +64,8 @@ class ContactSupplierController extends Controller
             // الرد على رساله الناس الى مسجله كمشترى
             $request->validated();
             if($request->supplier_id == $request->user_id){
-                Alert::error('error msg','Error');
+                
+                Alert::error('error msg','Error You cannot send a message to yourself.');
                 return redirect()->back();
             }else{
                   if($request->user_id ){
@@ -156,6 +177,10 @@ class ContactSupplierController extends Controller
     }
     public function showdata($id)
     {
+         if(auth('company')->user() && (auth('company')->user()->plan->id <= 0 || auth('company')->user()->status != true)){
+                Alert::error('error message', trans('custom.Please activate your account or subscribe to a plan first'));
+                    return redirect()->route('admin.home');
+         } 
         try {
             $contactSupplier = ContactSupplier::with('supplier','user')->whereId($id)->first();
             return view('Admin.contact_supplier.show',compact('contactSupplier'));

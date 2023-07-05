@@ -14,7 +14,7 @@ return [
     'datatable' => 'transactions',
     'new_product' => 'new product',
     'edit_product' => 'edit product',
-    'video_description' => 'video description',
+    'video_description' => 'Video link',
     'company' => 'company',
     'price' => 'price',
     'Supply_Ability' => 'Supply Ability',

@@ -1,470 +1,45 @@
 @extends('layouts.website.master')
 @section('title', 'Home Page')
-@section('css')
+@section('content')
 <style>
-
-        .mySwiper:hover{
-            transform: translateY(-5px);
-            transition-duration: .5s;
-            box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
-        }
-
-        a{
-            text-decoration: none !important;
-        }
-        .titleProduct{
-            font-size: 20px;
-            width: fit-content;
-            margin-bottom: 40px !important;
-        }
-        .offset {
-            border-bottom: #3797b1 3px solid;
-        }
-
-        .customer-elctroinc .btn:active, :hover, :focus {
-        outline: 0!important;
-        outline-offset: 0;
-        }
-        .customer-elctroinc .btn::before,
-        ::after {
-        position: absolute;
-        content: "";
-        }
-
-        .customer-elctroinc .btn {
-        position: relative;
-        display: inline-block;
-        height: auto;
-        background-color:  #4cb2cd;
-        border: none;
-        cursor: pointer;
-        margin: 50px auto 14px;
-        min-width: 160px;
-        width: fit-content;
-        }
-        .customer-elctroinc .btn p {
-            position: relative;
-            display: inline-block;
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            top: 0; left: 0;
-            width: 100%;
-            padding: 15px 20px;
-            transition: 0.3s;
-        }
-        /*--- btn-3 ---*/
-        .customer-elctroinc .btn-3 {
-        padding: 5px 10px;
-        }
-
-        .customer-elctroinc .btn-3::before,
-        .btn-3::after {
-        background: transparent;
-        z-index: 2;
-        }
-        /* 11. hover-border-1 */
-        .customer-elctroinc .btn.hover-border-1::before,
-        .btn.hover-border-1::after {
-        width: 10%; height: 25%;
-        transition: 0.35s;
-        }
-        .customer-elctroinc .btn.hover-border-1::before {
-        top: 0; left: 0;
-        border-left: 1px solid rgb(28, 31, 30);
-        border-top: 1px solid rgb(28, 31, 30);
-        }
-        .customer-elctroinc .btn.hover-border-1::after {
-        bottom: 0; right: 0;
-        border-right: 1px solid rgb(28, 31, 30);
-        border-bottom: 1px solid rgb(28, 31, 30);
-        }
-        .customer-elctroinc .btn.hover-border-1:hover::before,
-        .btn.hover-border-1:hover::after {
-        width: 99%;
-        height: 98%;
-        }
-    /* */
-
-
-
-            .wrapper {
-            height: 250px;
-            padding: 0;
-        border-radius: 7px 7px 7px 7px;
-        /* VIA CSS MATIC https://goo.gl/cIbnS */
-        -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-        -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-        box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-        }
-
-        .product-img img {
-        border-radius: 7px 0 0 7px;
-        }
-        .customer-elctroinc .elc-one-data,.elc-data-ar {
-            background-color: transparent;
-            padding: 0 ;
-            border: none ;
-
-        }
-        .wrapper .product-text h1 {
-        margin: 0 0 0 38px;
-        padding-top: 10px;
-        font-size: 22px;
-        color: #474747;
-        }
-        .wrapper .product-text h1,
-        .product-price-btn p {
-        font-family: 'Bentham', serif;
-        }
-
-        .wrapper .product-text p {
-        height: 125px;
-        margin: 0 0 0 38px;
-        font-family: 'Playfair Display', serif;
-        color: #8d8d8d;
-        line-height: 1.7em;
-        font-size: 15px;
-        font-weight: lighter;
-        overflow: hidden;
-        }
-
-        .mediation-div{
-            margin-top: 20px;
-        }
-
-    .container {
-        width: 100% !important;
-    }
-
-    .card-title-name{
-        width: 272px;
+    .card-title-name-home-cat{
+        width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        margin: 0 !important;
-        font-size: 25px ;
-    }
-
-
-
-    .style-container .best-seller-img p{
-        color: #fff;
-        font-weight: 100 !important;
-        font-size: 25px;
-        letter-spacing: 1.5px;
-    }
-    .style-container .swiper-slide p{
-        color: #3797b1 !important;
-    }
-
-        /* */
-
-        .scroll-toggle {
-            align-items: center;
-            background-color: var(--light);
-
-            display: flex;
-            max-width: 680px;
-            justify-content: center;
-            width: 90%;
-            margin-left: 4%;
-        }
-
-        .scroll-toggle__list {
-            display: flex;
-            flex: 1 1 auto;
-            overflow-x: scroll;
-        }
-        .scroll-toggle__list-item {
-            flex: 0 0 auto;
-            padding: 10px 0;
-            text-decoration: none;
-            list-style: none;
-        }
-        .scroll-toggle__list-item a{
-             padding: 0 4px;
-             font-size: 18px;
-        }
-        .scroll-toggle__list-item a:hover{
-            color: #3797b1;
-        }
-
-        /* */
-        .display-n-d{
-            display: none;
-        }
-        .swiper-slide{
-            width: 330px;
-            height: 374px;
-            padding:5px 10px 0px 10px;
-            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
-        }
-        .swiper-wrapper{
-            padding: 0 10px;
-        }
-        .carousel-indicators{
-            display: none;
-        }
-
-        .service-p{
-            position: relative;
-            color: white;
-            text-align: center;
-            background-color: #fff;
-            color:#3797b1;
-            border:#3797b1 1px solid;
-            padding: 4px;
-            border-radius: 7px;
-        }
-    @media (max-width: 980px) {
-        .style-container .container {
-           max-width: 900px !important;
-         }
-         .style-container .swiper .swiper-slide{
-             height: 250px !important;
-         }
-         .style-container .swiper .suppliers-slide{
-             height: 250px !important;
-         }
-         .card-title-name{
-                /*-webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                display: -webkit-box;
-                overflow: hidden;
-                text-overflow: ellipsis;*/
-            }
-         .style-container .swiper .swiper-slide img{
-            height: 180px !important;
-         }
 
     }
-    @media (max-width: 576px) {
-        .ads-div{
-            margin: 10px 0;
-        }
-        .style-container .row{
-           /* flex-direction: column-reverse; */
-        }
-
-    }
-    @media (max-width: 480px) {
-        .tracking-order .container-fluid .row{
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        .swiper-slide{
-            width: 330px;
-            height: 374px;
-            padding:5px 10px 0px 10px;
-            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
-        }
-    }
-    @media (max-width: 425px) {
-        .display-n-m{
-            display: none;
-        }
-        .ads-div{
-            height:200px !important;
-        }
-        .ads-div img{
-            height: 200px !important;
-        }
-        .display-n-d{
-          display: block;
-        }
-        .swiper-slide{
-         padding:5px 4px 0 0 !important;
-         box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px;
-        }
-        .sw-s-ar{
-            margin-left: 10px !important;
-        }
-        .effect8
-        {
-            position:relative;
-            box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px;
-        }
-
-       /* .swiper-slide::after{
-            content:"";
-            background: #3797b1;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-            width: 1.5px;
-        }*/
-        .swiper-slide:first-child:after
-        {
-          display: none;
-        }
-        .right-div img{
-            height: 200px !important;
-            margin-top: 10px;
-        }
-        .service-p{
-             font-size: 24px !important;
-        }
-
-    }
-    @media (max-width: 375px) {
-        .display-n-m{
-            display: none;
-        }
-        .ads-div{
-            height:200px !important;
-        }
-        .ads-div img{
-            height: 200px !important;
-        }
-        .display-n-d{
-          display: block;
-        }
-        .swiper-slide{
-         padding:5px 10px 0px 10px;
-         box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px;
-
-        }
-        .effect8
-        {
-            position:relative;
-            box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px;
-        }
-        .card-title-name{
-            font-size: 20px;
-        }
-        .swiper-slide:first-child:after
-        {
-          display: none;
-        }
-        .right-div img{
-            height: 200px !important;
-            margin-top: 10px;
-        }
-
-        .service-p{
-             font-size: 20px !important;
-        }
-    }
-    @media (max-width: 320px) {
-        .display-n-m{
-            display: none;
-        }
-        .ads-div{
-            height:200px !important;
-        }
-        .ads-div img{
-            height: 200px !important;
-        }
-        .display-n-d{
-          display: block;
-        }
-        .swiper-slide{
-         padding:5px 10px 0px 10px;
-         box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px;
-
-        }
-        .effect8
-        {
-            position:relative;
-            box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px;
-        }
-        .card-title-name{
-            font-size: 20px;
-        }
-        .swiper-slide:first-child:after
-        {
-          display: none;
-        }
-        .right-div img{
-            height: 200px !important;
-            margin-top: 10px;
-        }
-
-        .service-p{
-            font-size: 20px !important;
-            position: relative;
-            color: white;
-            text-align: center;
-            background-color: #fff;
-            color:#3797b1;
-            border:#3797b1 1px solid;
-            padding: 4px;
-            border-radius: 7px;
-        }
-    }
-
 </style>
-@stop
-@section('content')
 @php
-    $categories = \App\Models\Category::orderBy("translation->name")->get(['id','name','translation']);
+    $real_products = \App\Models\Product::where('category_id',50)->get(['id','name','slug']);
+
+    $categories = \App\Models\Category::take(6)->get();
+
+    $sellers = \App\Models\Company::where('trade_role','seller')->take(6)->get();
+
 @endphp
-    <div class="scroll-toggle display-n-d">
-            <ul class="scroll-toggle__list">
-                    @if($categories->count() > 0)
-                    <li class="scroll-toggle__list-item">
-                        <a class="dropdown-item" href="{{route('categories.index')}}"> {{ trans('custom.all') }} | </a>
-                    </li>
-                        @foreach($categories as $category)
-                            <li class="scroll-toggle__list-item">
-                                <a class="dropdown-item" href="{{route('category.products',$category->id)}}"> {{$category->name}} | </a>
-                            </li>
-                        @endforeach
-                    @endif
-            </ul>
-    </div>
-    <!-- tracking order-->
-    <div class="tracking-order style-container">
-        <div class="container @if (app()->getLocale() == 'ar') container-ar @endif">
-            <div class="row" style="display: flex; flex-wrap: wrap;   align-items: center; padding: 25px 10px;
-            box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;">
+    <!-- ADS -->
 
-                <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div display-n-m">
-                    <div class="img-three shipping-div " >
-                        <a href="{{ route('shipping') }}" >
-                             {{--   <p style="text-decoration: none;position: relative;top: 20px;font-size: 20px">{{trans('custom.shipping')}}</p> --}}
-                            <div class="img-three">
-                                <img src="{{ asset('website/imgs/shipping.jpeg') }}" title="{{ trans('custom.shipping') }}"
-                                style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                background-size: cover;
-                                background-repeat: no-repeat;
-                                background-position: 50% 50%;
-                                margin-bottom: 5px;" >
+    <div class="bg0 p-t-10 p-b-10">
 
-                                <p class="service-p">{{ trans('custom.shipping') }}
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="img-three mediation-div " >
-                        <a href="{{ route('mediation') }}">
-                            @if($mediation)
-                                <img src="{{ asset('images/mediations/' . $mediation->image) }}" title="{{ trans('custom.mediation') }}"
-                                     style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                background-size: cover;
-                                background-repeat: no-repeat;
-                                background-position: 50% 50%;
-                                margin-bottom: 5px;" title="meditation">
-                            @else
-                                <img src="{{ asset('images/mediations/74366467144.jpg') }}" title="{{ trans('custom.mediation') }}"
-                                     style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                background-size: cover;
-                                background-repeat: no-repeat;
-                                background-position: 50% 50%;
-                                margin-bottom: 5px;" title="meditation">
-                            @endif
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12 wobble-horizontal m-tb-10" style="filter: drop-shadow(0px 10px 10px #909090);" >
+                    <div>
+                        <a href="{{ route('membership') }}">
 
-                            <p class="service-p">{{ trans('custom.mediation') }}
-                            </p>
+                                <img src="{{ asset('images/mediations/banner.jpg') }}" title="{{ trans('custom.membership') }}"
+                                    style="max-width: 100%;  height: 400px; width: 100% !important;
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                    background-position: 50% 50%;
+                                    border-radius: 30px;
+                                    border: 2px solid #2789a4;">
                         </a>
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-12 " style="box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px; padding:0; height:470px; ">
+                <div class="col-lg-8 col-md-8 col-12  m-tb-10" style="filter: drop-shadow(0px 10px 10px #909090);">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             @isset($ads)
@@ -473,12 +48,11 @@
                                         @if ($ad->image)
                                             <img class="d-block w-100 pop" src="{{ asset('images/ads/' . $ad->image) }}"
                                                 alt="First slide"
-                                                style="max-width: 100%;  height: 470px;width: 100% !important;
+                                                style="max-width: 100%;  height: 400px; width: 100% !important;
                                                 background-size: cover;
                                                 background-repeat: no-repeat;
                                                 background-position: 50% 50%;
-                                                border-radius: 10px;
-                                                ">
+                                                border-radius: 30px; ">
                                         @else
                                             <img class="d-block w-100" src="{{ asset('images/ads/active.png') }}"
                                                 alt="First slide">
@@ -497,490 +71,662 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-12 wobble-horizontal right-div">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            @php
-                                $real_products = \App\Models\Product::where('sub_category_id',278)->get(['id','name','slug']);
-                            @endphp
-                            @foreach($real_products as $key => $product)
-                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    @if($product->firstMedia)
-                                        <a href="{{ route('product.details',$product->slug) }}">
-                                            <img src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" title="{{ trans('custom.Real Estates') }}"
-                                                 style=" border-radius: 7px;  height: 410px  ; width: 100% !important;
-                                        background-size: cover;
-                                        background-repeat: no-repeat;
-                                        background-position: 50% 50%;
-                                        margin-bottom: 5px;" title="meditation">
-                                        </a>
-                                    @else
-                                        <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}" class="img-fluid w-100" >
-                                    @endif
-                                        <p  class="service-p">{{ trans('custom.Real Estates') }}</p>
-                                </div>
-                            @endforeach
+            </div>
+
+            <div class="row p-tb-20">
+                <div class="col-lg-3 col-md-3 col-12 m-tb-10">
+                    <a href="{{ route('shipping') }}">
+                        <div class="flex-center bg-s1 h-55">
+                            <img class="p-r-l-10" src="{{asset('website/imgs/shipping.png')}}" alt="">
+                            <p class="cl2">{{ trans('custom.shipping')}}</p>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 m-tb-10">
+                    <a href="{{ route('mediation') }}">
+                        <div class="flex-center bg-s1 h-55">
+                            <img class="p-r-l-10" src="{{asset('website/imgs/mediation.png')}}" alt="">
+                            <p class="cl2">{{trans('custom.mediation')}}</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 m-tb-10">
+                    <a href="{{ route('translationServices') }}">
+                        <div class="flex-center bg-s1 h-55">
+                            <img class="p-r-l-10" src="{{asset('website/imgs/translation.png')}}" alt="">
+                            <p class="cl2">{{trans('custom.translation_services')}}</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 m-tb-10">
+
+                    <a href="{{route('category.products',50)}}">
+                        <div class="flex-center bg-s1 h-55">
+                            <img class="p-r-l-10" src="{{asset('website/imgs/real-states.png')}}" alt="">
+                            <p class="cl2">{{ trans('custom.Real Estates') }}</p>
+                        </div>
+                    </a>
+
                 </div>
             </div>
+
         </div>
     </div>
-    <!-- end of tracking order -->
+    <!-- END ADS -->
 
-    <!-- Swiper trending-product -->
-    <div class="style-container">
-        <div class="container @if (app()->getLocale() == 'ar') container-ar @endif">
-            <div class="row" style=" text-transform: uppercase;">
-                <div class="swiper mySwiper best-sellers customer-elctroinc ">
-                    <div class="best-seller-img">
-                        <a href="{{route('getTrendingProducts')}}" style="color: #333">
-                            <p class=" btn btn-3 hover-border-1 wobble-horizontal ">{{trans('custom.trending_product')}}</p>
-                        </a>
-                    </div>
-                    <div class="swiper-wrapper">
-                        @isset($trending_product)
-                            @foreach ($trending_product as $product)
-                                <div class="swiper-slide effect8  @if (app()->getLocale() == 'ar') sw-s-ar @endif">
-                                    <div class=" isotope-item women" style="display: flex;">
-                                        <div class="block2" >
-                                           <a href="{{ route('product.details',$product->slug) }}">
-                                            <div class="block2-pic hov-img0  flex-w flex-c p-t-14">
 
-                                                    @if($product->firstMedia)
-                                                        <img src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" alt="{{ $product->name }}" class="img-fluid w-100"
-                                                        style="max-width: 100%;  height: 254px ;width:  300px !important;
-                                                        background-size: cover;
-                                                        background-repeat: no-repeat;
-                                                        background-position: 50% 50%;
-                                                        border-radius: 7px;
-                                                        display: flex; " >
-                                                    @else
-                                                    <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}" class="img-fluid w-100" >
-                                                    @endif
+    <!-- All category / supplier -->
 
-                                            </div>
-                                             </a>
+	<section class="bg0 p-t-10  ">
 
-                                            <div class="block2-txt flex-w flex-t p-t-14" >
-                                                <div class="block2-txt-child1 flex-col-l ">
-                                                    <span class="stext-105 cl7" style="text-align: start;">
-                                                        <a class=" cl7 hov-cl1" href="{{ route('product.details', $product->slug) }}">
-                                                            <h3 class="flex-t card-title trans-04 js-name-b2 p-b-6 card-title-name" >{{$product->name}}</h3>
-                                                            <h4 class="flex-t card-title trans-04 js-name-b2 p-b-6 price_text"> {{trans('custom.price')}} : ${{$product->price}}</h4>
-                                                        </a>
-                                                </span>
-                                                </div>
-                                            </div>
-                                        </div>
+		<div class="container-fluid">
+			<div class="p-b-10 separator ">
+                <div class="flex-center bg-s2 p-0">
+                    <h3 class="ltext-102 cl1  p-r-l-10 p-10-40  r-m-text-s cursor-p" onclick="dCategorySuppliers(1)" id="changeColorC">
+                         {{trans('custom.ALL_CATEGORY')}}
+                    </h3>
+                    <h3 class="ltext-102  p-r-l-10 p-10-40 bg1 cl0 r-m-text-s cursor-p" onclick="dCategorySuppliers(0)" id="changeColorS">
+                        {{trans('custom.ALL_SUPPLIERS')}}
+                    </h3>
+                </div>
+			</div>
+
+
+            <div class="row hide" id="divCategory" >
+                <div class="col-sm-11 col-md-11 col-lg-11 col-12 txt-center row">
+
+                    @foreach($categories as $category)
+                        <div class="col-sm-2 col-md-2 col-lg-2 p-b-10 col-6 isotope-item women">
+
+                            <!-- Block2 -->
+                            <div class="block2 ">
+                                <div class="block2-pic hov-img0 ">
+                                    <a href="{{route('category.products',$category->id)}}" >
+                                        <img class="circle-img " src="{{asset('images/categories/' . $category->image)}}" alt="IMG-PRODUCT"
+                                        style="padding:20px; left:0%;">
+                                    </a>
+                                </div>
+
+                                <div class="block2-txt  p-t-14">
+                                    <div class=" flex-col-l txt-center">
+                                        <a href="{{route('category.products',$category->id)}}"
+                                            class="stext-105 cl3 hov-cl1 trans-04 js-name-b2 p-b-6 card-title-name-home-cat height-text w-full">
+                                            {{$category->name}}
+                                        </a>
+
+                                        <span class="stext-104 cl4 txt-center w-full">
+                                            {{$category->subCategories->count()}} | {{trans('custom.sub_categories')}}
+                                        </span>
                                     </div>
                                 </div>
-                            @endforeach
-                        @endisset
-                    </div>
-                    <div class="swiper-pagination"></div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="col-sm-1 col-md-1 col-lg-1 col-12 p-b-10">
+                    <a  href="{{route('categories.index')}}">
+                        <div class="bg1 p-tb-a-rl-20 b-r-r-20  flex-center stext-105 cl0 txt-center p-tb-10
+                             @if (app()->getLocale() == 'ar') see-all-ar @endif">
+                            <p> {{trans('custom.see_all')}} +</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Swiper Sellers -->
-    <div class="style-container">
-        <div class="container @if (app()->getLocale() == 'ar') container-ar @endif">
-            <div class="row" style=" text-transform: uppercase;">
-                <div class="swiper mySwiper new-arrivals customer-elctroinc ">
-                    <div class="best-seller-img">
-                        <a href="{{route('getSellers')}}" style="color: #333">
-                            <p class="  btn btn-3 hover-border-1 wobble-horizontal ">
-                                {{trans('custom.suppliers')}}
-                            </p>
-                        </a>
-                    </div>
-                    <div class="swiper-wrapper">
-                        @isset($best_sellers)
-                            @foreach ($best_sellers as $company)
-                                <div class="swiper-slide effect8 suppliers-slide" >
-                                    <div class=" isotope-item women" style="display: flex;">
-                                        <div class="block2" >
-                                            <a href="{{ route('supplier.profile', $company->id) }}">
-                                                <div class="block2-pic hov-img0  flex-w flex-c p-t-14">
-                                                    @if($company->firstMedia)
-                                                            <img src="{{ asset('images/companies/' . $company->firstMedia->file_name) }}" class="img-fluid w-100"
-                                                            style="max-width: 100%;  height: 300px ;width:  300px !important;
-                                                            background-size: cover;
-                                                            background-repeat: no-repeat;
-                                                            background-position: 50% 50%;
-                                                            border-radius: 7px;
-                                                            display: flex; " >
-                                                        @else
-                                                        <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}" class="img-fluid w-100"
-                                                        style="max-width: 100%;  height: 300px ;width:  300px !important;
-                                                        background-size: cover;
-                                                        background-repeat: no-repeat;
-                                                        background-position: 50% 50%;
-                                                        border-radius: 7px;
-                                                        display: flex; ">
-                                                        @endif
-                                                </div>
-                                            </a>
-                                            <div class="block2-txt flex-w flex-t p-t-14" >
-                                                <div class="block2-txt-child1 flex-col-l ">
-                                                    <span class="stext-105 cl7" style="text-align: start;">
-                                                        <a class=" cl7 hov-cl1" href="{{ route('supplier.profile', $company->id) }}">
-                                                            <h3 class="flex-t card-title trans-04 js-name-b2 p-b-6 card-title-name" >{{ $company->name }}</h3>
-                                                        </a>
-                                                     </span>
-                                                </div>
-                                            </div>
-                                        </div>
+
+            <div class="row" id="divSuppliers" >
+                <div class="col-sm-11 col-md-11 col-lg-11 col-12 txt-center row">
+                    @if($sellers->count() > 0)
+                    @foreach($sellers as $seller)
+                        <div class="col-sm-2 col-md-2 col-lg-2 p-b-10 col-6 isotope-item women">
+                            <!-- Block2 -->
+                            <div class="block2">
+                                <div class="block2-pic hov-img0">
+                                    <a href="{{ route('supplier.profile', $seller->id) }}" class="stext-105 cl3 hov-cl1 trans-04 js-name-b2 p-b-6 height-text w-full">
+                                        @if($seller->firstMedia)
+                                        <img class="circle-img " src="{{ asset('images/companies/'.$seller->firstMedia->file_name) }}" alt="{{ $seller->name }}"
+                                        style="padding:20px; left:0%;">
+                                        @else
+                                        <img class="circle-img " src="{{asset('website/imgs/Group.png')}}" alt="{{ $seller->name }}"
+                                        style="padding:20px; left:0%;">
+                                        @endif
+                                    </a>
+                                </div>
+
+                                <div class="block2-txt  p-t-14">
+                                    <div class=" flex-col-l txt-center">
+                                        <a href="{{ route('supplier.profile', $seller->id) }}"
+                                             class="stext-105 cl3 hov-cl1 card-title-name-home-cat trans-04 js-name-b2 p-b-6 height-text w-full">
+                                            {{ $seller->name }}
+                                        </a>
+                                        <span class="stext-104 cl4 txt-center w-full">
+                                            @if($seller->products->count() > 0)
+
+                                            {{$seller->products->count()}} | {{trans('custom.products')}}
+                                            @else
+                                               0 | {{trans('custom.products')}}
+                                            @endif
+                                        </span>
                                     </div>
                                 </div>
-                            @endforeach
-                        @endisset
-                    </div>
-                    <div class="swiper-pagination"></div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                    @endif
+                </div>
+
+                <div class="col-sm-1 col-md-1 col-lg-1 col-12 p-b-10">
+                    <a  href="{{route('getSellers')}}">
+                        <div class="bg1 p-tb-a-rl-20 b-r-r-20  flex-center stext-105 cl0 txt-center p-tb-10
+                            @if (app()->getLocale() == 'ar') see-all-ar @endif">
+                            <p> {{trans('custom.see_all')}} + </p>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Swiper products -->
-    <div class="style-container">
-        <div class="container @if (app()->getLocale() == 'ar') container-ar @endif">
-            <div class="row" style=" text-transform: uppercase;">
-                <div class="swiper mySwiper best-sellers customer-elctroinc">
-                    <div class="best-seller-img">
-                        <a href="{{route('getProductsYouMayLike')}}" style="color: #333">
-                            <p class="  btn btn-3 hover-border-1 wobble-horizontal ">
-                                {{trans('custom.you_may_like')}}
-                            </p>
-                        </a>
-                    </div>
-                    <div class="swiper-wrapper">
-                        @if(!auth('company')->user())
+
+		</div>
+	</section>
+    <script>
+        function dCategorySuppliers(is_category) {
+            var colorC = document.getElementById("changeColorC");
+            var colorS = document.getElementById("changeColorS");
+            var dCategory = document.getElementById("divCategory");
+            var dSuppliers = document.getElementById("divSuppliers");
+
+            if (is_category === 1) {
+                dCategory.classList.remove("hide");
+                dSuppliers.classList.add("hide");
+                colorC.classList.add("bg1");
+                colorC.classList.add("cl0");
+                colorC.classList.remove("cl1");
+                colorS.classList.remove("bg1");
+                colorS.classList.remove("cl0");
+                colorS.classList.add("cl1");
+
+            } else {
+
+                dSuppliers.classList.remove("hide");
+                dCategory.classList.add("hide");
+
+                colorC.classList.remove("bg1");
+                colorC.classList.remove("cl0");
+                colorC.classList.add("cl1");
+                colorS.classList.add("bg1");
+                colorS.classList.add("cl0");
+                colorS.classList.remove("cl1");
+            }
+        }
+    </script>
+    <!-- End All category / supplier -->
+
+
+
+    <!-- trindeng product -->
+
+	<section class="bg0   p-b-10">
+
+		<div class="container-fluid">
+			<div class="separator-f">
+                <div class="flex-center bg1 p-0  b-rt-lb-20">
+                    <h3 class="ltext-102 cl0 p-r-l-10 p-10-40">
+                        {{trans('custom.trending_product')}}
+                    </h3>
+                </div>
+			</div>
+
+            <div class="row ">
+                        <div class="col-12 col-md-11 col-lg-11 p-b-10  row">
                             @isset($trending_product)
                                 @foreach ($trending_product as $product)
-                                    <div class="swiper-slide effect8">
-                                        <div class=" isotope-item women" style="display: flex;">
-                                            <div class="block2" >
-                                                <a href="{{ route('product.details',$product->slug) }}">
-                                                    <div class="block2-pic hov-img0  flex-w flex-c p-t-14">
-
-                                                        @if($product->firstMedia)
-                                                            <img src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" alt="{{ $product->name }}" class="img-fluid w-100"
-                                                                 style="max-width: 100%;  height: 254px ;width:  300px !important;
-                                                            background-size: cover;
-                                                            background-repeat: no-repeat;
-                                                            background-position: 50% 50%;
-                                                            border-radius: 7px;
-                                                            display: flex; " >
-                                                        @else
-                                                            <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}" class="img-fluid w-100" >
-                                                        @endif
-
-                                                    </div>
+                                    <div class="col-sm-2 col-md-3 col-lg-2 col-6 p-lr-10-md m-tb-5">
+                                        <div class="block2  bg-s3">
+                                            <div class="block2-pic hov-img0">
+                                                <a href="{{ route('product.details',['id' => $product->id, 'slug' => $product->slug]) }}">
+                                                    <img   src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" alt="{{ $product->name }}"
+                                                        style="border-radius: 30px;     right: 0;">
                                                 </a>
 
-                                                <div class="block2-txt flex-w flex-t p-t-14" >
-                                                    <div class="block2-txt-child1 flex-col-l ">
-                                                        <span class="stext-105 cl7" style="text-align: start;">
-                                                            <a class=" cl7 hov-cl1" href="{{ route('product.details', $product->slug) }}">
-                                                                <h3 class="flex-t card-title trans-04 js-name-b2 p-b-6 card-title-name" >{{$product->name}}</h3>
-                                                                <h4 class="flex-t card-title trans-04 js-name-b2 p-b-6 price_text"> {{trans('custom.price')}} : ${{$product->price}}</h4>
-                                                            </a>
+                                            </div>
+
+                                            <div class="block2-txt">
+                                                <div class="flex-col-l p-r-l-5">
+                                                    <a href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug]) }}"
+                                                        class="card-title-name-home-cat p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full  f-s-s">
+                                                        {{$product->name}}
+                                                    </a>
+
+                                                    <span class="cl1 w-full p-r-l-10 p-tb-2 mtext-1075 f-s-s">
+                                                        {{$code}} {{$product->price}}
                                                     </span>
-                                                    </div>
                                                 </div>
+
+                                                <div class=" p-lr-0-md ">
+                                                    <div class="flex-product">
+                                                        <form  action="{{route('carts.add.product')}}" method="POST">
+                                                            @csrf
+                                                            @if(auth('company')->user())
+                                                                <input type="hidden" name="user_id" value="{{auth('company')->user()->id}}">
+                                                            @endif
+                                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                            <button class="cl0 bg1 p-tb-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s hover-shadow" type="submit">
+                                                                {{trans('custom.add_to_cart')}} <i class="fas fa-shopping-cart"></i></button>
+                                                        </form>
+
+                                                        <button  class="cl0 bg2 p-tb-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s hover-shadow  addToFavourte {{$product->IsFavourite?'cl1':''}}" data-productid="{{$product->id}}" data-companyid="{{auth('company')->user()?auth('company')->user()->id:''}}">
+                                                            <i class="fa-solid fa-heart" style="pointer-events:none;"></i>
+                                                        </button>
+                                                    </div>
+        
+                                           {{-- <div class="flex-product">
+                                                <a class="cont-sup w-full" href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug.'#get_form']) }}">
+                                                    <button class="w-full cl0 bg1 p-tb-5  m-t-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s">
+                                                        {{trans('custom.contact_supplier' )}}
+                                                        <i class="fa-solid fa-envelope"></i>
+                                                    </button>
+                                                </a>
+                                            </div> --}}
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             @endisset
-                        @else
-                            @isset($products)
-                                @foreach ($products as $product)
-                                    <div class="swiper-slide effect8">
-                                        <div class=" isotope-item women" style="display: flex;">
-                                            <div class="block2" >
-                                                <a href="{{ route('product.details',$product->product->slug) }}">
-                                                    <div class="block2-pic hov-img0  flex-w flex-c p-t-14">
+                        </div>
 
-                                                        @if($product->product->firstMedia)
-                                                            <img src="{{ asset('images/products/'.$product->product->firstMedia->file_name) }}" alt="{{ $product->product->name }}" class="img-fluid w-100"
-                                                                 style="max-width: 100%;  height: 254px ;width:  300px !important;
-                                                            background-size: cover;
-                                                            background-repeat: no-repeat;
-                                                            background-position: 50% 50%;
-                                                            border-radius: 7px;
-                                                            display: flex; " >
-                                                        @else
-                                                            <img src="{{ asset('images/no-image.png') }}" alt="{{ $product->product->name }}" class="img-fluid w-100" >
-                                                        @endif
 
-                                                    </div>
-                                                </a>
+                        <div class="col-sm-1 col-md-1 col-lg-1 col-12 p-b-10">
+                            <a  href="{{route('getTrendingProducts')}}">
+                                <div class="bg1 p-tb-a-rl-20 b-r-r-20  flex-center stext-105 cl0 txt-center p-tb-10
+                                    @if (app()->getLocale() == 'ar') see-all-ar @endif">
+                                    <p> {{trans('custom.see_all')}} + </p>
+                                </div>
+                            </a>
+                        </div>
 
-                                                <div class="block2-txt flex-w flex-t p-t-14" >
-                                                    <div class="block2-txt-child1 flex-col-l ">
-                                                        <span class="stext-105 cl7" style="text-align: start;">
-                                                            <a class=" cl7 hov-cl1" href="{{ route('product.details', $product->product->slug) }}">
-                                                                <h3 class="flex-t card-title trans-04 js-name-b2 p-b-6 card-title-name" >{{$product->product->name}}</h3>
-                                                                <h4 class="flex-t card-title trans-04 js-name-b2 p-b-6 price_text"> {{trans('custom.price')}} : ${{$product->product->price}}</h4>
-                                                            </a>
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endisset
-                        @endif
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
+
+            </div>
+
+
+		</div>
+	</section>
+    <!-- End trindding product -->
+
+
+<!-- you may like product -->
+<section class="bg0 p-b-10">
+    <div class="container-fluid">
+        <div class="separator-f">
+            <div class="flex-center bg1 p-0  b-rt-lb-20">
+                <h3 class="ltext-102 cl0 p-r-l-10 p-10-40">
+                    {{trans('custom.you_may_like')}}
+                </h3>
             </div>
         </div>
-    </div>
-    <!-- end of products -->
-    <!--get services -->
-    <div class="customer-elctroinc customer-elctroinc-services tracking-order style-container display-n-m">
-        <div class="container @if (app()->getLocale() == 'ar') container-ar @endif" style=" text-transform: uppercase;">
-                <div class="best-seller-img">
-                    <p class="@if (app()->getLocale() == 'ar') cat-ar @endif btn btn-3 hover-border-1 wobble-horizontal">
-                        {{trans('custom.services')}}</p>
-                </div>
-            <div class="row" style="display: flex; flex-wrap: wrap;  align-items: flex-end; padding: 25px;
-                          box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;">
 
-                <!-- tracking order-->
+        <div class="row ">
 
-                        <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                            <div class="img-three shipping-div " >
-                                <a href="{{ route('shipping') }}" >
-                                    {{--   <p style="text-decoration: none;position: relative;top: 20px;font-size: 20px">{{trans('custom.shipping')}}</p> --}}
-                                    <div class="img-three">
-                                        <img src="{{ asset('website/imgs/Rectangle 6.png') }}" title="{{ trans('custom.shipping') }}"
-                                            style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                            background-size: cover;
-                            background-repeat: no-repeat;
-                            background-position: 50% 50%;
-                            margin-bottom: 5px;" >
-
-                                        <p  class="service-p">{{ trans('custom.shipping') }} </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                            <div class="img-three shipping-div " >
-                                <a href="{{ route('mediation') }}">
-                                    @if($mediation)
-                                        <img src="{{ asset('images/mediations/' . $mediation->image) }}" title="{{ trans('custom.mediation') }}"
-                                                    style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                                    background-size: cover;
-                                                    background-repeat: no-repeat;
-                                                    background-position: 50% 50%;
-                                                    margin-bottom: 5px;" title="meditation">
+            <div class="col-12 col-md-11 col-lg-11 p-b-10 row">
+                @if(!auth('company')->user())
+                    @isset($trending_product)
+                        @foreach ($trending_product as $product)
+                            <div class="col-sm-2 col-md-3 col-lg-2 col-6 p-lr-10-md m-tb-5">
+                                <div class="block2  bg-s3">
+                                    <div class="block2-pic hov-img0">
+                                        <a href="{{ route('product.details',['id' => $product->id, 'slug' => $product->slug]) }}">
+                                            @if($product->firstMedia)
+                                                <img  src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" alt="{{ $product->name }}"
+                                                     style="border-radius: 30px;    right: 0;">
                                             @else
-                                                <img src="{{ asset('images/mediations/74366467144.jpg') }}" title="{{ trans('custom.mediation') }}"
-                                                    style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                                    background-size: cover;
-                                                    background-repeat: no-repeat;
-                                                    background-position: 50% 50%;
-                                                    margin-bottom: 5px;" title="meditation">
+                                                <img  src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}"
+                                                     style="  border-radius: 30px;    right: 0;">
                                             @endif
+                                        </a>
+                                    </div>
 
-                                    <p  class=" service-p">{{ trans('custom.mediation') }}</p>
-
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                            <div class="img-three shipping-div " >
-                                    <a href="{{ route('translationServices') }}" >
-                                        @if($translation)
-                                            <div class="img-three">
-                                                <img src="{{ asset('images/translations/' . $translation->image) }}" title="{{ trans('custom.translation_services') }}"
-                                                    style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                    background-size: cover;
-                                    background-repeat: no-repeat;
-                                    background-position: 50% 50%;
-                                    margin-bottom: 5px;" >
-                                                @else
-                                                    <img src="{{ asset('website/imgs/translation.jfif') }}" title="{{ trans('custom.translation_services') }}"
-                                                        style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                    background-size: cover;
-                                    background-repeat: no-repeat;
-                                    background-position: 50% 50%;
-                                    margin-bottom: 5px;" >
-                                            </div>
-                                        @endif
-                                        <p   class="service-p">{{ trans('custom.translation_services') }}</p>
-
-                                    </a>
-                            </div>
-                        </div>
-
-                        @isset($services)
-                            @foreach ($services as $service)
-                                <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                                    <div class="img-three shipping-div " >
-                                            <a href="#" >
-                                                @if($service->firstMedia)
-                                                    <div class="img-three">
-                                                        <img  src="{{ asset('images/services/'.$service->firstMedia->file_name) }}" alt="{{ $service->name }}"
-                                                            style=" border-radius: 7px;  height: 200px ; width: 100% !important;
-                                                                    background-size: cover;
-                                                                    background-repeat: no-repeat;
-                                                                    background-position: 50% 50%;
-                                                                    margin-bottom: 5px;" >
-                                                        @else
-                                                            <img src="{{ asset('images/no-image.png') }}" alt="{{ $service->name }}"
-                                                                style=" border-radius: 7px;  height: 200px ; width: 100% !important;
-                                                                background-size: cover;
-                                                                background-repeat: no-repeat;
-                                                                background-position: 50% 50%;
-                                                                margin-bottom: 5px;" >
-                                                    </div>
-                                                @endif
-                                                <p   class="service-p">{{ $service->name }}</p>
-                                                <p>{!! $service->description !!}</p>
+                                    <div class="block2-txt">
+                                        <div class="flex-col-l p-r-l-5">
+                                            <a href="{{ route('product.details',['id' => $product->id, 'slug' => $product->slug]) }}"
+                                                class="card-title-name-home-cat p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full  f-s-s">
+                                                {{$product->name}}
                                             </a>
+
+                                            <span class="cl1 w-full p-r-l-10 p-tb-2 mtext-1075 f-s-s">
+                                                {{$code}} {{$product->price}}
+                                            </span>
+                                        </div>
+
+
+                                        <div class=" p-lr-0-md ">
+                                            <div class="flex-product">
+                                                <form  action="{{route('carts.add.product')}}" method="POST">
+                                                    @csrf
+                                                    @if(auth('company')->user())
+                                                        <input type="hidden" name="user_id" value="{{auth('company')->user()->id}}">
+                                                    @endif
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <button class="cl0 bg1 p-tb-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s hover-shadow" type="submit">
+                                                        {{trans('custom.add_to_cart')}} <i class="fas fa-shopping-cart"></i></button>
+                                                </form>
+
+                                                <button  class="cl0 bg2 p-tb-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s hover-shadow  addToFavourte {{$product->IsFavourite?'cl1':''}}" data-productid="{{$product->id}}" data-companyid="{{auth('company')->user()?auth('company')->user()->id:''}}">
+                                                    <i class="fa-solid fa-heart" style="pointer-events:none;"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+
+                                           {{-- <div class="flex-product">
+                                                <a class="cont-sup w-full" href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug.'#get_form']) }}">
+                                                    <button class="w-full cl0 bg1 p-tb-5  m-t-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s">
+                                                        {{trans('custom.contact_supplier' )}}
+                                                        <i class="fa-solid fa-envelope"></i>
+                                                    </button>
+                                                </a>
+
+                                            </div> --}}
+                                            
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+                    @endisset
+                @else
+                    @isset($products)
+                        @foreach ($products as $product)
+                        
+                            <div class="col-sm-2 col-md-3 col-lg-2 col-6 p-lr-10-md m-tb-10">
+                                <div class="block2  bg-s3">
+                                    <div class="block2-pic hov-img0">
+                                        
+
+                                        <a href="{{ route('product.details',['id' => $product->product->id, 'slug' => $product->product->slug]) }}">
+                                            @if($product->product->firstMedia)
+                                                <img  src="{{ asset('images/products/'.$product->product->firstMedia->file_name) }}" alt="{{ $product->product->name }}"
+                                                     style=" border-radius: 30px;    right: 0;">
+                                            @else
+                                                <img  src="{{ asset('images/no-image.png') }}" alt="{{ $product->product->name }}"
+                                                     style="border-radius: 30px;    right: 0;">
+                                            @endif
+                                        </a>
+                                    </div>
+
+                                    <div class="block2-txt ">
+                                        <div class="flex-col-l p-r-l-5">
+                                            <a href="{{ route('product.details',['id' => $product->product->id, 'slug' => $product->product->slug]) }}" 
+                                                class="card-title-name-home-cat p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full  f-s-s">
+                                                {{$product->product->name}}
+                                            </a>
+
+                                            <span class="cl1 w-full p-r-l-10 p-tb-2 mtext-1075 f-s-s">
+                                                {{$code}} {{$product->product->price}}
+                                        </div>
+
+                                        <div class=" p-lr-0-md ">
+                                            <div class="flex-product">
+                                                <div class="flex-product">
+                                                    <form  action="{{route('carts.add.product')}}" method="POST">
+                                                        @csrf
+                                                        @if(auth('company')->user())
+                                                            <input type="hidden" name="user_id" value="{{auth('company')->user()->id}}">
+                                                        @endif
+                                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                        <button class="cl0 bg1 p-tb-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s hover-shadow" type="submit">
+                                                            {{trans('custom.add_to_cart')}} <i class="fas fa-shopping-cart"></i></button>
+                                                    </form>
+
+                                                    <button  class="cl0 bg2 p-tb-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s hover-shadow  addToFavourte {{$product->IsFavourite?'cl1':''}}" data-productid="{{$product->id}}" data-companyid="{{auth('company')->user()?auth('company')->user()->id:''}}">
+                                                        <i class="fa-solid fa-heart" style="pointer-events:none;"></i>
+                                                    </button>
+                                                </div>
+    
+                                            </div>
+
+                                           {{-- <div class="flex-product">
+                                                <a class="cont-sup w-full" href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug.'#get_form']) }}">
+                                                    <button class="w-full cl0 bg1 p-tb-5  m-t-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s">
+                                                        {{trans('custom.contact_supplier' )}}
+                                                        <i class="fa-solid fa-envelope"></i>
+                                                    </button>
+                                                </a>
+                                            </div> --}}
+                                        </div>
+
                                     </div>
                                 </div>
-                            @endforeach
-                        @endisset
-
-                <!-- end of tracking order -->
+                            </div>
+                        @endforeach
+                    @endisset
+                @endif
             </div>
+
+            <div class="col-sm-1 col-md-1 col-lg-1 col-12 p-b-10">
+                <a  href="{{route('getProductsYouMayLike')}}">
+                    <div class="bg1 p-tb-a-rl-20 b-r-r-20  flex-center stext-105 cl0 txt-center p-tb-10
+                            @if (app()->getLocale() == 'ar') see-all-ar @endif">
+                        <p> {{trans('custom.see_all')}} + </p>
+                    </div>
+                </a>
+            </div>
+
+
         </div>
+
     </div>
-   </div>
+</section>
+<!-- End you may like  product -->
 
 
-    <div class="customer-elctroinc customer-elctroinc-services style-container display-n-d">
-        <div class="container @if (app()->getLocale() == 'ar') container-ar @endif" style=" text-transform: uppercase;">
-            <div class="best-seller-img">
-                    <p class="@if (app()->getLocale() == 'ar') cat-ar @endif btn btn-3 hover-border-1 wobble-horizontal">
-                        {{trans('custom.services')}}</p>
-            </div>
-                    <div class="gtco-testimonials">
-                        <div class="owl-carousel owl-carousel1 owl-theme">
 
-                            <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                                <div class="img-three shipping-div " >
-                                    <a href="{{ route('shipping') }}" >
-                                        {{--   <p style="text-decoration: none;position: relative;top: 20px;font-size: 20px">{{trans('custom.shipping')}}</p> --}}
-                                        <div class="img-three">
-                                            <img src="{{ asset('website/imgs/Rectangle 6.png') }}" title="{{ trans('custom.shipping') }}"
-                                                style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                background-size: cover;
-                                background-repeat: no-repeat;
-                                background-position: 50% 50%;
-                                margin-bottom: 5px;" >
 
-                                            <p   class="service-p">{{ trans('custom.shipping') }}
+    <!-- services product -->
 
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                                <div class="img-three shipping-div " >
-                                    <a href="{{ route('mediation') }}">
-                                        @if($mediation)
-                                            <img src="{{ asset('images/mediations/' . $mediation->image) }}" title="{{ trans('custom.mediation') }}"
-                                                        style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                                        background-size: cover;
-                                                        background-repeat: no-repeat;
-                                                        background-position: 50% 50%;
-                                                        margin-bottom: 5px;" title="meditation">
-                                                @else
-                                                    <img src="{{ asset('images/mediations/74366467144.jpg') }}" title="{{ trans('custom.mediation') }}"
-                                                        style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                                        background-size: cover;
-                                                        background-repeat: no-repeat;
-                                                        background-position: 50% 50%;
-                                                        margin-bottom: 5px;" title="meditation">
-                                                @endif
+	<section class="bg0 p-t-10 p-b-20">
 
-                                        <p  class=" service-p">{{ trans('custom.mediation') }}</p>
+		<div class="container-fluid">
+			<div class="p-b-10 separator-f">
+                <div class="flex-center bg1 p-0  b-rt-lb-20">
+                    <h3 class="ltext-102 cl0 p-r-l-10 p-10-40">
+                        {{trans('custom.services')}}
+                    </h3>
+                </div>
+			</div>
 
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                                <div class="img-three shipping-div " >
-                                        <a href="{{ route('translationServices') }}" >
-                                            @if($translation)
-                                                <div class="img-three">
-                                                    <img src="{{ asset('images/translations/' . $translation->image) }}" title="{{ trans('custom.translation_services') }}"
-                                                        style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                        background-size: cover;
-                                        background-repeat: no-repeat;
-                                        background-position: 50% 50%;
-                                        margin-bottom: 5px;" >
-                                                    @else
-                                                        <img src="{{ asset('website/imgs/translation.jfif') }}" title="{{ trans('custom.translation_services') }}"
-                                                            style=" border-radius: 7px;  height: 170px ; width: 100% !important;
-                                        background-size: cover;
-                                        background-repeat: no-repeat;
-                                        background-position: 50% 50%;
-                                        margin-bottom: 5px;" >
-                                                </div>
-                                            @endif
-                                            <p   class="service-p">{{ trans('custom.translation_services') }}</p>
+            <div class="row p-b-0 flex-c-m ">
+                <div class="col-12 col-md-12 col-lg-12 p-b-20 ">
+                    <div class="row">
 
-                                        </a>
-                                </div>
-                            </div>
-
-                            @isset($services)
-                            @foreach ($services as $service)
-                                <div class="col-lg-3 col-md-3 col-12 wobble-horizontal left-div">
-                                    <div class="img-three shipping-div " >
-                                            <a href="#" >
-                                                @if($service->firstMedia)
-                                                    <div class="img-three">
-                                                        <img  src="{{ asset('images/services/'.$service->firstMedia->file_name) }}" alt="{{ $service->name }}"
-                                                            style=" border-radius: 7px;  height: 200px ; width: 100% !important;
-                                                                    background-size: cover;
-                                                                    background-repeat: no-repeat;
-                                                                    background-position: 50% 50%;
-                                                                    margin-bottom: 5px;" >
-                                                        @else
-                                                            <img src="{{ asset('images/no-image.png') }}" alt="{{ $service->name }}"
-                                                                style=" border-radius: 7px;  height: 200px ; width: 100% !important;
-                                                                background-size: cover;
-                                                                background-repeat: no-repeat;
-                                                                background-position: 50% 50%;
-                                                                margin-bottom: 5px;" >
-                                                    </div>
-                                                @endif
-                                                <p   class="service-p">{{ $service->name }}</p>
-                                                <p>{!! $service->description !!}</p>
+                                <div class="col-sm-3 col-md-3 col-lg-3 col-6 p-lr-20 m-tb-10">
+                                    <div class="block2  bg-s3">
+                                        <div class="block2-pic hov-img0">
+                                            <a href="{{ route('shipping') }}">
+                                                <img  
+                                                src="{{ asset('website/imgs/Rectangle 6.png') }}" title="{{ trans('custom.shipping') }}"
+                                                    style="
+                                                            border-radius: 30px;
+                                                            padding: 10px 10px;    right: 0;">
                                             </a>
+                                        </div>
+
+                                        <div class="block2-txt  p-t-14">
+                                            <div class=" flex-col-l p-r-l-10">
+                                                <a href="{{ route('shipping') }}" class=" p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full">
+                                                    {{ trans('custom.shipping') }}
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3 col-md-3 col-lg-3 col-6  p-lr-20  m-tb-10">
+                                    <div class="block2  bg-s3">
+                                        <div class="block2-pic hov-img0">
+                                            <a href="{{ route('mediation') }}">
+                                                @if($mediation)
+                                                    <img 
+                                                    src="{{ asset('images/mediations/' . $mediation->image) }}" title="{{ trans('custom.mediation') }}"
+                                                        style=" border-radius: 30px;
+                                                            padding: 10px 10px;    right: 0;">
+                                                @else
+                                                    <img 
+                                                     src="{{ asset('images/mediations/74366467144.jpg') }}" title="{{ trans('custom.mediation') }}"
+                                                        style=" border-radius: 30px;
+                                                        padding: 10px 10px;    right: 0;">
+                                                @endif
+                                            </a>
+                                        </div>
+
+                                        <div class="block2-txt  p-t-14">
+                                            <div class=" flex-col-l p-r-l-10">
+                                                <a href="{{ route('mediation') }}" class=" p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full">
+                                                    {{ trans('custom.mediation') }}
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3 col-md-3 col-lg-3 col-6  p-lr-20 m-tb-10">
+                                    <div class="block2  bg-s3">
+                                        <div class="block2-pic hov-img0">
+                                            <a href="{{ route('translationServices') }}">
+                                                @if($translation)
+                                                    <img  
+                                                    src="{{ asset('images/translations/' . $translation->image) }}" title="{{ trans('custom.translation_services') }}"
+                                                        style="border-radius: 30px;
+                                                            padding: 10px 10px;    right: 0;">
+                                                @else
+                                                    <img 
+                                                    src="{{ asset('website/imgs/translation.jfif') }}" title="{{ trans('custom.translation_services') }}"
+                                                        style="border-radius: 30px;
+                                                        padding: 10px 10px;    right: 0;">
+                                                @endif
+                                            </a>
+                                        </div>
+
+                                        <div class="block2-txt  p-t-14">
+                                            <div class=" flex-col-l p-r-l-10">
+                                                <a href="{{ route('translationServices') }}" class=" p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full">
+                                                    {{ trans('custom.translation_services') }}
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3 col-md-3 col-lg-3 col-6  p-lr-20  m-tb-10">
+                                    <div class="block2  bg-s3">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                @if($real_products->count() > 0)
+                                                    @foreach($real_products as $key => $product)
+                                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                                        <div class="block2-pic hov-img0">
+                                                        @if($product->firstMedia)
+
+                                                            <a href="{{ route('product.details',['id' => $product->id, 'slug' => $product->slug]) }}">
+                                                                <img 
+                                                                src="{{ asset('images/products/'.$product->firstMedia->file_name) }}" title="{{ trans('custom.Real Estates') }}"
+
+                                                                style="border-radius: 30px;
+                                                                padding: 10px 10px;    right: 0;">
+                                                            </a>
+                                                        @else
+                                                            <img 
+                                                            src="{{ asset('images/no-image.png') }}" alt="{{ $product->name }}"
+                                                            style=" border-radius: 30px;
+                                                            padding: 10px 10px;    right: 0;">
+                                                        @endif
+                                                    </div>
+
+                                                        <div class="block2-txt  p-t-14">
+                                                            <div class=" flex-col-l p-r-l-10">
+                                                                <a href="{{ route('translationServices') }}" class=" p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full">
+                                                                    {{ trans('custom.Real Estates') }}
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                @endforeach
+                                                @endif
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                @isset($services)
+                                @foreach ($services as $service)
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-6  p-lr-20  m-tb-10">
+                                        <div class="block2  bg-s3">
+                                            <div class="block2-pic hov-img0">
+                                                <a href="#">
+                                                    @if($service->firstMedia)
+                                                        <img 
+                                                        src="{{ asset('images/services/'.$service->firstMedia->file_name) }}" alt="{{ $service->name }}"
+                                                            style="border-radius: 30px;
+                                                                padding: 10px 10px;    right: 0;">
+                                                    @else
+                                                        <img 
+                                                        src="{{ asset('images/no-image.png') }}" alt="{{ $service->name }}"
+                                                            style=" border-radius: 30px;
+                                                            padding: 10px 10px;    right: 0;">
+                                                    @endif
+                                                </a>
+                                            </div>
+
+                                            <div class="block2-txt  p-t-14">
+                                                <div class=" flex-col-l p-r-l-10">
+                                                    <a href="#" class=" p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full">
+                                                        {{ $service->name }}
+                                                    </a>
+                                                    <span class="cl2 w-full p-r-l-10 p-tb-20 mtext-1075">
+                                                        {!! $service->description !!}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
-                            @endisset
+                                @endisset
 
-                        </div>
                     </div>
-        </div>
-    </div>
-</div>
+                </div>
+
+            </div>
+
+
+		</div>
+	</section>
+    <!-- End services product -->
+
+
+
 @stop

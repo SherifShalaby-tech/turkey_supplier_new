@@ -29,10 +29,10 @@ class TranslationServicesRequest extends FormRequest
                 return [
                     'name'      => 'required',
                     'country_code' => 'nullable',
-                    'phone' => 'required',
+                    'phone_number' => 'required',
                     'language' => 'required',
-                    'company_id' => 'nullable|exists:companies,id',
-                    'product_id' => 'nullable|exists:products,id',
+                    'company_id' => 'nullable',
+                    'product_id' => 'nullable',
                     'notes' => 'nullable',
                     'email' => 'required|email'
                 ];
@@ -46,8 +46,8 @@ class TranslationServicesRequest extends FormRequest
                     'country_code' => 'nullable',
                     'phone' => 'required',
                     'language' => 'nullable',
-                    'company_id' => 'nullable|exists:companies,id',
-                    'product_id' => 'nullable|exists:products,id',
+                    'company_id' => 'nullable',
+                    'product_id' => 'nullable',
                     'notes' => 'nullable',
                     'email' => 'required|email'
                 ];

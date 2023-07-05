@@ -30,7 +30,11 @@
                                                     <ul class="list-unstyled mt-2 mb-2">
                                                         <li>  {{$plan->character_count ?? '-'}} {{trans('plans.character_count')}}</li>
                                                         <li>  {{$plan->company_picture_count ?? '-'}} {{trans('plans.company_picture_count')}}</li>
-                                                        <li>  {{$plan->product_count ?? '-'}} {{trans('plans.product_count')}}</li>
+                                                        @if ($plan->product_count >= 10000)
+                                                            <li> <i class="fa-solid fa-check"></i>  {{trans('plans.unlimited')}}  {{trans('plans.product_count')}}</li>
+                                                        @else
+                                                            <li> <i class="fa-solid fa-check"></i> {{$plan->product_count ?? '-'}} {{trans('plans.product_count')}}</li>
+                                                        @endif
                                                         <li>  {{$plan->product_picture_count ?? '-'}} {{trans('plans.product_picture_count')}}</li>
                                                         <li>  {{$plan->video_count ?? '-'}} {{trans('plans.video_count')}}</li>
                                                         <li>  {{$plan->speacial_customer ?? '-'}} {{trans('plans.speacial_customer')}}</li>
@@ -231,7 +235,7 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <div class="media d-flex">
-                                        @if (auth()->user()->hasPermission('read_product'))
+                                        @if (auth()->user()->hasPermission('read_product') && Auth::user()->status == true)
                                             <a href="{{ route('admin.products.index') }}">
                                                 <div class="media-body text-left">
 

@@ -2,95 +2,83 @@
 @section('title','fav')
 @section('content')
 
-<style>
-    .card-title-name{
-    width: 313px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: start;
-}
-@media (max-width: 768px){
-    .card-title-name {
-        width: 170px !important
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .shipping .block2{
-        height: 330px !important;
-    }
-    .shipping .block2-pic img{
-        height: 170px !important;
-    }
-}
-@media (max-width: 390px){
-    .card-title-name {
-        width: 240px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .shipping .block2{
-        height: 410px !important;
-    }
-    .shipping .block2-pic img{
-        height: 250px !important;
-    }
-}
-
-@media (max-width: 375px){
-    .card-title-name {
-        width: 240px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .shipping .block2{
-        height: 470px !important;
-    }
-    .shipping .block2-pic img{
-        height: 305px !important;
-    }
-}
-
-</style>
-<div class="shipping text-center mt-3 p-5">
+<div class="bg0 p-t-10 p-b-20">
     <div class="container-fluid">
-        <h3 class="mb-4">{{trans('custom.favorites')}}</h3>
-        <div class="row">
+        <p class="cl6">
+            <a  class="cl6" href="{{route('website.index')}}"> <i class="fas fa-home"></i> </a>
+            /
+            <a  class="cl6" href="#">{{trans('custom.favorites')}} </a>
+        </p>
+    </div>
+</div>
+<section class="bg0 p-t-23 p-b-140">
+    <div class="p-b-50 separator">
+        <div class="flex-center bg1 p-0  b-rt-lb-20">
+            <h3 class="latotext-108 cl0 p-r-l-10 p-10-40">
+                {{trans('custom.favorites')}}
+            </h3>
+        </div>
+    </div>
+
+    <div class="container-fluid p-lr-100 p-r-0-md p-l-0-md">
+        <div class="row isotope-grid">
             @if($products->count() > 0)
                 @foreach($products as $product)
                     <div class="col-sm-6 col-md-3 col-lg-3 p-b-35 isotope-item women">
-                        <div class="block2 effect8" style=" width: 100%;  height: 470px; padding:10px 20px 0 20px;
-                    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));">
-                            <div class="block2-pic hov-img0">
-                                @if($product->product->firstMedia)
-                                    <img src="{{ asset('images/products/' . $product->product->firstMedia->file_name) }}" alt="{{$product->product->name}}" class="img-fluid w-100"
-                                         style="max-width: 100%;  height: 310px;width: 100% !important;
-                                                    background-size: cover;
-                                                    background-repeat: no-repeat;
-                                                    background-position: 50% 50%;
-                                                    border-radius: 10px; " >
-                                @else
-                                    <img src="{{ asset('images/no-image.png') }}" alt="" class="img-fluid w-100"
-                                         style="max-width: 100%;  height: 310px;width: 100% !important;
-                                                                background-size: cover;
-                                                                background-repeat: no-repeat;
-                                                                background-position: 50% 50%;
-                                                                border-radius: 10px; ">
-                                @endif
-                            </div>
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l ">
-                                    <h5 class="card-title card-title-name">{{$product->product->name}}</h5>
-                                    <h5 class="flex-t card-title trans-04 js-name-b2 p-b-6"> price : ${{$product->product->price}} </h5>
-                                    <a  href="{{route('product.details', $product->product->slug)}}"  class="btn bg9 cl0 hov-cl0 ">
+                        <!-- Block2 -->
+                        <div class="col-12 bg-s2">
+                            <div class="block2">
+{{--                                <a  href=""  class="btn btn-red cl0  position-btn-c">--}}
+                                    <form action="{{route('fav.remove')}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="product_id" value="{{$product->product->id}}">
+                                        <input type="hidden" name="user_id" value="{{auth('company')->user()->id}}">
+                                        <input class="btn btn-red cl0  position-btn-c" type="submit" value="X">
+                                    </form>
+                                <form action="{{route('fav.remove')}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @if(auth('company')->user())
+                                        <input type="hidden" name="company_id" value="{{auth('company')->user()->id}}">
+                                    @else
+                                        <input type="hidden" name="company_id" value="{{$product->company_id}}">
+                                    @endif
+                                    <input type="hidden" name="fav_id" value="{{$product->id}}">
+                                    <input type="hidden" name="user_id" value="{{auth('company')->user()->id}}">
+                                    <input type="hidden" name="product_id" value="{{$product->product_id}}">
+                                    <button  href="#" class="btn btn-red cl0  position-btn-c">
+                                        X
+                                    </button>
+                                </form>
+                                <div class="block2-pic hov-img0">
+                                    @if($product->product->firstMedia)
+                                         <img src="{{ asset('images/products/' . $product->product->firstMedia->file_name) }}" alt="{{$product->product->name}}"
+                                            style=" border-radius: 10px; padding:20px; right:0;">
+                                    @else
+                                        <img src="{{ asset('images/no-image.png') }}" alt="" class="img-fluid w-100"
+                                             style="border-radius: 10px; padding:20px;right:0; ">
+                                    @endif
+                                </div>
+
+                                <div class="block2-txt flex-w flex-t p-t-7">
+                                    <div class="block2-txt-child1 flex-col-l ">
+                                        <a href="#" class="mtext-102 cl2 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                            {{$product->product->name}}
+                                        </a>
+
+                                        <span class="mtext-102 cl1 ">
+                                            {{$code}} {{$product->product->price}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                    <a  href="{{route('product.details', ['id' => $product->product->id, 'slug' => $product->product->slug])}}"  class="btn bg1 cl0  position-btn">
                                         {{trans('custom.product_details')}}
                                     </a>
-                                </div>
                             </div>
                         </div>
+
                     </div>
                 @endforeach
             @else
@@ -99,8 +87,12 @@
                         <p class="alert alert-danger">{{trans('custom.products_not_found')}}</p>
                     </div>
                 </div>
-            @endif
+             @endif
+
         </div>
     </div>
-</div>
+</section>
+
+
+
 @stop

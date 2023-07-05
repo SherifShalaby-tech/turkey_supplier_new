@@ -136,6 +136,7 @@ class ShippingComponent extends Component
     {
         $vendors = Company::where('trade_role','seller')->get();
         return view('livewire.front.shipping-component',compact('vendors'));
+
     }
 
     public function resetForm(){
@@ -165,9 +166,9 @@ class ShippingComponent extends Component
         }
 
         if($this->shipment_name == 'air_freight'){
-            $this->dimensional_weight = ((float)$this->clength * (float)$this->cwidth * (float)$this->cheight) / 6000  ?? 0;
+            $this->dimensional_weight = ((float)$this->clength * (float)$this->cwidth * (float)$this->cheight) / 6000  ?? null;
         }elseif($this->shipment_name == 'sea_freight'){
-            $this->dimensional_weight = ((float)$this->clength * (float)$this->cwidth * (float)$this->cheight) /1000000 ?? 0;
+            $this->dimensional_weight = ((float)$this->clength * (float)$this->cwidth * (float)$this->cheight) /1000000 ?? null;
         }else{
             $this->dimensional_weight = '0.00';
         }

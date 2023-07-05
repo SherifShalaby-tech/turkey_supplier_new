@@ -45,7 +45,7 @@ class SubCategoryController extends Controller
                 return $html;
             })
             ->editColumn('category_id',function (SubCategories $category){
-                return $category->category?->name;
+                return $category->category->name ?? "";
             })
             ->addColumn('actions', function (SubCategories $category) {
                 return view('Admin.subcategories.datatable.actions',compact('category'));
@@ -65,11 +65,18 @@ class SubCategoryController extends Controller
         try{
             // toast('added success','success');
             $category = new SubCategories();
-            if($request->image){
-                $filename = time().'.'.$request->image->extension();
-                $request->image->move(public_path('images/sub_categories/'), $filename);
-                $category->image = $filename;
+            if ($request->cropImages && count($request->cropImages) > 0) {
+                foreach ($request->cropImages as $image) {
+                    $imageData = decodeBase64Image($image);
+                    $file_name =time()  . '.' . explode("/",$imageData["type"])[1];
+                    $path = public_path('images/sub_categories/' . $file_name);
+                    $imagee = Image::make(base64_decode(explode(",",$image)[1]));
+                    $imagee->save($path);
+                    $category->image = $file_name;
+                }
             }
+
+
             if(!empty($request->translations))
             {
                 $category->translation = $request->translations;
@@ -101,9 +108,7 @@ class SubCategoryController extends Controller
 
     public function edit($id){
         try{
-
             $categories = Category::get(['id','name','translation']);
-
             $subcategory = SubCategories::where('id',$id)->first();
             return view('Admin.subcategories.edit',compact('subcategory','categories'));
         }catch (\Exception $exception){
@@ -113,13 +118,24 @@ class SubCategoryController extends Controller
     }
 
     public function update(Update $request){
-        try{
+//        try{
             // toast('updated success','success');
             $category = SubCategories::where('id',$request->id)->first();
-            if($request->image){
-                $filename = time().'.'.$request->image->extension();
-                $request->image->move(public_path('images/sub_categories/'), $filename);
-                $category->image = $filename;
+//            if($request->image){
+//                $filename = time().'.'.$request->image->extension();
+//                $request->image->move(public_path('images/sub_categories/'), $filename);
+//                $category->image = $filename;
+//            }
+            if ($request->cropImages && count($request->cropImages) > 0) {
+                foreach (getCroppedImages($request->cropImages) as $image) {
+                    $imageData = decodeBase64Image($image);
+                    @unlink(public_path('images/sub_categories/' .$category->image ));
+                    $file_name =time()  . '.' . explode("/",$imageData["type"])[1];
+                    $path = public_path('images/sub_categories/' . $file_name);
+                    $imagee = Image::make(base64_decode(explode(",",$image)[1]));
+                    $imagee->save($path);
+                    $category->image = $file_name;
+                }
             }
             if(!empty($request->translations))
             {
@@ -139,15 +155,21 @@ class SubCategoryController extends Controller
             $category->catar  = $category->category->translation['name']['ar']??null;
             $category->caten  = $category->category->translation['name']['en']??null;
             $category->cattr  = $category->category->translation['name']['tr']??null;
-
             $category->save();
+            // loop product
+            if ($category->products->count() > 0){
+                foreach ($category->products as $product){
+                    $product->category_id = $category->category_id;
+                    $product->save();
+                }
+            }
             Alert::success(trans('admins.success'), trans('admins.update-succes'));
             return redirect(route('admin.subcategories.index'));
             // return back();
-        }catch (\Exception $exception){
-            Alert::error('error msg',$exception->getMessage());
-            return redirect()->back();
-        }
+//        }catch (\Exception $exception){
+//            Alert::error('error msg',$exception->getMessage());
+//            return redirect()->back();
+//        }
     }
 
     public function destroy(Request $request){

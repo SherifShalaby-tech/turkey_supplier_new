@@ -2,7 +2,7 @@
 return [
     // public lang
     'about_us' => 'Hakkımızda',
-    'shipping' => 'nakliye hizmetleri',
+    'shipping' => 'Nakliye hizmetleri',
     'login' => 'Giriş',
     'register' => 'Kayıt',
     'search' => 'ara',
@@ -27,13 +27,13 @@ return [
     'fav' => 'Favoriler',
     'account' => 'Hesap',
     'logout' => 'Logout',
-    'services' => 'hizmetler',
+    'services' => 'Hizmetler',
     'Mediation' => 'Aracılık',
     'basic_shipping_services' => 'Temel nakliye Hizmetleri',
     'tracking_order' => 'Takip siparişi',
     'Your_Cart_is_empty' => 'Sepetiniz Boş',
     'Continue_shopping' => 'Alışverişe devam et',
-    'essential_details' => 'temel ayrıntılar',
+    'essential_details' => 'Temel Ayrıntılar',
     'Supply_Ability' => 'İkmal Yeteneği',
     'Packaging_&_delivery' => 'Paketleme ve teslimat',
     'Annual_Production_Capacity' => 'Yıllık Üretim Kapasitesi',
@@ -144,7 +144,7 @@ return [
     'categories' => 'Kategoriler',
     'products' => 'Ürünler',
     'categories_not_found' => 'Kategoriler Bulunamadı',
-    'products_not_found' => 'Ürün Bulunamadı',
+    'products_not_found' => 'Bizi izlemeye devam edin! Yeni ürünler geliyor',
     'mediation' => 'Aracılık',
     'translation_services' => 'Çeviri Hizmetleri',
     'trade_show' => 'Ticari Fuar',
@@ -284,6 +284,32 @@ return [
     'plan_validation_1' => 'Pakette bulunanlar için görüntü sayısı çok fazla',
     'plan_validation_2' => 'Açıklama, mevcut karakterlerinizden daha fazla karakter içeriyor',
     'plan_validation_3' => 'Pakette bulunanlar için görüntü sayısı çok fazla',
-    'all_products' => 'Tüm ürünler'
+    'all_products' => 'Tüm ürünler',
+
+    'home' => 'Anasayfa',
+    'supplier_details' => 'Tedarikçi Ayrıntıları',
+    'Forgot_your_password?' => 'Parolanızı mı unuttunuz ?',
+    'phone_number' => 'Telefon numarası',
+    'Reset_password' => 'Şifreyi yenile',
+    'get_started' => 'Başlamak',
+    'Read-More' => 'Devamını oku',
+
+    'ALL_CATEGORY' => 'TÜM KATEGORİ',
+    'ALL_SUPPLIERS' => 'TÜM TEDARİKÇİLER',
+    'my_contact' => 'İletişimim',
+    'my_Fav_Products' => 'Favori Ürünlerim',
+    'supplier_product' => 'Tedarikçi Ürün',
+    'see_all' => 'Hepsini gör',
+    'search_result' => 'Arama Sonuçları',
+    'filter'=>'Filtre',
+
+    'login' => 'Giriş yapmak',
+    'user' => 'kullanıcı',
+    'company' => 'şirket',
+    'forgot_password' => 'Parolanızı mı unuttunuz ?',
+    'not_member' => 'Henüz üye değil misiniz?  üye olmak ',
+    'Register' => 'Kayıt olmak',
+    
+    'email_subscribtion' => 'Email Subscribtion',
 ];
 ?>

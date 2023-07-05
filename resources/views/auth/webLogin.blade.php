@@ -1,6 +1,7 @@
 @extends('layouts.website.master')
 @section('title','Login')
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     @if(app()->getLocale() == 'ar')
         <style>
             .form-check-input{
@@ -8,455 +9,327 @@
             }
         </style>
     @endif
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        font-size: 33px;
+        font-weight: bold;
+        position: relative;
+        left: 47%;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 @stop
 @section('content')
 
-<style>
-
-        .main {
-
-        position: relative;
-
-        width: 1000px;
-        min-width: 1000px;
-        min-height: 600px;
-        height: 600px;
-        padding: 25px;
-        background-color: #ecf0f3;
-        box-shadow: 10px 10px 10px #d1d9e6, -10px -10px 10px #f9f9f9;
-        border-radius: 12px;
-        overflow: hidden;
-       /* margin: 100px 0px 100px 700px; */
-        }
-        .login .row{
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: nowrap;
-            margin-right: -15px;
-            margin-left: -15px;
-            justify-content: center;
-            align-items: center;
-        }
-        .login .img9 {
-            display: contents;
-        }
-        @media (max-width: 1200px) {
-        .main {
-            transform: scale(0.7);
-        }
-        }
-        @media (max-width: 1000px) {
-            .main {
-               /* transform: scale(0.5); */
-            padding: 0;
-            margin: 0;
-
-        }
-        .login .row{
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-            justify-content: center;
-            align-items: center;
-         }
-        }
-        @media (max-width: 800px) {
-        .main {
-               /* transform: scale(0.5); */
-            padding: 0;
-            margin: 0;
-
-        }
-        .login .row{
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-            justify-content: center;
-            align-items: center;
-         }
-        }
-        @media (max-width: 600px) {
-        .main {
-            transform: scale(0.4);
-            margin: 0;
-            padding: 0;
-        }
-        .login {
-            padding: 0;
-        }
-        .login img{
-           display: none;
-        }
-        }
-
-        .containerlogin {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 600px;
-        height: 100%;
-        padding: 25px;
-        background-color: #ecf0f3;
-        transition: 1.25s;
-        }
-
-        .containerlogin .form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        }
-        .containerlogin .form__icon {
-        object-fit: contain;
-        width: 30px;
-        margin: 0 5px;
-        opacity: 0.5;
-        transition: 0.15s;
-        }
-        .containerlogin .form__icon:hover {
-        opacity: 1;
-        transition: 0.15s;
-        cursor: pointer;
-        }
-        .containerlogin .form__input {
-        width: 350px;
-        height: 40px;
-        margin: 4px 0;
-        padding-left: 25px;
-        font-size: 13px;
-        letter-spacing: 0.15px;
-        border: none;
-        outline: none;
-        font-family:  CustomFont;;
-        background-color: #ecf0f3;
-        transition: 0.25s ease;
-        border-radius: 8px;
-        box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
-        }
-        .containerlogin .form__input:focus {
-        box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
-        }
-        .containerlogin .form__span {
-        margin-top: 30px;
-        margin-bottom: 12px;
-        }
-        .containerlogin .form__link {
-        color: #181818;
-        font-size: 15px;
-        margin-top: 25px;
-        border-bottom: 1px solid #a0a5a8;
-        line-height: 2;
-        }
-
-        .containerlogin .title {
-        font-size: 34px;
-        font-weight: 100;
-        line-height: 3;
-        color: #181818;
-        }
-
-        .containerlogin .description {
-        font-size: 14px;
-        letter-spacing: 0.25px;
-        text-align: center;
-        line-height: 1.6;
-        }
-
-        .button {
-        width: 180px;
-        height: 50px;
-        border-radius: 10px;
-        margin-top: 5px;
-        font-weight: 100;
-        font-size: 18px;
-        letter-spacing: 1.15px;
-        background-color: #ffffff;
-        color: #3b9db6;
-        padding: 0;
-        box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9;
-        border: #3b9db6 1px solid;
-        outline:  #3b9db6 1px solid;
-        }
-
-        /**/
-        .a-container {
-        z-index: 100;
-        left: calc(100% - 600px );
-        }
-
-        .b-container {
-        left: calc(100% - 600px );
-        z-index: 0;
-        }
-
-        .switch {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 400px;
-        padding: 50px;
-        z-index: 200;
-        transition: 1.25s;
-        background-color: #ecf0f3;
-        overflow: hidden;
-        box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
-        }
-        .switch__circle {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        background-color: #ecf0f3;
-        box-shadow: inset 8px 8px 12px #d1d9e6, inset -8px -8px 12px #f9f9f9;
-        bottom: -60%;
-        left: -60%;
-        transition: 1.25s;
-        }
-        .switch__circle--t {
-        top: -30%;
-        left: 60%;
-        width: 300px;
-        height: 300px;
-        }
-        .switch__container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        position: absolute;
-        width: 400px;
-        padding: 50px 55px;
-        transition: 1.25s;
-        }
-        .switch__button {
-        cursor: pointer;
-        }
-        .switch__button:hover {
-        box-shadow: 6px 6px 10px #d1d9e6, -6px -6px 10px #f9f9f9;
-        transform: scale(0.985);
-        transition: 0.25s;
-        }
-        .switch__button:active, .switch__button:focus {
-        box-shadow: 2px 2px 6px #d1d9e6, -2px -2px 6px #f9f9f9;
-        transform: scale(0.97);
-        transition: 0.25s;
-        }
-
-        /**/
-        .is-txr {
-        left: calc(100% - 400px );
-        transition: 1.25s;
-        transform-origin: left;
-
-        }
-
-        .is-txl {
-        left: 0;
-        right:  450px;
-        transition: 1.25s;
-        transform-origin: right;
-        }
-
-        .is-z200 {
-        z-index: 200;
-        transition: 1.25s;
-        }
-
-        .is-hidden {
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        transition: 1.25s;
-        }
-
-        .is-gx {
-        animation: is-gx 1.25s;
-        }
-
-        @keyframes is-gx {
-        0%, 10%, 100% {
-            width: 400px;
-        }
-        30%, 50% {
-            width: 500px;
-        }
-        }
-</style>
-<div class="login {{app()->getLocale() == 'ar' ? 'ltr' : ''}}" >
-    <div class="container">
+<section class="bg0 p-t-23 p-b-140">
+    <div class="container ">
         <div class="row">
 
-            <div class="col-lg-4 col-md-4  col-sm-12 img9">
+            <div class="col-lg-6 col-md-6  col-12 img9 flex-c-m">
                 <img src="{{asset('imgs/image 9.png')}}">
+                @if (app()->getLocale() == 'tr')
+                    <img src="{{ asset('website/imgs/logint (2).png') }}">
+                @else
+                    <img src="{{ asset('website/imgs/LOGIN.png') }}">
+                @endif
+                
             </div>
 
-    <div class="main col-lg-8 col-md-8  col-sm-12">
+            <div class="col-md-6 col-lg-6 col-12 m-tb-50 p-tb-20 border-solid">
 
-        <div class="containerlogin a-container  " style="@if(app()->getLocale() == 'ar')   @endif" id="a-container">
+                <h2 class="form_title title txt-center p-tb-20"> {{trans('custom.login')}}</h2>
 
-          <form class="form" id="a-form" action="{{ route('user.post.login') }}" method="POST">
-              @csrf
-            <h2 class="form_title title">User Login</h2>
-            <div class="form-group form-check">
-                <label for="exampleInputEmail1">{{trans('custom.email')}}</label>
-                <input class="form__input form-control" required="required" name="email" type="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{trans('custom.email')}}">
-            </div>
-            <div class="form-group form-check">
-                <label for="exampleInputPassword1">{{trans('custom.password')}}</label>
-                <input class="form__input form-control" required="required" name="password" type="password"  id="exampleInputPassword1" placeholder="{{trans('custom.password')}}">
-            </div>
-            <div class="form-group form-check">
-                <input name="remember" type="checkbox" class="form-check-input" id="exampleCheck1" value="1">
-                <label class="form-check-label" for="exampleCheck1">{{trans('custom.stay_sign_in')}}</label>
-            </div>
+                <a class="flex-w  flex-c-m" href="" onclick="loginFun()">
+                    <div class="flex-w  p-lr-30  mtext-1075">
+                        <input class="cl1" type="radio" name="slide" id="login" >
+                        <label class="p-lr-10 cl2" for="login" class="slide login">{{trans('custom.buyer')}}</label>
+                    </div>
 
-            <div class="mb-2">
-                <button type="submit" class="form__button button ">{{trans('custom.sign_in')}}</button>
-            </div>
-            <div class="mb-2">
-                <a style="color: #FFF;text-decoration: none" href="{{route('webRegister')}}">
-                <button type="button" class="form__button button ">
-                    {{trans('custom.join_us')}}</button>
+                    <div class="flex-w  mtext-1075 ">
+                        <input  class="cl1" type="radio" name="slide" id="signup" checked>
+                        <label  class="p-lr-10 cl2" for="signup" class="slide signup">{{trans('custom.supplier')}}</label>
+                    </div>
                 </a>
-            </div>
 
-            <div class="login-social text-center">
-                <p class="text-center">{{trans('custom.sign_in_with')}}</p>
-                <a href="{{route('social.redirectToProvider','facebook')}}">
-                    <img src="{{asset('imgs/Facebook.svg')}}">
-                </a>
-                <a href="{{route('social.redirectToProvider','google')}}">
-                    <img src="{{asset('imgs/Google.svg')}}">
-                </a>
-                <a href="{{route('social.redirectToProvider','linkedin')}}">
-                    <img src="{{asset('imgs/Linkedin.svg')}}">
-                </a>
-            </div>
+                <div class="p-b-10 p-t-40  " id="user">
+                    <form class="form aForm" id="a-form" action="{{ route('user.post.login') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12 p-lr-100 ">
+                                <div class="form-group mtext-1075">
 
-          </form>
+                                    <input required="required" name="email" type="email"  id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    placeholder="{{trans('custom.email')}}" class=" form-control bg-input1 ">
+                                </div>
+                            </div>
+                            <div class="col-md-12  p-lr-100  ">
+                                <div class="form-group mtext-1075 row" style="width: 100%; margin-left: 5px;">
+                                    {{-- <div class="row"> --}}
+                                    <input required="required" name="password" type="password"  id="exampleInputPassword1"
+                                     placeholder="{{trans('custom.password')}}" class="form-control bg-input1">
+                                     <i class="far fa-eye" id="togglePassword1" style="margin-left: -30px; cursor: pointer; margin-top: 10px;"></i>
+
+                                    {{-- </div> --}}
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-lr-100  ">
+                                <div class="form-group mtext-1075 flex-w flex-sb-m ">
+                                    <div class="flex-w  p-lr-30">
+                                        <input name="remember" type="checkbox" id="exampleCheck1" value="1" class="form-control bg-input1" style="width: auto;">
+                                        <label class="p-lr-10">{{trans('custom.stay_sign_in')}}</label>
+                                    </div>
+                                    <div class="flex-w">
+                                        <a class="cl4" href="#" id="forgotBtn"> {{trans('custom.forgot_password')}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 p-t-30">
+                            <div class="col-md-12 txt-center">
+                                <div class="form-group mtext-1075">
+                                    <button type="submit" class="btn bg1 cl0 p-tb-18 p-lr-100 bor2color" >{{trans('custom.sign_in')}}</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12 txt-center">
+                                <div class="form-group mtext-1075">
+                                    <a class="cl2 mtext-1075 flex-c-m" href="{{route('webRegister')}}">
+                                        {{trans('custom.not_member')}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="p-b-10 p-t-40 " id="company" style="display: none">
+                    <form class="form bForm" id="b-form" action="{{ route('user.post.login') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12 p-lr-100 ">
+                                <div class="form-group mtext-1075">
+
+                                    <input required="required" name="email" type="email"  id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    placeholder="{{trans('custom.email')}}" class="form-control bg-input1">
+                                </div>
+                            </div>
+                            <div class="col-md-12  p-lr-100  ">
+                                <div class="form-group mtext-1075 row" style="width: 100%; margin-left: 5px;">
+                                    <input required="required" name="password" type="password"  id="exampleInputPassword2"
+                                     placeholder="{{trans('custom.password')}}" class="form-control bg-input1">
+                                     <i class="far fa-eye" id="togglePassword2" style="margin-left: -30px; cursor: pointer; margin-top: 10px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-lr-100  ">
+                                <div class="form-group mtext-1075 flex-w flex-sb-m ">
+                                    <div class="flex-w  p-lr-30">
+                                        <input name="remember" type="checkbox" id="exampleCheck1" value="1" class="form-control bg-input1" style="width: auto;">
+                                        <label class="p-lr-10">{{trans('custom.stay_sign_in')}}</label>
+                                    </div>
+                                    <div class="flex-w">
+                                        <a class="cl2" href="#" id="forgotBtn"> forgot password ?</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                      
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="login-social flex-w flex-sb-m mtext-1075">
+                                    <a class="p-tb-16 p-lr-40 m-tb-20   bor2color cl2" href="{{route('social.redirectToProvider','facebook')}}">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                        Facebook
+                                    </a>
+
+                                    <a  class="p-tb-16 p-lr-40 m-tb-20  bor2color cl2" href="{{route('social.redirectToProvider','google')}}">
+                                        <i class="fa-solid fa-m"></i>
+                                        G-mail
+                                    </a>
+
+                                    <a  class="p-tb-16 p-lr-40 m-tb-20   bor2color cl2" href="{{route('social.redirectToProvider','linkedin')}}">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                        Linkedin
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 p-t-30">
+                            <div class="col-md-12 txt-center">
+                                <div class="form-group mtext-1075">
+                                    <button type="submit" class="btn bg1 cl0 p-tb-18 p-lr-100 bor2color" >{{trans('custom.sign_in')}}</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12 txt-center">
+                                <div class="form-group mtext-1075">
+                                    <a class="cl2 mtext-1075 flex-c-m" href="{{route('webRegister')}}">
+                                        Not a member yet?    sign up
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <div class="containerlogin b-container" id="b-container">
-          <form class="form" id="b-form" action="{{ route('user.post.login') }}" method="POST">
-            @csrf
-            <h2 class="form_title title">Company Login</h2>
+    </div>
+</section>
 
-            <div class="form-group form-check">
-                <label for="exampleInputEmail1">{{trans('custom.email')}}</label>
-                <input class="form__input form-control" required="required" name="email" type="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{trans('custom.email')}}">
-            </div>
-            <div class="form-group form-check">
-                <label for="exampleInputPassword1">{{trans('custom.password')}}</label>
-                <input class="form__input form-control" required="required" name="password" type="password"  id="exampleInputPassword1" placeholder="{{trans('custom.password')}}">
-            </div>
-            <div class="form-group form-check">
-                <input name="remember" type="checkbox" class="form-check-input" id="exampleCheck1" value="1">
-                <label class="form-check-label" for="exampleCheck1">{{trans('custom.stay_sign_in')}}</label>
-            </div>
 
-            <div class="mb-2">
-                <button type="submit" class="form__button button ">{{trans('custom.sign_in')}}</button>
-            </div>
-            <div class="mb-2">
-                <a style="color: #FFF;text-decoration: none" href="{{route('webRegister')}}">
-                <button type="button" class="form__button button ">
-                    {{trans('custom.join_us')}}</button>
-                </a>
-            </div>
 
-            <div class="login-social text-center">
-                <p class="text-center">{{trans('custom.sign_in_with')}}</p>
-                <a href="{{route('social.redirectToProvider','facebook')}}">
-                    <img src="{{asset('imgs/Facebook.svg')}}">
-                </a>
-                <a href="{{route('social.redirectToProvider','google')}}">
-                    <img src="{{asset('imgs/Google.svg')}}">
-                </a>
-                <a href="#">
-                    <img src="{{asset('imgs/Linkedin.svg')}}">
-                </a>
+<!-- The Modal -->
+<div id="forgotModal" class="modal flex-c-m">
+
+    <!-- Modal content -->
+    <div class=" img9 flex-c-m" style=" position: relative; top: 20%;">
+        <div class="modal-content flex-c-m">
+
+            <span class="close">&times;</span>
+            <div class="p-b-10 p-t-30">
+                <h2 class="txt-center p-tb-20"> {{trans('custom.Forgot_your_password?')}} </h2>
+
+
+                <p class="txt-center p-tb-20">Enter your email and recover your account</p>
+
+
+                <form class="form aForm" id="a-form" action="{{ route('buyer.reset.password') }}" method="GET">
+                    @csrf
+                    <div class="row">
+                        {{-- <div class="col-md-12 p-lr-100 ">
+                            <div class="form-group mtext-1075">
+
+                                <input name="phone" type="text"  id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="{{trans('custom.phone_number')}}" class=" form-control bg-input1 ">
+                            </div>
+                        </div> --}}
+
+                        {{-- <div class="col-md-12 flex-c-m txt-center div-border  m-t-20 m-b-30 p-lt-100" >  <p class="p-position flex-c-m txt-center"> OR </p> </div> --}}
+
+                        <div class="col-md-12 p-lr-100 ">
+                            <div class="form-group mtext-1075">
+
+                                <input required="required" name="email" type="email"  id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="{{trans('custom.email')}}" class=" form-control bg-input1 ">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row mt-2 p-t-30">
+                        <div class="col-md-12 txt-center">
+                            <div class="form-group mtext-1075">
+                                <button type="submit" class="btn bg1 cl0 p-tb-18 p-lr-100 bor2color" >{{trans('custom.Reset_password')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-          </form>
-        </div>
-
-        <div class="switch" id="switch-cnt">
-          <div class="switch__circle"></div>
-          <div class="switch__circle switch__circle--t"></div>
-          <div class="switch__container" id="switch-c1">
-            <h2 class="switch__title title">Welcome Back !</h2>
-            <p class="switch__description description">Enter your personal details and start journey with us</p>
-            <button class="switch__button button switch-btn" style="background-color: #3b9db6 ; color:#FFF">Company Login</button>
-          </div>
-          <div class="switch__container is-hidden" id="switch-c2">
-            <h2 class="switch__title title">Welcome Back !</h2>
-            <p class="switch__description description">Enter your personal details and start journey with us</p>
-            <button class="switch__button button switch-btn" style="background-color: #3b9db6;  color:#FFF">User Login</button>
-          </div>
-        </div>
-      </div>
 
         </div>
     </div>
 </div>
 
 
+
+
+
+
+
     <script>
-        let switchCtn = document.querySelector("#switch-cnt");
-        let switchC1 = document.querySelector("#switch-c1");
-        let switchC2 = document.querySelector("#switch-c2");
-        let switchCircle = document.querySelectorAll(".switch__circle");
-        let switchBtn = document.querySelectorAll(".switch-btn");
-        let aContainer = document.querySelector("#a-container");
-        let bContainer = document.querySelector("#b-container");
-        let allButtons = document.querySelectorAll(".submit");
+        function loginFun() {
+            var x = document.getElementById("user");
+            var y = document.getElementById("company");
 
-        let getButtons = (e) => e.preventDefault()
-
-        let changeForm = (e) => {
-
-            switchCtn.classList.add("is-gx");
-            setTimeout(function(){
-                switchCtn.classList.remove("is-gx");
-            }, 1500)
-            switchCtn.classList.toggle("is-txr");
-            switchCircle[0].classList.toggle("is-txr");
-            switchCircle[1].classList.toggle("is-txr");
-
-            switchC1.classList.toggle("is-hidden");
-            switchC2.classList.toggle("is-hidden");
-            aContainer.classList.toggle("is-txl" );
-            bContainer.classList.toggle("is-txl" );
-            bContainer.classList.toggle("is-z200");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                x.style.display = "none";
+                y.style.display = "block";
+            }
         }
 
-        let mainF = (e) => {
-            for (var i = 0; i < allButtons.length; i++)
-                allButtons[i].addEventListener("click", getButtons );
-            for (var i = 0; i < switchBtn.length; i++)
-                switchBtn[i].addEventListener("click", changeForm)
+
+        // Get the modal
+        var modal = document.getElementById("forgotModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("forgotBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+        modal.style.display = "block";
         }
 
-        window.addEventListener("load", mainF);
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none"; 
+        }
+        }
+
+        const togglePassword1 = document.querySelector('#togglePassword1');
+        const togglePassword2 = document.querySelector('#togglePassword2');
+        const password1 = document.querySelector('#exampleInputPassword1');
+        const password2 = document.querySelector('#exampleInputPassword2');
+
+        togglePassword1.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type1 = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+            password1.setAttribute('type', type1);
+            // toggle the eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+        togglePassword2.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type2 = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+            password2.setAttribute('type', type2);
+            // toggle the eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
     </script>
 
 @stop

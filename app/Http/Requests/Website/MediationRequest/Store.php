@@ -25,12 +25,11 @@ class Store extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'company_id' => 'required|exists:companies,id',
+            'company_id' => 'required',
             'company_name' => 'nullable',
-            'phone' => 'nullable',
-            'phone2' => 'nullable',
+            'phone_number' => 'nullable',
             'country' => 'nullable',
-            'product_id' => 'required|exists:products,id',
+            'product_id' => 'required',
             'qty' => 'nullable',
             'supply_period' => 'nullable'
         ];

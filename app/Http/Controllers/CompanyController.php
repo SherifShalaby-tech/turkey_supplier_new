@@ -135,7 +135,7 @@ class CompanyController extends BaseController
                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(128, 128);
+                // $image_resize->resize(128, 128);
                 $image_resize->save(public_path('/images/avatar/' . $filename));
 
             } else {
@@ -148,7 +148,7 @@ class CompanyController extends BaseController
                 $filenameidentification = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(128, 128);
+                // $image_resize->resize(128, 128);
                 $image_resize->save(public_path('/images/identifications/' . $filenameidentification));
 
             } else {
@@ -161,7 +161,7 @@ class CompanyController extends BaseController
                 $filenamecriminal_case = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(128, 128);
+                // $image_resize->resize(128, 128);
                 $image_resize->save(public_path('/images/criminal_case/' . $filenamecriminal_case));
 
             } else {
@@ -242,7 +242,7 @@ class CompanyController extends BaseController
                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(128, 128);
+                // $image_resize->resize(128, 128);
                 $image_resize->save(public_path('/images/avatar/' . $filename));
 
                 $userPhoto = $path . '/' . $currentAvatar;
@@ -315,7 +315,7 @@ class CompanyController extends BaseController
             $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(128, 128);
+            // $image_resize->resize(128, 128);
             $image_resize->save(public_path('/images/avatar/' . $filename));
 
             $userPhoto = $path . '/' . $currentAvatar;

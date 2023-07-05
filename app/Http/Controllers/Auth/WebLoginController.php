@@ -83,7 +83,7 @@ class WebLoginController extends Controller
                 'trade_role' => $request->trade_role,
                 'name' => $request->full_name,
                 'agree' => $request->agree,
-                'phone' => $request->phone . $request->phone2,
+                'phone' => $_REQUEST['phone_number']['full'],
                 'type' => 'supplier'
             ]);
             if($request->trade_role == 'seller'){

@@ -1239,7 +1239,7 @@
                             <div class="sidebar-menu-list">
                                 <!-- sidebar menu  -->
                                 <div class="list-group list-group-messages">
-                                    <a href="#" class="list-group-item active" id="inbox-menu">
+                                    <a href="{{ route('admin.contactSuppliers.index') }}" class="list-group-item active" id="inbox-menu">
                                         <div class="d-inline mr-25">
                                             <i class="ft-mail"></i>
                                         </div>
@@ -1251,6 +1251,21 @@
                                             @endif
                                             @if(auth('clerk')->user())
                                             {{ App\Models\ContactSupplier::where('supplier_id', Auth::guard('clerk')->user()->company_id)->count() }}
+                                            @endif
+                                        </span>
+                                    </a>
+                                    <a href="{{route('admin.contactSuppliers.indexSend')}}" class="list-group-item">
+                                        <div class="d-inline mr-25">
+                                            <i class="ft-play"></i>
+                                        </div>
+                                         {{ __('contactSuppliers.Sent') }}
+                                          <span class="badge badge-success badge-pill badge-round float-right">
+                                            {{-- {{ $contactSuppliers->count() }} --}}
+                                            @if(auth('company')->user())
+                                            {{ App\Models\ContactSupplier::where('user_id', Auth::guard('company')->user()->id)->count() }}
+                                            @endif
+                                            @if(auth('clerk')->user())
+                                            {{ App\Models\ContactSupplier::where('user_id', Auth::guard('clerk')->user()->company_id)->count() }}
                                             @endif
                                         </span>
                                     </a>
@@ -1598,8 +1613,8 @@
                                                                 <div class="user-details">
                                                                     <div class="mail-items">
                                                                         <span class="list-group-item-text text-truncate" >
-                                                                            {{-- {{ $contactSupplier->user->name ?? null}} --}}
-                                                                            {{$contactSupplier->user?->name ?? $contactSupplier->visitor?->name}}
+                                                                            {{-- {{ $contactSupplier->supplier->name ?? null}} --}}
+                                                                            {{$contactSupplier->supplier?->name ?? $contactSupplier->visitor?->name}}
                                                                             <span class="badge badge-light-danger badge-pill ml-1">{{ $contactSupplier->user?->name ? __('company.buyerman'):__('company.visitor')}}</span>
                                                                         </span>
                                                                     </div>

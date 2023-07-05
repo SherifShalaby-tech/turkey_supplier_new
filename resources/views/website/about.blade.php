@@ -1,83 +1,75 @@
 @extends('layouts.website.master')
 @section('title','About Us')
 @section('content')
-<style>
-.about-page p{
-    font-weight: 400 !important;font-size: 22px;  font-family: Arial, Helvetica, sans-serif !important;
-}
-</style>
 
-    <div class="about-page  p-5">
-        <div class="container-fluid">
-            @forelse($abouts as $key => $about)
-            <div class="about mt-3 mb-3">
-                <div class="row">
-                    <div class="col-lg-8 col-md-12 col-sm-12">
-
-                        {{-- <h4 class="cl7">{{trans('custom.about_us')}}</h4> --}}
-                        {{-- <p>{{$data->about_us ?? '-'}}.</p> --}}
-                        <pre>
-                            <p>{!! $about->subject!!}</p>
-                        </pre>
-                     
-
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        @if($about->image)
-                        <img src="{{ asset('images/about_us/'.$about->image) }}" alt="" class="img-thumbnail"
-                        width="70%" >
-                        {{-- {!! $aboutnew->subject !!} --}}
-                        @else
-                        <img src="{{ asset('images/Logo.jpg') }}" alt="" class="img-thumbnail" width="90%">
-                        @endif
-                        {{-- <img src="{{asset('website/imgs/product.png')}}" width="70%" class="img-thumbnail"> --}}
-                    </div>
-                </div>
-            </div>
-            @empty
-
-            @endforelse
-
-            {{-- <div class="services mb-3">
-                <div class="row">
-                    <div class="col-lg-8 col-sm-12">
-                        <h4 class="cl7">{{trans('custom.services')}}</h4>
-                        <pre>
-                            <p>{{$data->services ?? '-'}}</p>
-                        </pre>
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        <img src="{{asset('images/shipment/air_freight.png')}}" width="70%" class="img-thumbnail">
-                    </div>
-                </div>
-            </div>
-            <div class="shipping mb-3">
-                <div class="row">
-                    <div class="col-lg-8 col-sm-12">
-                        <h4 class="cl7">{{trans('custom.shipping')}}</h4>
-                        <pre>
-                            <p>{{$data->shipping_products ?? '-'}}.</p>
-                        </pre>
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        <img src="{{asset('images/shipment/air-freight.png')}}" width="70%" class="img-thumbnail">
-                    </div>
-                </div>
-            </div>
-            <div class="mediation mb-3">
-                <div class="row">
-                    <div class="col-lg-8 col-sm-12">
-                        <h4 class="cl7">{{trans('custom.Mediation')}}</h4>
-                        <pre>
-                            <p>{{$data->mediation ?? '-'}}.</p>
-                        </pre>           
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        <img src="{{asset('images/meditations/74366467144.jpg')}}" width="70%" class="img-thumbnail">
-                    </div>
-                </div>
-            </div> --}}
-        </div>
+<div class="bg0 p-t-10 p-b-20">
+    <div class="container-fluid">
+        <p class="cl6">
+            <a  class="cl6" href="{{route('website.index')}}"> <i class="fas fa-home"></i> </a>
+            /
+            <a  class="cl6" href="#"> {{trans('custom.about_us')}} </a>
+        </p>
     </div>
+</div>
+
+<section class="bg0 p-t-5 p-b-120">
+    <div class="container-fluid">
+
+       
+            <div class="row p-b-10 p-t-0">
+                <div class="col-12 col-md-12 col-lg-12 m-lr-auto">
+                    @forelse($abouts as $key => $about)
+                    <div class="col-12 col-md-4 col-lg-4 m-lr-auto">
+                            <div class="hov-img0 txt-center">
+                                @if($about->image)
+                                    <img class="circle-img txt-center"  src="{{ asset('images/about_us/'.$about->image) }}" alt="about-img"
+                                        style="max-width: 100%;  height: auto; width: 60% !important;
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        background-position: 50% 50%;
+                                        padding: 50px;">
+                              
+                                @else
+                                    <img class="circle-img txt-center" src="{{ asset('images/Logo.jpg') }}" alt="about-img" 
+                                    style="max-width: 100%;  height: auto; width: 60% !important;
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        background-position: 50% 50%;
+                                        padding: 50px;">
+                                @endif
+                            </div>                
+                    </div>
+                    @empty
+                    @endforelse
+                </div>
+            </div>  
+
+                <div class="p-b-10 separator">
+                    <div class="flex-center bg1 p-0  b-rt-lb-20">
+                        <h3 class="latotext-108 cl0 p-r-l-10 p-10-40">
+                            {{trans('custom.about_us')}}
+                        </h3>
+                    </div>
+                </div>
+
+            <div class="row p-b-0">
+                <div class="col-md-12 col-lg-12 txt-start m-t-40 ">
+                    <div class="p-t-20 p-r-85 p-l-85 p-r-15-lg p-r-0-md p-l-0-md  m-r-20 m-l-20 bg2 bor2 box-shadow-0-10-10">
+                        @forelse($abouts as $key => $about)
+                      
+                                <p class="mtext-101 cl2 p-b-26">
+                                    {!! $about->subject!!}
+                                </p>
+                         
+                        @empty
+
+                        @endforelse
+                    </div>
+                </div>
+            </div>  
+        
+    </div>
+</section>	
+
 
 @stop

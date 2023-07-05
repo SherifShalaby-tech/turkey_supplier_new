@@ -1,60 +1,68 @@
 @extends('layouts.website.master')
 @section('title',trans('custom.orders'))
 @section('content')
-<style>
-    table{
-        font-size: 22px;
-    }
-    table tr{
-        font-size: 22px;
-        letter-spacing: 1.5px;
-    }
-    .btn{
-        font-size: 20px !important;
-    }
-</style>
-<div class="orders p-5">
+
+<div class="bg0 p-t-10 p-b-20">
     <div class="container-fluid">
-        <h2 class="text-center mt-3 mb-3">{{trans('custom.orders')}}</h2>
-        <div class="row">
-            <div class="col-12">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">{{trans('custom.order_date')}}</th>
-                        <th scope="col">{{trans('custom.order_status')}}</th>
-                        <th scope="col">{{trans('custom.payment_status')}}</th>
-                        <th scope="col">{{trans('custom.total_price')}}</th>
-                        <th scope="col">{{trans('custom.order_details')}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if($orders->count() > 0)
-                        @foreach($orders as $key => $order)
-                            <tr>
-                                <th scope="row">{{$key + 1}}</th>
-                                <td>{{$order->created_at->format('Y-m-d')}}</td>
-                                <td>{{$order->status}}</td>
-                                <td>{{$order->payment_statut}}</td>
-                                <td>{{$order->total_price}}</td>
-                                <td>
-                                    <a href="{{route('order.details',$order->id)}}" class="btn bg9 cl0 hov-cl0">{{trans('custom.order_details')}}</a>
-                                    <a href="{{route('getTimelineOrders',$order->order_number)}}" class="btn bg9 cl0 hov-cl0">{{trans('custom.timeline')}}</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
-                        <div class="alert alert-danger">
-                            <p>{{trans('custom.orders_not_found')}}</p>
-                        </div>
-                    @endif
-                    </tbody>
-                </table>
-            </div>
+        <p class="cl6">
+            <a  class="cl6" href="{{route('website.index')}}"> <i class="fas fa-home"></i> </a>
+            /
+            <a  class="cl6" href="#">{{trans('custom.orders')}} </a>
+        </p>
     </div>
 </div>
-</div>
+
+
+<form class="bg0 p-t-75 p-b-85"  >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-11 col-xl-11 m-lr-auto m-b-50">
+                <div class=" m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1"># No.</th>
+                                <th class="column-2"> {{trans('custom.order_date')}}</th>
+                                <th class="column-4">{{trans('custom.order_status')}}</th>
+                                <th class="column-4">{{trans('custom.payment_status')}}</th>
+                                <th class="column-5">{{trans('custom.total_price')}}</th>
+                                <th class="column-5">{{trans('custom.order_details')}}</th>
+                            </tr>
+
+                            @if($orders->count() > 0)
+                            @foreach($orders as $key => $order)
+
+                                <tr class="table_row">
+                                    <td class="column-1"> {{$key + 1}} </td>
+                                    <td class="column-2"> {{$order->created_at->format('Y-m-d')}} </td>
+                                    <td class="column-4"> {{$order->status}}</td>
+                                    <td class="column-4 ">{{$order->payment_statut}}</td>
+                                    <td class="column-5">{{$order->total_price}}</td>
+                                    <td class="column-5">
+                                        <a href="{{route('order.details',$order->id)}}" class="btn bg9 cl0 hov-cl0">{{trans('custom.order_details')}}</a>
+                                        <a href="{{route('getTimelineOrders',$order->order_number)}}" class="btn bg9 cl0 hov-cl0">{{trans('custom.timeline')}}</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @else
+                                    <div class="alert alert-danger">
+                                        <p> <span class="material-icons">error</span> {{trans('custom.orders_not_found')}}</p>
+                                    </div>
+                                @endif
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+    
+
+
+
+
 
 
 @stop

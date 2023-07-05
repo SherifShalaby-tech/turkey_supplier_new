@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3.0|^8.0",
         "astrotomic/laravel-translatable": "^11.9",
+        "aws/aws-sdk-php": "^3.263",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "doctrine/dbal": "2.*",
         "fideloper/proxy": "^4.2",
@@ -30,7 +31,9 @@
         "pusher/pusher-php-server": "^7.0",
         "realrashid/sweet-alert": "^5.1",
         "santigarcor/laratrust": "^7.1",
+        "socialiteproviders/google": "^4.1",
         "stripe/stripe-php": "^7.76",
+        "twbs/bootstrap": "5.2.3",
         "twilio/sdk": "^6.22",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "^9.0"

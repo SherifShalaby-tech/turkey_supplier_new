@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\SubScribe;
 use App\utils\helpers;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class SubscribeController extends BaseController
@@ -40,6 +42,28 @@ class SubscribeController extends BaseController
             'totalRows' => $totalRows,
         ]);
     }
+
+
+    public function getSubScribe()
+    {
+        try{
+            $subscribes = SubScribe::get();
+            return view('Admin.subscribe.index',compact('subscribes'));
+        }catch (\Exception $exception){
+            Alert::error('error msg',$exception->getMessage());
+            return redirect()->back();
+        }
+    }
+    /*public function data() {
+        $subscribes = SubScribe::get();
+        return DataTables::of($subscribes)
+            ->addIndexColumn()
+            ->editColumn('created_at', function (SubScribe $subscribes) {
+                return $subscribes->created_at->format('Y-m-d');
+            })
+            ->toJson();
+    }*/
+
 
     //-------------- Store New Category ---------------\\
 

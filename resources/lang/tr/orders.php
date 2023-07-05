@@ -16,4 +16,8 @@ return [
      'product_code' => 'ürün kodu',
      'category_name' => 'kategori adı',
      'product_image' => 'ürün resmi',
+     
+         'email' => 'Email',
+    'emails' => 'All emails',
+    'subscribes' => 'subscribes',
 ];

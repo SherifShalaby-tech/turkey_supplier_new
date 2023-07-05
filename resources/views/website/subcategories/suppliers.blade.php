@@ -95,181 +95,181 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-#main{
-    width: 98%;
-}
-.breadcrumb{
-    font-size: 22px;
-}
-.dropdown-toggle::after {
-    display: inline-block;
-    margin-left: 0.200em;
-    vertical-align: 0.255em;
-    top: auto !important;
-    content: "";
-    position: absolute;
-    border-top: 0.3em solid;
-    border-right: .3em solid transparent;
-    border-bottom: 0;
-    border-left: .3em solid transparent;
-}
-
- @media (max-width: 1440px) {
-    .isotope-grid .block2-pic img {
-        height:308px !important;
     }
-    .card-title-name{
-        width: 300px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    #main{
+        width: 98%;
     }
-    aside {
-        padding-left: 0px !important;
-        grid-template-columns: 265px 1fr;
-     }
-}
-
-
-@media (max-width: 1400px) {
-    .isotope-grid .block2-pic img {
-        height: 295px !important;
+    .breadcrumb{
+        font-size: 22px;
     }
-    .card-title-name{
-        width: 250px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
-@media (max-width: 1024px) {
-    .isotope-grid .block2 {
-        padding: 5px !important;
-    }
-    .isotope-grid .block2-pic img {
-        height: 202px !important;
-    }
-    .card-title-name{
-        width: 200px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    aside {
-        padding-left: 0px !important;
-        grid-template-columns: 265px 1fr;
-     }
-}
-
- @media (max-width: 768px) {
-     .isotope-grid .block2-pic img {
-        height: 119px !important;
-    }
-    .card-title-name{
-        width: 120px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    aside {
-        padding-left: 0px !important;
-        grid-template-columns: 265px 1fr;
-     }
-}
-
- @media (max-width: 425px) {
-     .isotope-grid .block2-pic img {
-        height: 198px !important;
-    }
-    .isotope-grid .isotope-item {
-        padding: 0 !important;
-    }
-  aside {
-    padding-left: 0px !important;
-    grid-template-columns: 100% 1fr;
-  }
-    #mySidebar{
+    .dropdown-toggle::after {
+        display: inline-block;
+        margin-left: 0.200em;
+        vertical-align: 0.255em;
+        top: auto !important;
+        content: "";
         position: absolute;
-        background-color: #fff;
-        z-index: 1000;
-        top: 447px;
-        width: 100%;
-    }
-    #filter{
-        display: block !important;
-    }
-    .main-filter{
-        display: none !important;
+        border-top: 0.3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
     }
 
-    .card-title-name{
-        width: 190px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    @media (max-width: 1440px) {
+        .isotope-grid .block2-pic img {
+            height:308px !important;
+        }
+        .card-title-name{
+            width: 300px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        aside {
+            padding-left: 0px !important;
+            grid-template-columns: 265px 1fr;
+        }
     }
-}
 
- @media (max-width: 375px) {
-    .isotope-grid .block2-pic img {
-        height: 173px !important;
-    }
-    aside {
-    padding-left: 0px !important;
-    grid-template-columns: 100% 1fr;
-  }
-    #mySidebar{
-        position: absolute;
-        background-color: #fff;
-        z-index: 1000;
-        top: 447px;
-        width: 100%;
-    }
-    .card-title-name{
-        width: 170px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    #filter{
-        display: block !important;
-    }
-    .main-filter{
-        display: none !important;
-    }
-}
 
- @media (max-width: 320px) {
-  .isotope-grid .block2-pic img {
-        height:146px !important
+    @media (max-width: 1400px) {
+        .isotope-grid .block2-pic img {
+            height: 295px !important;
+        }
+        .card-title-name{
+            width: 250px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
+
+    @media (max-width: 1024px) {
+        .isotope-grid .block2 {
+            padding: 5px !important;
+        }
+        .isotope-grid .block2-pic img {
+            height: 202px !important;
+        }
+        .card-title-name{
+            width: 200px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        aside {
+            padding-left: 0px !important;
+            grid-template-columns: 265px 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .isotope-grid .block2-pic img {
+            height: 119px !important;
+        }
+        .card-title-name{
+            width: 120px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        aside {
+            padding-left: 0px !important;
+            grid-template-columns: 265px 1fr;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .isotope-grid .block2-pic img {
+            height: 198px !important;
+        }
+        .isotope-grid .isotope-item {
+            padding: 0 !important;
+        }
     aside {
         padding-left: 0px !important;
-        grid-template-columns: 100% 1fr ;
-     }
-    #mySidebar{
-        position: absolute;
-        background-color: #fff;
-        z-index: 1000;
-        top: 447px;
-        width: 100%;
+        grid-template-columns: 100% 1fr;
     }
-    #filter{
-        display: block !important;
-    }
-    .main-filter{
-        display: none !important;
-    }
-    .card-title-name{
-        width: 120px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        #mySidebar{
+            position: absolute;
+            background-color: #fff;
+            z-index: 1000;
+            top: 447px;
+            width: 100%;
+        }
+        #filter{
+            display: block !important;
+        }
+        .main-filter{
+            display: none !important;
+        }
+
+        .card-title-name{
+            width: 190px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
-}
+    @media (max-width: 375px) {
+        .isotope-grid .block2-pic img {
+            height: 173px !important;
+        }
+        aside {
+        padding-left: 0px !important;
+        grid-template-columns: 100% 1fr;
+    }
+        #mySidebar{
+            position: absolute;
+            background-color: #fff;
+            z-index: 1000;
+            top: 447px;
+            width: 100%;
+        }
+        .card-title-name{
+            width: 170px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #filter{
+            display: block !important;
+        }
+        .main-filter{
+            display: none !important;
+        }
+    }
+
+    @media (max-width: 320px) {
+    .isotope-grid .block2-pic img {
+            height:146px !important
+        }
+        aside {
+            padding-left: 0px !important;
+            grid-template-columns: 100% 1fr ;
+        }
+        #mySidebar{
+            position: absolute;
+            background-color: #fff;
+            z-index: 1000;
+            top: 447px;
+            width: 100%;
+        }
+        #filter{
+            display: block !important;
+        }
+        .main-filter{
+            display: none !important;
+        }
+        .card-title-name{
+            width: 120px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    }
 
 
 </style>
@@ -329,17 +329,11 @@
                                     <a href="{{ route('supplier.profile', $item->id) }}">
                                         @if($item->firstMedia)
                                             <img src="{{ asset('images/companies/'.$item->firstMedia->file_name) }}" class="img-fluid w-100"
-                                                style="max-width: 100%;  height: 350px ;width: 100% !important;
-                                            background-size: cover;
-                                            background-repeat: no-repeat;
-                                            background-position: 50% 50%;
+                                                style="
                                             border-radius: 7px;" >
                                             @else
                                                <img src="{{ asset('images/no-image.png') }}" alt="{{ $item->name }}" class="img-fluid w-100"
-                                               style="max-width: 100%;  height: 350px ;width: 100% !important;
-                                               background-size: cover;
-                                               background-repeat: no-repeat;
-                                               background-position: 50% 50%;
+                                               style="
                                                border-radius: 7px;">
                                             @endif
                                     </a>

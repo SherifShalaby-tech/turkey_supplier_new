@@ -8,6 +8,15 @@ return [
     'wholesale'=>'WHOLESALE',
     'wholesale_desc'=>'including all Income and outcome products to these four wholesales',
     'excel'=>'EXCEL',
+
+
+    'Oops...'=>'Oops...',
+    "Sorry , You Should Upload Valid Image" =>"Sorry , You Should Upload Image Type JPG,JPEG,PNG,BMP",
+    "You won't be able to delete!" =>"You need delete the Image!",
+    "Are you sure?" =>"Are you sure?",
+    "Your Image has been deleted." =>"Your Image has been deleted.",
+
+
     'print'=>'PRINT',
     "sSearch"=> "Search:",
      "sLengthMenu"=> "Show _MENU_Recordsٌ",

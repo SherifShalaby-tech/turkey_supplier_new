@@ -31,5 +31,5 @@ return [
     'attachment' => 'الملف المرفق',
     'replay' => 'الرد على الراسل',
     'attachtype' => 'صيغه المرفق',
-
+    'Sent' => 'Sent',
 ];

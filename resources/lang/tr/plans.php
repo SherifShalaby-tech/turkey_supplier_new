@@ -28,6 +28,7 @@ return [
      'image' => 'Banka havalesi makbuzunun bir kopyası',
      'ipan' => 'Banka havalesi için numara',
      'ipansms' => 'Lütfen banka havalesi ekinin bir kopyasını ekleyin',
+     'unlimited' => 'Sınırsız',
 
 
 ];

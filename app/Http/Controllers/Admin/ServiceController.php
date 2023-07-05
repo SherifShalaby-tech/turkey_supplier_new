@@ -78,9 +78,7 @@ class ServiceController extends Controller
                     $file_size = $image->getSize();
                     $file_type = $image->getMimeType();
                     $path = public_path('images/services/' . $file_name);
-                    Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($path, 100);
+                    Image::make($image->getRealPath())->save($path);
                     $service->media()->create([
                         'file_name' => $file_name,
                         'file_size' => $file_size,
@@ -145,9 +143,7 @@ class ServiceController extends Controller
                     $file_size = $image->getSize();
                     $file_type = $image->getMimeType();
                     $path = public_path('images/services/' . $file_name);
-                    Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($path, 100);
+                    Image::make($image->getRealPath())->save($path);
                     $service->media()->create([
                         'file_name' => $file_name,
                         'file_size' => $file_size,

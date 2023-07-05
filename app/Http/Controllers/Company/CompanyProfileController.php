@@ -31,9 +31,8 @@ class CompanyProfileController extends Controller
     {
         try {
             $request->validated();
-            // $company = Company::findOrFail($id);
-            if (Hash::check($request->current_password, Auth::user()->password)) {
-                $company = Company::findOrFail(Auth::user()->id);
+            $company = Company::findOrFail(Auth::user()->id);
+            if ($company) {
                 $company->password = Hash::make($request->password);
                 $company->save();
                 // session()->flash('password_message','Password has been updated successfully');
@@ -91,9 +90,7 @@ class CompanyProfileController extends Controller
                     $file_size = $image->getSize();
                     $file_type = $image->getMimeType();
                     $path = public_path('images/companies/' . $file_name);
-                    Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($path, 100);
+                    Image::make($image->getRealPath())->save($path);
                     $company->media()->create([
                         'file_name' => $file_name,
                         'file_size' => $file_size,

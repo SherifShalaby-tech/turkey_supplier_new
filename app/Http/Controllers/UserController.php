@@ -148,7 +148,7 @@ class UserController extends BaseController
                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(128, 128);
+                // $image_resize->resize(128, 128);
                 $image_resize->save(public_path('/images/avatar/' . $filename));
 
             } else {
@@ -175,7 +175,7 @@ class UserController extends BaseController
                 $files = $request['images'];
                 foreach ($files as $file) {
                     $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                    $fileData->resize(200, 200);
+                    // $fileData->resize(200, 200);
                     $name = rand(11111111, 99999999) . $file['name'];
                     $path = public_path() . '/images/companies/';
                     $success = file_put_contents($path . $name, $fileData);
@@ -281,7 +281,7 @@ class UserController extends BaseController
                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(128, 128);
+                // $image_resize->resize(128, 128);
                 $image_resize->save(public_path('/images/avatar/' . $filename));
 
                 $userPhoto = $path . '/' . $currentAvatar;
@@ -354,7 +354,7 @@ class UserController extends BaseController
             $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(128, 128);
+            // $image_resize->resize(128, 128);
             $image_resize->save(public_path('/images/avatar/' . $filename));
 
             $userPhoto = $path . '/' . $currentAvatar;

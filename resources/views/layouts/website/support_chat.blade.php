@@ -1,4 +1,4 @@
-<style>
+{{--<style>
 
 
   .others-show {
@@ -192,7 +192,7 @@
   .open-button{
   background-color:transparent;
   color: #333;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
   opacity: 0.8;
@@ -201,7 +201,7 @@
   right: 10px;
   font-size: 13px;
   font-weight: 600;
-  border-radius: 25%;
+  border-radius: 10px;
   z-index: 1000;
   }
 
@@ -294,7 +294,7 @@
     display: block;
     background-color: #3d9fb9;
     color: #fff;
-    width: 70px;
+    width: fit-content;
     font-weight: 100;
     font-size: 15px;
     letter-spacing: 1px;
@@ -304,7 +304,7 @@
 
 
 
-<button id="test-btn" class="open-button" onclick="myFunction()">{{trans('custom.support')}} <br><i class="fa-solid fa-comment-dots"></i></button>
+<button id="test-btn" class="open-button " onclick="myFunction()">{{trans('custom.support')}} <i class="fa-solid fa-comment-dots"></i></button>
 <div class=" open-button" id="myDIV" style=" display: none;">
   <form id="send_message" enctype="multipart/form-data" action="{{route('chat.support.send.message')}}" class="form-container" method="POST">
       @csrf
@@ -345,7 +345,7 @@
 {{--          end chat-room--}}
 
           <!-- type-area -->
-          <div class="type-area">
+{{--          <div class="type-area">
               <div class="input-wrapper">
                   <input id="message" autocomplete="off" type="text" id="inputText" name="message" required="required" placeholder="Type messages here..." />
               </div>
@@ -364,7 +364,7 @@
       </div>
 
   </form>
-</div>
+</div> 
 <!-- end of support chat -->
 <script src="{{asset('website/js/jquery-3.4.1.js')}}"></script>
 <script>
@@ -458,4 +458,18 @@ for (var emoji of emojis) {
             });
         }
     })
-</script>
+</script>  --}}
+
+@php
+   use App\Models\Setting;
+    $setting = Setting::first();
+@endphp
+
+<div style="z-index: 1000000">
+  <a target="_blank" class="c113 hov-cl1 ltext-105 whatsapp-btn" href="https://api.whatsapp.com/send?phone={{$setting->whatsapp}}">
+      
+      <img class="circle-img " src="{{asset('website/imgs/Whatsapp.png')}}" alt="Whatsapp.png"
+      style="height: 100px; width: 100px;">
+
+  </a>
+</div>
