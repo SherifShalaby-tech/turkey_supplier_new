@@ -39,7 +39,7 @@ function getBase64Image($Image)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $image_content = curl_exec($ch);
     curl_close($ch);
-//    $image_content = file_get_contents($image_path);
+   //    $image_content = file_get_contents($image_path);
     $base64_image = base64_encode($image_content);
     $b64image = "data:image/jpeg;base64," . $base64_image;
     return  $b64image;
