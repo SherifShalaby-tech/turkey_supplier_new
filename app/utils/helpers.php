@@ -85,7 +85,7 @@ class helpers
         return $code;
     }
 
-    function get_price($price){
+    function get_price($price,$withCode=false){
         $currency=request()->session()->get('currency');
         if($currency){
             $setting = Setting::where('currency_id',$currency->id)->first();
@@ -93,13 +93,19 @@ class helpers
             // $code = ' $';
             if( $currency->code == "TRY"){
                 $new_price = $price * $setting->rate;
+
+
                 // $code = ' ₺';
             }
-            return round($new_price, 2);;
+            $code =  $currency->symbol;
+            $pr = round($new_price, 2);
+            // return round($new_price, 2);
         }else{
-            return $price;
+            $pr = $price;
+            $code = ' ₺';
+            // return $price;
         }
-       
+        return $withCode? $pr .' ' . $code : $pr;
 
     }
 
@@ -113,8 +119,8 @@ class helpers
         }else{
             return $code;
         }
-        
-       
+
+
 
     }
 

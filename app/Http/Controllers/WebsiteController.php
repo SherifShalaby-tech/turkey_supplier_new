@@ -71,8 +71,9 @@ class WebsiteController extends Controller
         // }elseif(app()->getLocale() == 'tr'){
         //     $cats = Category::orderBy('nametr')->get(['id', 'name', 'translation']);
         // }else{
-        $cats = Category::orderBy('translation->name')->get(['id', 'name', 'translation']);
+            // $cats = Category::orderBy('translation->name')->get(['id', 'name', 'translation']);
         // }
+
         $helpers = new helpers();
         $code = $helpers->get_currency_co();
         $categories = Category::orderBy('translation->name')->get(['id', 'name', 'translation', 'image']);
@@ -81,10 +82,10 @@ class WebsiteController extends Controller
             ->orderBy('trending', 'DESC')
             ->latest()
             ->get(['id', 'name', 'price', 'category_id', 'slug', 'translation', 'trending']);
-        foreach ($trending_product as $trending_produc) {
-            $new_price = $helpers->get_price($trending_produc->price);
-            $trending_produc->price = $new_price;
-        }
+        // foreach ($trending_product as $trending_produc) {
+        //     $new_price = $helpers->get_price($trending_produc->price);
+        //     $trending_produc->price = $new_price;
+        // }
 
 
         if (auth('company')->user()) {
@@ -92,28 +93,26 @@ class WebsiteController extends Controller
                 ->with(['product' => function ($q) {
                     $q->orderBy('views', 'DESC');
                 }])
-
                 ->take(12)
-
                 ->get(['id', 'product_id', 'buyer_id']);
         } else {
             $products = $trending_product;
         }
-        $top_rated_products = Product::select('products.*')
-            ->Join('ratings', 'products.id', 'ratings.product_id')
-            ->orderBy('ratings.rating', 'DESC')
-            ->distinct('products.id')
-            ->take(12)
-            ->get(['id', 'name', 'price', 'category_id', 'slug', 'translation']);
-        foreach ($top_rated_products as $product) {
-            $new_price = $helpers->get_price($product->price);
-            $product->price = $new_price;
-        }
-        $best_sellers = Company::query()->where('trade_role', 'seller')
-            ->select('id', 'name', 'phone', 'translation')
-            ->take(6)
-            ->get();
-        $latest_trade = Mediation::select(['id', 'title', 'image'])->latest()->first();
+        // $top_rated_products = Product::select('products.*')
+        //     ->Join('ratings', 'products.id', 'ratings.product_id')
+        //     ->orderBy('ratings.rating', 'DESC')
+        //     ->distinct('products.id')
+        //     ->take(12)
+        //     ->get(['id', 'name', 'price', 'category_id', 'slug', 'translation']);
+        // foreach ($top_rated_products as $product) {
+        //     $new_price = $helpers->get_price($product->price);
+        //     $product->price = $new_price;
+        // }
+        // $best_sellers = Company::query()->where('trade_role', 'seller')
+        //     ->select('id', 'name', 'phone', 'translation')
+        //     ->take(6)
+        //     ->get();
+        // $latest_trade = Mediation::select(['id', 'title', 'image'])->latest()->first();
         $ads = Ad::where('start_date', '<=', Carbon::now())
             ->where('end_date', '>=', Carbon::now())->get(['id', 'image', 'title']);
         $services = Service::get(['id', 'name', 'description']);
@@ -123,7 +122,9 @@ class WebsiteController extends Controller
         $real_products = Product::where('category_id', 50)->get(['id', 'name', 'slug']);
         $categories    = Category::take(6)->get();
         $sellers       = Company::where('trade_role', 'seller')->take(6)->get();
-        return view('website.index', compact('cats', 'ads', 'products', 'trending_product', 'translation', 'top_rated_products', 'best_sellers', 'latest_trade', 'services', 'mediation', 'code', 'real_products', 'categories', 'sellers'));
+        return view('website.index', compact( 'ads', 'products', 'trending_product', 'translation',
+                                              'services', 'mediation', 'code', 'real_products','categories', 'sellers'));
+                                            //  $cats,$top_rated_products','best_sellers','latest_trade',
     }
 
     public function currencySession(Request $request)

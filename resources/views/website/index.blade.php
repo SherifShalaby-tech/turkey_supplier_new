@@ -32,7 +32,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="col-lg-8 col-md-8 col-12  m-tb-10" style="filter: drop-shadow(0px 10px 10px #909090);">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
@@ -124,10 +123,8 @@
             </div>
             <div class="row hide" id="divCategory">
                 <div class="col-sm-11 col-md-11 col-lg-11 col-12 txt-center row">
-
                     @foreach ($categories as $category)
                         <div class="col-sm-2 col-md-2 col-lg-2 p-b-10 col-6 isotope-item women">
-
                             <!-- Block2 -->
                             <div class="block2 ">
                                 <div class="block2-pic hov-img0 ">
@@ -154,7 +151,6 @@
                         </div>
                     @endforeach
                 </div>
-
                 <div class="col-sm-1 col-md-1 col-lg-1 col-12 p-b-10">
                     <a href="{{ route('categories.index') }}">
                         <div
