@@ -181,7 +181,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        // "laravel/passport": "^11.8",
         /*
          * Application Service Providers...
          */

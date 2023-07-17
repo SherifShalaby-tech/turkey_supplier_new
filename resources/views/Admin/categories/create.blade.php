@@ -239,7 +239,9 @@
                                                         <p class="text-danger" style="font-size: 12px">{{ $message }}</p>
                                                         @enderror
                                                     </div>
-                                                    <button style="height: 40px;margin-top: 28px;" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#translation_table_category" aria-expanded="false" aria-controls="collapseExample">
+                                                    <button style="height: 40px;margin-top: 28px;" class="btn btn-primary"
+                                                    type="button" data-toggle="collapse" data-target="#translation_table_category"
+                                                    aria-expanded="false" aria-controls="collapseExample">
                                                         {{ __('categories.addtranslations') }}
                                                     </button>
                                                     @include('Admin.layouts.translation_inputs', [

@@ -1,8 +1,8 @@
-<script src="{{asset('website/assets/js/jquery.backstretch.min.js')}}"></script>
+{{-- <script src="{{asset('website/assets/js/jquery.backstretch.min.js')}}"></script> --}}
 <script src="{{asset('website/assets/js/wow.min.js')}}"></script>
-<script src="{{asset('website/assets/js/jquery.waypoints.min.js')}}"></script>
-<script src="{{asset('website/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-<script src="{{asset('website/assets/js/scripts.js')}}"></script>
+{{-- <script src="{{asset('website/assets/js/jquery.waypoints.min.js')}}"></script> --}}
+{{-- <script src="{{asset('website/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script> --}}
+{{-- <script src="{{asset('website/assets/js/scripts.js')}}"></script> --}}
 <!-- scripts -->
 <script src="{{asset('website/js/jquery-3.4.1.js')}}"></script>
 <script src="{{asset('website/js/owl.carousel.min.js')}}"></script>
@@ -14,7 +14,7 @@
 
 <script src="{{asset('website/js/script.js')}}"></script>
 <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> --}}
 
 
 {{-- <script src="{{ asset('dashboard/app-assets/js/scripts/forms/select/form-select2.js')}}"></script> --}}
@@ -33,7 +33,7 @@
 
 
 
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 <script src=" {{asset('website/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->
 	<script src="{{asset('website/vendor/animsition/js/animsition.min.js ')}}"></script>
@@ -133,7 +133,7 @@
 				if(response.data==1){
 					e.target.classList.add('cl1');
 				}else{
-					e.target.classList.remove('cl1');	
+					e.target.classList.remove('cl1');
 				}
 			},error: function (xhr) {
 				if (xhr.status == 401) {
@@ -142,7 +142,7 @@
 			}
 		});
 	});
-	
+
 	</script>
 <!--===============================================================================================-->
 	<script src=" {{asset('website/vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>

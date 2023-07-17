@@ -82,11 +82,11 @@
     @include('layouts.website.footer')
     @include('layouts.website.scripts')
     @livewireScripts
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
     <x-livewire-alert::scripts />
     @yield('js')
     <!-- Initialize Swiper -->
-    <script>
+    {{-- <script>
         let swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 10,
@@ -161,7 +161,7 @@
                 function closeForm() {
                     document.getElementById("myForm").style.display = "none";
                 }
-    </script>
+    </script> --}}
 
     <!-- end of scripts -->
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
