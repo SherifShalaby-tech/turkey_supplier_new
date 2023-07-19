@@ -7,14 +7,14 @@
         top: -60px;
         right: 4%;
     }
-    
+
     #thumbs .owl-next{
         position: relative;
         top: -60px;
         left: 100%;
     }
 
-   
+
 </style>
 <div class="bg0 p-t-10 p-b-20">
     <div class="container-fluid">
@@ -44,7 +44,7 @@
                             @endif">
                                     <img class="image "
                                         src="{{ asset('images/products/'. $media->file_name) }}" alt="{{ $product->name }}" class="img-fluid w-100"
-                                            style=" 
+                                            style="
                                             border-radius: 10px;transition: transform 0.8s ease-out;" >
                                 </div>
                             @endforeach
@@ -71,11 +71,11 @@
 
 
                             <span class="mtext-105 cl1 flex-w m-b-10">
-                                <p class="p-r-10" > 
+                                <p class="p-r-10" >
                                     <a class="cl1" href="{{route('supplier.profile',$product->company->id)}}">{{$product->company->name}}</a>
                                 </p> <span class="cl2"> | </span>
                                 <p class="p-lr-10">  {{$product->code}} </p>
-                             
+
                                     {{-- <form action="{{route('fav.add')}}" method="POST">
 
                                         @csrf
@@ -89,10 +89,10 @@
                                     <button  class="three btn btn-contact btn-chat hover-shadow cl0 bg2 f-s-s addToFavourte {{$product->isFavourite ? 'cl1':''}}" data-productid="{{$product->id}}" data-companyid="{{auth('company')->user()?auth('company')->user()->id:''}}">
                                         <i class="fa-solid fa-heart" style="pointer-events:none;"></i></button>
                                     @if (isset($product->video_description))
-                                        <a target="_blank" href="{{$product->video_description}}" style="margin-left: 10px" ><i class="fa-solid fa-video fa-lg" style="color: #acdee5"></i></a>                                
+                                        <a target="_blank" href="{{$product->video_description}}" style="margin-left: 10px" ><i class="fa-solid fa-video fa-lg" style="color: #acdee5"></i></a>
                                     @endif
 
-                                
+
                             </span>
 
                             <span class="ltext-109 cl2  m-b-10">
@@ -130,7 +130,7 @@
                                             <div data-value="{{$size->sizeName}}" class="m-lr-5 swatch-element plain {{$size->sizeName}} available">
                                                 <label for="swatch-0-m cl3" class="border-size p-lr-7">
                                                     {{$size->sizeName}}
-                                                   
+
                                                 </label>
                                             </div>
                                         @endforeach
@@ -142,12 +142,12 @@
                                     @if($product->colors)
                                     <div class="row">
                                         @foreach($product->colors as $color)
-                                            <div data-value="{{$color->colorName}}" class="m-lr-5 swatch-element color {{$color->colorName}} available">   
+                                            <div data-value="{{$color->colorName}}" class="m-lr-5 swatch-element color {{$color->colorName}} available">
                                                 <label class="cl3 border-color-name p-lr-7 m-b-0" for="swatch-1-{{$color->colorName}}" >
-                                                    {{$color->colorName}} 
+                                                    {{$color->colorName}}
                                                 </label>
                                                 <label class="cl3 border-color-code p-lr-7" for="swatch-1-{{$color->colorCode}}" >
-                                                    {{$color->colorCode}} 
+                                                    {{$color->colorCode}}
                                                 </label>
                                             </div>
                                         @endforeach
@@ -182,7 +182,7 @@
                                             <i class="fa-solid fa-envelope"></i></button>
                                     </a>
                                 </span>
-                                
+
                             </span>
 
                         </div>
@@ -221,7 +221,7 @@
                                             <div>
 
                                             </div>
-                                  
+
                                         </figcaption>
                                     </figure>
                                 </div>
@@ -256,7 +256,7 @@
                 </span>
 
                 <span class="mtext-107 cl3">
-                    @if($product->Supply_Ability)   
+                    @if($product->Supply_Ability)
                         <p>
                             <a class="cl2 mtext-109" >{{trans('custom.Supply_Ability')}} :</a>
                             <span style="margin-left: 10px">{{$product->Supply_Ability ?? '-'}}</span>
@@ -335,11 +335,11 @@
             </div>
 
             <div class="row isotope-grid">
-                <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">        
+                <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">
                     <div class="row">
                         @if($related_product->count() > 0)
                             @foreach($related_product as $product_r)
-                            <div class="col-sm-3 col-md-3 col-lg-3 col-6 p-lr-20 p-lr-10-md m-b-20"> 
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-6 p-lr-20 p-lr-10-md m-b-20">
                                     <div class="block2  bg-s2 " style="">
                                         <div class="block2-pic hov-img0">
                                             <a href="{{route('product.details',['id' => $product_r->id, 'slug' => $product_r->slug])}}">
@@ -355,22 +355,22 @@
                                                             padding: 7px 10px;right:0;">
                                                 @endif
                                             </a>
-                                    
+
                                         </div>
-            
+
                                         <div class="block2-txt">
                                             <div class="flex-col-l p-r-l-5">
-                                                <a href="{{route('product.details',['id' => $product_r->id, 'slug' => $product_r->slug])}}" 
+                                                <a href="{{route('product.details',['id' => $product_r->id, 'slug' => $product_r->slug])}}"
                                                     class="card-title-name-home-cat p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full  f-s-s">
                                                     {{$product_r->name}}
                                                 </a>
-    
+
                                                 <span class="cl1 w-full p-r-l-10 p-tb-2 mtext-1075 f-s-s">
                                                     {{$code}}{{$product_r->price}}
                                                 </span>
                                             </div>
 
-        
+
                                             <div class=" p-lr-0-md ">
                                                 <div class="flex-product">
                                                     <form  action="{{route('carts.add.product')}}" method="POST">
@@ -382,7 +382,7 @@
                                                         <button class="btn btn-cart hover-shadow cl0 bg1 f-s-s" type="submit">
                                                             {{trans('custom.add_to_cart')}} <i class="fas fa-shopping-cart"></i></button>
                                                     </form>
-            
+
                                                     {{-- <form action="{{route('fav.add')}}" method="POST">
                                                         @csrf
                                                         @if(auth('company')->user())
@@ -394,9 +394,9 @@
                                                     </form> --}}
                                                     <button  class="three btn btn-contact btn-chat hover-shadow cl0 bg2 f-s-s addToFavourte {{$product_r->isFavourite? 'cl1':''}}" data-productid="{{$product->id}}" data-companyid="{{auth('company')->user()?auth('company')->user()->id:''}}">
                                                         <i class="fa-solid fa-heart" style="pointer-events:none;"></i></button>
-            
+
                                                 </div>
-    
+
                                           {{--  <div class="flex-product">
                                                 <a class="cont-sup " href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug.'#get_form']) }}">
                                                     <button class=" cl0 bg1 p-tb-5  m-t-5 btn btn-contact p-lr-5-md p-lr-5-xl p-lr-10-xll f-s-s">
@@ -429,9 +429,9 @@
                         {{$related_product->onEachSide(0)->links()}}
                     </div>
                 </div>
-              
+
             </div>
-           
+
 
                 <div class="p-b-10 separator-f">
                     <div class="flex-center bg1 p-0  b-rt-lb-20">
@@ -442,7 +442,7 @@
                 </div>
 
 
-            <div class="row  "> 
+            <div class="row  ">
                 <div class="col-sm-9 col-md-9 col-lg-9 col-12 p-b-10 isotope-item  ">
 
                 </div>
@@ -476,11 +476,11 @@
             </div>
 
         <div class="row isotope-grid">
-            <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">        
+            <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">
                 <div class="row">
                     @if($Other_products->count() > 0)
                         @foreach($Other_products as $product_o)
-                            <div class="col-sm-3 col-md-3 col-lg-3 col-6 p-lr-20 p-lr-10-md m-b-20">  
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-6 p-lr-20 p-lr-10-md m-b-20">
                                 <div class="block2  bg-s2">
                                     <div class="block2-pic hov-img0">
                                         <a href="{{ route('product.details',['id' => $product_o->id, 'slug' => $product_o->slug]) }}">
@@ -496,12 +496,12 @@
                                                         padding: 7px 10px;right:0;">
                                             @endif
                                         </a>
-                                
+
                                     </div>
-        
+
                                     <div class="block2-txt ">
                                         <div class="flex-col-l p-r-l-5">
-                                            <a href="{{route('product.details',['id' => $product_o->id, 'slug' => $product_o->slug])}}" 
+                                            <a href="{{route('product.details',['id' => $product_o->id, 'slug' => $product_o->slug])}}"
                                                 class="card-title-name-home-cat p-r-l-10 mtext-1075 cl2 hov-cl1 trans-04 js-name-b2  w-full  f-s-s">
                                                 {{$product_o->name}}
                                             </a>
@@ -511,7 +511,7 @@
                                             </span>
                                         </div>
 
-        
+
                                         <div class=" p-lr-0-md ">
                                             <div class="flex-product">
                                                 <form  action="{{route('carts.add.product')}}" method="POST">
@@ -523,7 +523,7 @@
                                                     <button class="btn btn-cart hover-shadow cl0 bg1 f-s-s" type="submit">
                                                         {{trans('custom.add_to_cart')}} <i class="fas fa-shopping-cart"></i></button>
                                                 </form>
-        
+
                                                 {{-- <form action="{{route('fav.add')}}" method="POST">
                                                     @csrf
                                                     @if(auth('company')->user())
@@ -533,10 +533,10 @@
                                                     <button class="three btn btn-contact btn-chat hover-shadow  bg2 f-s-s  {{$product->is_like ? 'cl1':'cl0'}}">
                                                     <i class="fa-solid fa-heart"></i></button>
                                                 </form> --}}
-                                    
+
                                                 <button  class="three btn btn-contact btn-chat hover-shadow cl0 bg2 f-s-s addToFavourte {{$product_o->isFavourite ? 'cl1':''}}" data-productid="{{$product->id}}" data-companyid="{{auth('company')->user()?auth('company')->user()->id:''}}">
                                                     <i class="fa-solid fa-heart" style="pointer-events:none;"></i></button>
-        
+
                                             </div>
 
                                           {{-- <div class="flex-product">
@@ -548,7 +548,7 @@
                                                 </a>
                                             </div> --}}
                                         </div>
-        
+
                                     </div>
                                 </div>
                             </div>
@@ -559,7 +559,7 @@
                             </p>
                         </div>
                     @endif
-
+                    {{$Other_products->onEachSide(0)->links()}}
                 </div>
             </div>
         </div>
@@ -576,7 +576,7 @@
 
 
             <div class="row isotope-grid">
-                <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">       
+                <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">
 
                     <form id="get_form" action="{{route('contact_supplier')}}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -594,7 +594,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            
+
                             {{-- @if(auth('company')->user()) --}}
                             <input  value="{{auth('company')->user()->name}}" type="text" class="form-control  bg-input1" name="name"  disabled placeholder="{{trans('custom.name')}}">
                             {{-- @else
@@ -605,7 +605,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                           
+
                             {{-- @if(auth('company')->user()) --}}
                             <input value="{{auth('company')->user()->email}}" type="email" class="form-control bg-input1" name="email"  disabled placeholder="{{trans('custom.email')}}">
                             {{-- @else
@@ -616,24 +616,24 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            
+
                             <input value="{{old('address')}}" type="text" class="form-control bg-input1" name="address" placeholder="{{trans('custom.address')}}" >
                             @error('address')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                         
+
                             <input value="{{old('subject')}}" type="text" class="form-control bg-input1" name="subject" placeholder="{{trans('custom.subject')}}" >
                             @error('subject')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-    
+
                         <div class="form-group">
-                           
+
                             <textarea required="required" rows="4" cols="50" name="message"
-                                      placeholder="Enter your inquiry details such as product name, color, size, MOQ, FOB, etc." class="form-control bg-input1" 
+                                      placeholder="Enter your inquiry details such as product name, color, size, MOQ, FOB, etc." class="form-control bg-input1"
                                       style="resize: none"></textarea>
                             @error('message')
                             <span class="text-danger">{{ $message }}</span>
@@ -642,10 +642,10 @@
                         <!-- files -->
                         <div class="form-group col-lg-4 col-12">
                             <label>{{trans('custom.file')}}</label>
-    
+
                             <p class="text-danger">* {{trans('custom.attachment_format')}} pdf, jpeg ,.jpg , png </p>
                             <input type="file" class="form-control bg-input1" name="file" >
-    
+
                         </div>
                         <!-- end file -->
                         <div class="form-group">
@@ -660,7 +660,7 @@
 
         @elseif(!Auth::user())
             <div class="row isotope-grid">
-                <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">       
+                <div class="col-12 col-md-12 col-lg-12 p-b-35 isotope-item women  p-lr-70  p-r-0-md p-l-0-md ">
 
                     <form id="get_form" action="{{route('visitorContactSupplier')}}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -702,7 +702,7 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-    
+
                         <div class="form-group">
                             <label>{{trans('custom.message')}}</label>
                             <textarea required="required" rows="4" cols="50" name="message"
@@ -715,14 +715,14 @@
                         <!-- files -->
                         <div class="form-group col-lg-6 col-12">
                             <label>{{trans('custom.file')}}</label>
-    
+
                             <p class="text-danger">* {{trans('custom.attachment_format')}} pdf, jpeg ,.jpg , png </p>
                             <input type="file" class="form-control" name="file" >
-    
+
                         </div>
                         <!-- end file -->
                         <div class="form-group">
-    
+
                             <input type="submit" class="btn bg1 cl0 p-lr-50" value="{{trans('custom.send')}}">
                         </div>
                     </form>

@@ -341,7 +341,9 @@ class WebsiteController extends Controller
             $re_product->price = $new_price;
         }
 
-        $Other_products = Product::where('company_id', $product->company_id)->whereNotIn('id', [$product->id])->get(['id', 'name', 'price', 'category_id', 'description', 'company_id', 'translation', 'slug']);
+        $Other_products = Product::where('company_id', $product->company_id)->whereNotIn('id', [$product->id])
+        // ->get(['id', 'name', 'price', 'category_id', 'description', 'company_id', 'translation', 'slug'])
+        ->paginate(8);
         foreach ($Other_products as $Other_product) {
             $new_price = $helpers->get_price($Other_product->price);
             $Other_product->price = $new_price;
